@@ -10,7 +10,7 @@ if [ "$gpg_bash_lib_script_source_dir" = "" ]; then
    elif [ -d "/usr/lib/gpg-bash-lib/modules.d" ]; then
       gpg_bash_lib_script_source_dir="/usr/lib/gpg-bash-lib/modules.d"
    else
-      error "ERROR: $0: variable is unset gpg_bash_lib_script_source_dir unset and could not be auto detected!"
+      error "ERROR: $0: variable gpg_bash_lib_script_source_dir is unset and could not be auto detected!"
       return 0
    fi
 else
