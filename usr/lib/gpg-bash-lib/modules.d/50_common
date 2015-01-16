@@ -53,12 +53,6 @@ gpg_bash_lib_f_init() {
    mkdir --parents "$gpg_bash_lib_input_temp_folder"
    chmod --recursive 700 "$gpg_bash_lib_input_temp_folder"
    test -d "$gpg_bash_lib_input_temp_folder"
-
-   gpg \
-      --no-options \
-      --homedir "$gpg_bash_lib_input_temp_folder" \
-      --fingerprint \
-      >/dev/null 2>/dev/null
 }
 
 gpg_bash_lib_f_alright_maybe() {
