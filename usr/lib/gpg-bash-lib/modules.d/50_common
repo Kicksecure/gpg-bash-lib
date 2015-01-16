@@ -5,15 +5,15 @@
 ## See the file COPYING for copying conditions.
 
 gpg_bash_lib_f_error_handler() {
-   gpg_bash_lib_output_exit_code="$?"
-   gpg_bash_lib_output_message="$0 script bug
+   gpg_bash_lib_output_error_handler_last_failed_exit_code="$?"
+   gpg_bash_lib_output_error_handler_message="$0 script bug
 Please report this bug!
 BASH_COMMAND: $BASH_COMMAND
-exit_code: $gpg_bash_lib_output_exit_code"
+exit_code: $gpg_bash_lib_output_error_handler_last_failed_exit_code"
    gpg_bash_lib_output_failure="true"
    gpg_bash_lib_f_diagnostic_message
-   gpg_bash_lib_output_message="\
-$gpg_bash_lib_output_message
+   gpg_bash_lib_output_error_handler_message="\
+$gpg_bash_lib_output_error_handler_message
 $gpg_bash_lib_output_diagnostic_message"
    if [ ! "$gpg_bash_lib_input_error_handler_extra" = "" ]; then
       eval $gpg_bash_lib_input_error_handler_extra
