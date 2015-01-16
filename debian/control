@@ -1,0 +1,25 @@
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+Source: gpg-bash-lib
+Section: libs
+Priority: optional
+Maintainer: Patrick Schleizer <adrelanos@riseup.net>
+Build-Depends: debhelper (>= 9), faketime
+Homepage: https://github.com/Whonix/gpg-bash-lib
+Vcs-Browser: https://github.com/Whonix/gpg-bash-lib
+Vcs-Git: https://github.com/Whonix/gpg-bash-lib.git
+Standards-Version: 3.9.4
+
+Package: gpg-bash-lib
+Architecture: all
+Depends: ${misc:Depends}
+Description: gpg bash library
+ Abstracts file verification into common functions. Allows detecting of stale
+ files, i.e. detection downgrade or indefinite freeze attacks by implementing
+ a valid-until like mechanism.
+ .
+ Internally parses gpg's --status-file output.
+ .
+ For better security.
