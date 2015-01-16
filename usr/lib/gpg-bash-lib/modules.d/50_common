@@ -10,7 +10,8 @@ gpg_bash_lib_f_error_handler() {
 Please report this bug!
 BASH_COMMAND: $BASH_COMMAND
 exit_code: $gpg_bash_lib_output_exit_code
-gpg_bash_lib_internal_gpg_verify_status_fd_file: $gpg_bash_lib_internal_gpg_verify_status_fd_file"
+gpg_bash_lib_internal_gpg_verify_status_fd_file: $gpg_bash_lib_internal_gpg_verify_status_fd_file
+gpg_bash_lib_internal_gpg_verify_output_file: $gpg_bash_lib_internal_gpg_verify_output_file"
    gpg_bash_lib_output_failure="true"
    if [ ! "$gpg_bash_lib_input_error_handler_extra" = "" ]; then
       eval $gpg_bash_lib_input_error_handler_extra
