@@ -20,7 +20,7 @@ source "./usr/lib/gpg-bash-lib/source_all"
 trap "gpg_bash_lib_f_error_handler" ERR
 set +e
 
-gpg_bash_lib_f_genkey() {
+gpg_bash_lib_f_unit_test_genkey() {
    gpg_bash_lib_unit_test_homedir="$(mktemp --directory)"
    rm --recursive --force "$gpg_bash_lib_unit_test_homedir/gpg"
    mkdir --parents "$gpg_bash_lib_unit_test_homedir/gpg"
@@ -58,7 +58,7 @@ gpg_bash_lib_f_genkey() {
                                  --gen-key
 }
 
-gpg_bash_lib_f_testrun_common() {
+gpg_bash_lib_f_unit_test_testrun_common() {
    echo "------------------------------------------------------------"
 
    rm --force "$gpg_bash_lib_unit_test_homedir/test-file"
@@ -117,35 +117,35 @@ gpg_bash_lib_unit_test_expected_freshness_detail_result: $gpg_bash_lib_unit_test
 PASS!"
 }
 
-gpg_bash_lib_f_testrun_1() {
+gpg_bash_lib_f_unit_test_testrun_1() {
    gpg_bash_lib_unit_test_faketime="-2d"
    gpg_bash_lib_unit_test_expected_freshness_detail_result="current"
-   gpg_bash_lib_f_testrun_common
+   gpg_bash_lib_f_unit_test_testrun_common
 }
 
-gpg_bash_lib_f_testrun_2() {
+gpg_bash_lib_f_unit_test_testrun_2() {
    gpg_bash_lib_unit_test_faketime="+15m"
    gpg_bash_lib_unit_test_expected_freshness_detail_result="lenient"
-   gpg_bash_lib_f_testrun_common
+   gpg_bash_lib_f_unit_test_testrun_common
 }
 
-gpg_bash_lib_f_testrun_3() {
+gpg_bash_lib_f_unit_test_testrun_3() {
    gpg_bash_lib_unit_test_faketime="-31d"
    gpg_bash_lib_unit_test_expected_freshness_detail_result="outdated"
-   gpg_bash_lib_f_testrun_common
+   gpg_bash_lib_f_unit_test_testrun_common
 }
 
-gpg_bash_lib_f_testrun_4() {
+gpg_bash_lib_f_unit_test_testrun_4() {
    gpg_bash_lib_unit_test_faketime="+31d"
    gpg_bash_lib_unit_test_expected_freshness_detail_result="slow"
-   gpg_bash_lib_f_testrun_common
+   gpg_bash_lib_f_unit_test_testrun_common
 }
 
 #gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
 #non-existent
 
-gpg_bash_lib_f_genkey
-gpg_bash_lib_f_testrun_1
-gpg_bash_lib_f_testrun_2
-gpg_bash_lib_f_testrun_3
-gpg_bash_lib_f_testrun_4
+gpg_bash_lib_f_unit_test_genkey
+gpg_bash_lib_f_unit_test_testrun_1
+gpg_bash_lib_f_unit_test_testrun_2
+gpg_bash_lib_f_unit_test_testrun_3
+gpg_bash_lib_f_unit_test_testrun_4
