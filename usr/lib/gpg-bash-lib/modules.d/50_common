@@ -238,6 +238,8 @@ gpg_bash_lib_f_process() {
          gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is not yet valid.
 - valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Signature Creation Date: $gpg_bash_lib_output_signed_on_date
+- Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock might be slow. (Could be at least $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty slow.)
 - Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
 - Leniency: Ignoring this, because it still is within range.
@@ -250,6 +252,8 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
          gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is not yet valid.
 - valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Signature Creation Date: $gpg_bash_lib_output_signed_on_date
+- Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock might be slow. (Could be at least $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty slow.)
 - Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time."
          gpg_bash_lib_output_alright="false"
@@ -261,6 +265,8 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
       gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is no longer valid (outdated).
 - valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Signature Creation Date: $gpg_bash_lib_output_signed_on_date
+- Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock might be fast. (Could be at least $gpg_bash_lib_output_in_future_output_pretty fast.)
 - Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago.
 - Extra: It might have been forgotten to refresh the signature (invalid since $gpg_bash_lib_output_in_future_output_pretty)."
@@ -272,6 +278,8 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
       gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is current.
 - valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Signature Creation Date: $gpg_bash_lib_output_signed_on_date
+- Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock seems okay.
 - Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
       gpg_bash_lib_f_alright_maybe
