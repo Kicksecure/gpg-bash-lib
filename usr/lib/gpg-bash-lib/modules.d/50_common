@@ -9,16 +9,12 @@ gpg_bash_lib_f_error_handler() {
    gpg_bash_lib_output_message="$0 script bug
 Please report this bug!
 BASH_COMMAND: $BASH_COMMAND
-exit_code: $gpg_bash_lib_output_exit_code
-gpg_bash_lib_internal_gpg_verify_status_fd_file: $gpg_bash_lib_internal_gpg_verify_status_fd_file
-gpg_bash_lib_internal_gpg_verify_output_file: $gpg_bash_lib_internal_gpg_verify_output_file
-gpg_bash_lib_output_gpg_import_output:
-$gpg_bash_lib_output_gpg_import_output
-gpg_bash_lib_output_gpg_verify_output:
-$gpg_bash_lib_output_gpg_verify_output
-gpg_bash_lib_output_gpg_verify_status_fd_output:
-$gpg_bash_lib_output_gpg_verify_status_fd_output"
+exit_code: $gpg_bash_lib_output_exit_code"
    gpg_bash_lib_output_failure="true"
+   gpg_bash_lib_f_diagnostic_message
+   gpg_bash_lib_output_message="\
+$gpg_bash_lib_output_message
+$gpg_bash_lib_output_diagnostic_message"
    if [ ! "$gpg_bash_lib_input_error_handler_extra" = "" ]; then
       eval $gpg_bash_lib_input_error_handler_extra
    fi
@@ -28,6 +24,7 @@ $gpg_bash_lib_output_gpg_verify_status_fd_output"
 gpg_bash_lib_f_init() {
    [ -n "$gpg_bash_lib_input_temp_folder" ] || gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
    gpg_bash_lib_output_failure=""
+   gpg_bash_lib_output_diagnostic_message=""
    gpg_bash_lib_internal_gpg_verify_status_fd_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_verify_status_fd_file"
    gpg_bash_lib_internal_gpg_verify_output_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_verify_output_file"
    gpg_bash_lib_output_gpg_import_output=""
@@ -276,6 +273,18 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
    fi
 }
 
+gpg_bash_lib_f_diagnostic_message() {
+   gpg_bash_lib_output_diagnostic_message="\
+gpg_bash_lib_internal_gpg_verify_status_fd_file: $gpg_bash_lib_internal_gpg_verify_status_fd_file
+gpg_bash_lib_internal_gpg_verify_output_file: $gpg_bash_lib_internal_gpg_verify_output_file
+gpg_bash_lib_output_gpg_import_output:
+$gpg_bash_lib_output_gpg_import_output
+gpg_bash_lib_output_gpg_verify_output:
+$gpg_bash_lib_output_gpg_verify_output
+gpg_bash_lib_output_gpg_verify_status_fd_output:
+$gpg_bash_lib_output_gpg_verify_status_fd_output"
+}
+
 gpg_bash_lib_f_cleanup() {
    if [ "$gpg_bash_lib_input_cleanup" = "true" ]; then
       if [ -e "$gpg_bash_lib_internal_gpg_verify_status_fd_file" ]; then
@@ -297,5 +306,6 @@ gpg_bash_lib_f_main_verify() {
    fi
    gpg_bash_lib_f_parse_status_file
    gpg_bash_lib_f_process
+   gpg_bash_lib_f_diagnostic_message
    gpg_bash_lib_f_cleanup
 }
