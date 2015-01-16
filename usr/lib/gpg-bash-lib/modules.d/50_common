@@ -14,6 +14,8 @@ exit_code: $gpg_bash_lib_output_error_handler_last_failed_exit_code"
    gpg_bash_lib_f_diagnostic_message
    gpg_bash_lib_output_error_handler_message="\
 $gpg_bash_lib_output_error_handler_message
+-----
+gpg_bash_lib_output_diagnostic_message:
 $gpg_bash_lib_output_diagnostic_message"
    if [ ! "$gpg_bash_lib_input_error_handler_extra" = "" ]; then
       eval $gpg_bash_lib_input_error_handler_extra
