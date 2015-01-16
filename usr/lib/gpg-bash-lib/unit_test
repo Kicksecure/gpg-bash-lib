@@ -14,26 +14,8 @@ cd ..
 cd ..
 cd ..
 
-for gpg_bash_lib_source_file in "./usr/lib/gpg-bash-lib/modules.d/"*; do
-   if [ -x "$gpg_bash_lib_source_file" ]; then
-      ## If the last character is a ~, ignore that file,
-      ## because it was created by some editor,
-      ## which creates backup files.
-      if [ "${gpg_bash_lib_source_file: -1}" = "~" ]; then
-         true "Skipping $gpg_bash_lib_source_file, because backup file."
-         continue
-      fi
-      ## Skipping files such as .dpkg-old and .dpkg-dist.
-      if ( echo "$gpg_bash_lib_source_file" | grep -q ".dpkg-" ); then
-         true "Skipping $gpg_bash_lib_source_file, because .dpkg file."
-         continue
-      fi
-      bash -n "$gpg_bash_lib_source_file"
-      source "$gpg_bash_lib_source_file"
-   else
-      true "Skipping $gpg_bash_lib_source_file, because not executable."
-   fi
-done
+gpg_bash_lib_script_source_dir="./usr/lib/gpg-bash-lib/modules.d"
+source "./usr/lib/gpg-bash-lib/source_all"
 
 trap "gpg_bash_lib_f_error_handler" ERR
 set +e
