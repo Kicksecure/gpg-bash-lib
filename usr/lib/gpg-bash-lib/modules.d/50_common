@@ -10,7 +10,7 @@ gpg_bash_lib_f_error_handler() {
 Please report this bug!
 BASH_COMMAND: $BASH_COMMAND
 exit_code: $gpg_bash_lib_output_exit_code
-gpg_bash_lib_internal_gpg_status_fd_file: $gpg_bash_lib_internal_gpg_status_fd_file"
+gpg_bash_lib_internal_gpg_verify_status_fd_file: $gpg_bash_lib_internal_gpg_verify_status_fd_file"
    gpg_bash_lib_output_failure="true"
    if [ ! "$gpg_bash_lib_input_error_handler_extra" = "" ]; then
       eval $gpg_bash_lib_input_error_handler_extra
@@ -21,7 +21,7 @@ gpg_bash_lib_internal_gpg_status_fd_file: $gpg_bash_lib_internal_gpg_status_fd_f
 gpg_bash_lib_f_init() {
    [ -n "$gpg_bash_lib_input_temp_folder" ] || gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
    gpg_bash_lib_output_failure=""
-   gpg_bash_lib_internal_gpg_status_fd_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_status_fd_file"
+   gpg_bash_lib_internal_gpg_verify_status_fd_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_verify_status_fd_file"
    gpg_bash_lib_output_gpg_import_output=""
    gpg_bash_lib_output_gpg_exit_code=""
    gpg_bash_lib_output_signed_on_unixtime=""
@@ -91,7 +91,7 @@ gpg_bash_lib_f_import_keys_to_temp_dir() {
 }
 
 gpg_bash_lib_f_verify() {
-   rm --force "$gpg_bash_lib_internal_gpg_status_fd_file"
+   rm --force "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
 
    test -f "$gpg_bash_lib_input_data_file"
    test -f "$gpg_bash_lib_input_sig_file"
@@ -115,7 +115,7 @@ gpg_bash_lib_f_verify() {
       --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verifiy_timeout_after" \
          gpg \
             --no-options \
-            --status-file "$gpg_bash_lib_internal_gpg_status_fd_file" \
+            --status-file "$gpg_bash_lib_internal_gpg_verify_status_fd_file" \
             --homedir "$gpg_bash_lib_input_temp_folder" \
             --verify "$gpg_bash_lib_input_sig_file" \
             "$gpg_bash_lib_input_data_file" \
@@ -132,9 +132,9 @@ gpg_bash_lib_f_verify() {
 }
 
 gpg_bash_lib_f_parse_status_file() {
-   test -f "$gpg_bash_lib_internal_gpg_status_fd_file"
+   test -f "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
 
-   ## Example gpg_bash_lib_internal_gpg_status_fd_file:
+   ## Example gpg_bash_lib_internal_gpg_verify_status_fd_file:
    ## [GNUPG:] SIG_ID xl52dwvbkcu7YkXw6Zv/PUhexUk 2015-01-15 1421344751
    ## [GNUPG:] GOODSIG CB8D50BB77BB3C48 Patrick Schleizer <adrelanos@riseup.net>
    ## [GNUPG:] NOTATION_NAME issuer-fpr@notations.openpgp.fifthhorseman.net
@@ -144,7 +144,7 @@ gpg_bash_lib_f_parse_status_file() {
    ## [GNUPG:] VALIDSIG 6E979B28A6F37C43BE30AFA1CB8D50BB77BB3C48 2015-01-15 1421344751 0 4 0 1 10 00 916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA
    ## [GNUPG:] TRUST_ULTIMATE
 
-   ## Another gpg_bash_lib_internal_gpg_status_fd_file::
+   ## Another gpg_bash_lib_internal_gpg_verify_status_fd_file::
    ## [GNUPG:] ERRSIG 9C131AD3713AAEEF 1 10 00 1381635738 9
    ## [GNUPG:] NO_PUBKEY 9C131AD3713AAEEF
 
@@ -170,7 +170,7 @@ gpg_bash_lib_f_parse_status_file() {
       if [ "$two" = "NOTATION_DATA" ]; then
          gpg_bash_lib_output_notation[$gpg_bash_lib_internal_notation_name]="$three"
       fi
-   done < "$gpg_bash_lib_internal_gpg_status_fd_file"
+   done < "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
 
    if [ "$gpg_bash_lib_output_signed_on_unixtime" = "" ]; then
       error "gpg_bash_lib_output_signed_on_unixtime is empty!"
@@ -264,8 +264,8 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
 
 gpg_bash_lib_f_cleanup() {
    if [ "$gpg_bash_lib_input_cleanup" = "true" ]; then
-      if [ -e "$gpg_bash_lib_internal_gpg_status_fd_file" ]; then
-         rm --force "$gpg_bash_lib_internal_gpg_status_fd_file"
+      if [ -e "$gpg_bash_lib_internal_gpg_verify_status_fd_file" ]; then
+         rm --force "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
       fi
       if [ -d "$gpg_bash_lib_input_temp_folder" ]; then
          rm --force --recursive "$gpg_bash_lib_input_temp_folder"
