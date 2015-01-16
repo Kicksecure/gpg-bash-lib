@@ -126,6 +126,7 @@ gpg_bash_lib_f_verify() {
             --no-options \
             --status-file "$gpg_bash_lib_internal_gpg_verify_status_fd_file" \
             --homedir "$gpg_bash_lib_input_temp_folder" \
+            --verify-options show-notations \
             --verify "$gpg_bash_lib_input_sig_file" \
             "$gpg_bash_lib_input_data_file" \
             > "$gpg_bash_lib_internal_gpg_verify_output_file" \
