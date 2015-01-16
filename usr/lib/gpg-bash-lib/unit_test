@@ -20,6 +20,13 @@ source "./usr/lib/gpg-bash-lib/source_all"
 trap "gpg_bash_lib_f_error_handler" ERR
 set +e
 
+gpg_bash_lib_f_unit_test_sanity_tests() {
+   if ! command -v faketime >/dev/null ; then
+      echo "ERROR $0: faketime not installed!" >&2
+      exit 2
+   fi
+}
+
 gpg_bash_lib_f_unit_test_genkey() {
    gpg_bash_lib_unit_test_homedir="$(mktemp --directory)"
    rm --recursive --force "$gpg_bash_lib_unit_test_homedir/gpg"
@@ -144,6 +151,7 @@ gpg_bash_lib_f_unit_test_testrun_4() {
 #gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
 #non-existent
 
+gpg_bash_lib_f_unit_test_sanity_tests
 gpg_bash_lib_f_unit_test_genkey
 gpg_bash_lib_f_unit_test_testrun_1
 gpg_bash_lib_f_unit_test_testrun_2
