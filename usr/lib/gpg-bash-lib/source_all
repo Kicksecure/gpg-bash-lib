@@ -4,39 +4,39 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-if [ "$gpg_bash_lib_script_source_dir" = "" ]; then
+if [ "$gpg_bash_lib_input_script_source_dir" = "" ]; then
    if [ -d "./usr/lib/gpg-bash-lib/modules.d" ]; then
-      gpg_bash_lib_script_source_dir="./usr/lib/gpg-bash-lib/modules.d"
+      gpg_bash_lib_input_script_source_dir="./usr/lib/gpg-bash-lib/modules.d"
    elif [ -d "/usr/lib/gpg-bash-lib/modules.d" ]; then
-      gpg_bash_lib_script_source_dir="/usr/lib/gpg-bash-lib/modules.d"
+      gpg_bash_lib_input_script_source_dir="/usr/lib/gpg-bash-lib/modules.d"
    else
-      error "ERROR: $0: variable gpg_bash_lib_script_source_dir is unset and could not be auto detected!"
+      error "ERROR: $0: variable gpg_bash_lib_input_script_source_dir is unset and could not be auto detected!"
       return 0
    fi
 else
-   if [ ! -d "$gpg_bash_lib_script_source_dir" ]; then
-      error "ERROR: $0: variable gpg_bash_lib_script_source_dir set to $gpg_bash_lib_script_source_dir but folder does not exist!"
+   if [ ! -d "$gpg_bash_lib_input_script_source_dir" ]; then
+      error "ERROR: $0: variable gpg_bash_lib_input_script_source_dir set to $gpg_bash_lib_input_script_source_dir but folder does not exist!"
       return 0
    fi
 fi
 
-for gpg_bash_lib_source_file in "$gpg_bash_lib_script_source_dir/"*; do
-   if [ -x "$gpg_bash_lib_source_file" ]; then
+for gpg_bash_lib_internal_script_source_file in "$gpg_bash_lib_input_script_source_dir/"*; do
+   if [ -x "$gpg_bash_lib_internal_script_source_file" ]; then
       ## If the last character is a ~, ignore that file,
       ## because it was created by some editor,
       ## which creates backup files.
-      if [ "${gpg_bash_lib_source_file: -1}" = "~" ]; then
-         true "Skipping $gpg_bash_lib_source_file, because backup file."
+      if [ "${gpg_bash_lib_internal_script_source_file: -1}" = "~" ]; then
+         true "Skipping $gpg_bash_lib_internal_script_source_file, because backup file."
          continue
       fi
       ## Skipping files such as .dpkg-old and .dpkg-dist.
-      if ( echo "$gpg_bash_lib_source_file" | grep -q ".dpkg-" ); then
-         true "Skipping $gpg_bash_lib_source_file, because .dpkg file."
+      if ( echo "$gpg_bash_lib_internal_script_source_file" | grep -q ".dpkg-" ); then
+         true "Skipping $gpg_bash_lib_internal_script_source_file, because .dpkg file."
          continue
       fi
-      bash -n "$gpg_bash_lib_source_file"
-      source "$gpg_bash_lib_source_file"
+      bash -n "$gpg_bash_lib_internal_script_source_file"
+      source "$gpg_bash_lib_internal_script_source_file"
    else
-      true "Skipping $gpg_bash_lib_source_file, because not executable."
+      true "Skipping $gpg_bash_lib_internal_script_source_file, because not executable."
    fi
 done
