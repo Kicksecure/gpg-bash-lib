@@ -72,7 +72,7 @@ gpg_bash_lib_f_testrun_common() {
          --armor \
          --no-options \
          --homedir "$gpg_bash_lib_unit_test_homedir/gpg" \
-         --set-notation "file@name"="$gpg_bash_lib_unit_test_homedir/test-file" \
+         --set-notation "file@name"="$(basename "$gpg_bash_lib_unit_test_homedir/test-file")" \
          --detach-sign "$gpg_bash_lib_unit_test_homedir/test-file"
 
    gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
