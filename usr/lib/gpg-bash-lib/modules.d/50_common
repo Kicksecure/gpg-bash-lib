@@ -173,6 +173,10 @@ gpg_bash_lib_f_parse_status_file() {
       fi
    done < "$gpg_bash_lib_internal_status_file"
 
+   if [ "$gpg_bash_lib_output_signed_on_unixtime" = "" ]; then
+      error "gpg_bash_lib_output_signed_on_unixtime is empty!"
+   fi
+
    ## Thanks to:
    ## http://mywiki.wooledge.org/BashFAQ/054
    if [[ "$gpg_bash_lib_output_signed_on_unixtime" != *[!0-9]* ]]; then
