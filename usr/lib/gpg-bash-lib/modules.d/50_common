@@ -15,7 +15,9 @@ gpg_bash_lib_internal_gpg_verify_output_file: $gpg_bash_lib_internal_gpg_verify_
 gpg_bash_lib_output_gpg_import_output:
 $gpg_bash_lib_output_gpg_import_output
 gpg_bash_lib_output_gpg_verify_output:
-$gpg_bash_lib_output_gpg_verify_output"
+$gpg_bash_lib_output_gpg_verify_output
+gpg_bash_lib_output_gpg_verify_status_fd_output:
+$gpg_bash_lib_output_gpg_verify_status_fd_output"
    gpg_bash_lib_output_failure="true"
    if [ ! "$gpg_bash_lib_input_error_handler_extra" = "" ]; then
       eval $gpg_bash_lib_input_error_handler_extra
@@ -31,6 +33,7 @@ gpg_bash_lib_f_init() {
    gpg_bash_lib_output_gpg_import_output=""
    gpg_bash_lib_output_gpg_exit_code=""
    gpg_bash_lib_output_gpg_verify_output=""
+   gpg_bash_lib_output_gpg_verify_status_fd_output=""
    gpg_bash_lib_output_signed_on_unixtime=""
    gpg_bash_lib_output_file_name_tampering=""
    unset gpg_bash_lib_output_notation
@@ -142,6 +145,8 @@ gpg_bash_lib_f_verify() {
 
 gpg_bash_lib_f_parse_status_file() {
    test -f "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
+
+   gpg_bash_lib_output_gpg_verify_status_fd_output="$(cat "$gpg_bash_lib_internal_gpg_verify_status_fd_file")"
 
    ## Example gpg_bash_lib_internal_gpg_verify_status_fd_file:
    ## [GNUPG:] SIG_ID xl52dwvbkcu7YkXw6Zv/PUhexUk 2015-01-15 1421344751
