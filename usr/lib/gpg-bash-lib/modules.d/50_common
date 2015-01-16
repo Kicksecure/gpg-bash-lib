@@ -1,0 +1,284 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+gpg_bash_lib_f_error_handler() {
+   gpg_bash_lib_output_exit_code="$?"
+   gpg_bash_lib_output_message="$0 script bug
+Please report this bug!
+BASH_COMMAND: $BASH_COMMAND
+exit_code: $gpg_bash_lib_output_exit_code
+gpg_bash_lib_internal_status_file: $gpg_bash_lib_internal_status_file"
+   gpg_bash_lib_output_failure="true"
+   if [ ! "$gpg_bash_lib_input_error_handler_extra" = "" ]; then
+      eval $gpg_bash_lib_input_error_handler_extra
+   fi
+   exit 1
+}
+
+gpg_bash_lib_f_init() {
+   gpg_bash_lib_output_failure=""
+   gpg_bash_lib_internal_status_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_status_file"
+   gpg_bash_lib_output_gpg_exit_code=""
+   gpg_bash_lib_output_signed_on_unixtime=""
+   gpg_bash_lib_output_file_name_tampering=""
+   unset gpg_bash_lib_output_notation
+   declare -A -g gpg_bash_lib_output_notation
+   gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output=""
+   gpg_bash_lib_output_validsig=""
+   gpg_bash_lib_output_validsig_fingerprint_in_hex=""
+   gpg_bash_lib_output_current_unixtime=""
+   gpg_bash_lib_output_current_time=""
+   gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime=""
+   gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty=""
+   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime=""
+   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty=""
+   gpg_bash_lib_output_in_future_in_seconds=""
+   gpg_bash_lib_output_in_future_output_pretty=""
+   gpg_bash_lib_output_freshness_status=""
+   gpg_bash_lib_output_freshness_detail=""
+   gpg_bash_lib_output_freshness_msg=""
+   gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output=""
+   gpg_bash_lib_output_alright=""
+
+   ## Sanity tests.
+   command -v date >/dev/null
+   command -v gpg >/dev/null
+
+   rm --recursive --force "$gpg_bash_lib_input_temp_folder"
+   mkdir --parents "$gpg_bash_lib_input_temp_folder"
+   chmod --recursive 700 "$gpg_bash_lib_input_temp_folder"
+   test -d "$gpg_bash_lib_input_temp_folder"
+
+   gpg \
+      --no-options \
+      --homedir "$gpg_bash_lib_input_temp_folder" \
+      --fingerprint \
+      >/dev/null 2>/dev/null
+}
+
+gpg_bash_lib_f_alright_maybe() {
+   if [ "$gpg_bash_lib_output_alright" = "false" ]; then
+      return 0
+   fi
+   gpg_bash_lib_output_alright="true"
+}
+
+gpg_bash_lib_f_import_keys_to_temp_dir() {
+   test -d "$gpg_bash_lib_input_key_import_dir"
+
+   ## TODO: Only shopt when not already.
+   shopt -s nullglob dotglob
+
+   local gpg_bash_lib_internal_key
+
+   for gpg_bash_lib_internal_key in "$gpg_bash_lib_input_key_import_dir/"*; do
+      local gpg_bash_lib_internal_key_file_name
+      gpg_bash_lib_internal_key_file_name="$(basename "$gpg_bash_lib_internal_key")"
+      if [ "$gpg_bash_lib_internal_key_file_name" = "placeholder" ]; then
+         continue
+      fi
+      gpg \
+         --no-options \
+         --homedir "$gpg_bash_lib_input_temp_folder" \
+         --import "$gpg_bash_lib_internal_key" \
+         2>/dev/null
+   done
+
+   ## TODO: Only undo, if we enabled this beforehand.
+   shopt -u nullglob dotglob
+}
+
+gpg_bash_lib_f_verify() {
+   rm --force "$gpg_bash_lib_internal_status_file"
+
+   test -f "$gpg_bash_lib_input_data_file"
+   test -f "$gpg_bash_lib_input_sig_file"
+
+   [ -n "$gpg_bash_lib_input_verifiy_timeout_after" ] || gpg_bash_lib_input_verifiy_timeout_after="10"
+   [ -n "$gpg_bash_lib_input_verify_kill_after" ] || gpg_bash_lib_input_verify_kill_after="10"
+   ## Up to 30 minutes lenient about slow clocks by default.
+   [ -n "$gpg_bash_lib_input_slow_clock_lenient_up_to_seconds" ] || gpg_bash_lib_input_slow_clock_lenient_up_to_seconds="$(( 30 * 60 ))"
+   gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output="$(gpg_bash_lib_f_displaytime "$gpg_bash_lib_input_slow_clock_lenient_up_to_seconds")"
+
+   ## One month has 2592000 seconds.
+   ## (60 [seconds] * 60 [minutes] * 24 [hours] * 30 [days])
+   gpg_bash_lib_internal_month_has_seconds="2592000"
+   [ -n "$gpg_bash_lib_input_maximum_age_in_seconds" ] || gpg_bash_lib_input_maximum_age_in_seconds="$gpg_bash_lib_internal_month_has_seconds"
+   gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output="$(gpg_bash_lib_f_displaytime "$gpg_bash_lib_input_maximum_age_in_seconds")"
+
+   local gpg_bash_lib_internal_gpg_verify_pid
+   gpg_bash_lib_output_gpg_exit_code="0"
+
+   timeout \
+      --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verifiy_timeout_after" \
+         gpg \
+            --no-options \
+            --status-file "$gpg_bash_lib_internal_status_file" \
+            --homedir "$gpg_bash_lib_input_temp_folder" \
+            --verify "$gpg_bash_lib_input_sig_file" \
+            "$gpg_bash_lib_input_data_file" \
+            >/dev/null \
+            2>/dev/null \
+            &
+
+   gpg_bash_lib_internal_gpg_verify_pid="$!"
+   wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_exit_code="$?" ; true; };
+
+   ## `timeout` returns:
+   ## - 124 if sigterm was sufficient
+   ## - 137 if needed to use kill.
+}
+
+gpg_bash_lib_f_parse_status_file() {
+   test -f "$gpg_bash_lib_internal_status_file"
+
+   ## Example gpg_bash_lib_internal_status_file:
+   ## [GNUPG:] SIG_ID xl52dwvbkcu7YkXw6Zv/PUhexUk 2015-01-15 1421344751
+   ## [GNUPG:] GOODSIG CB8D50BB77BB3C48 Patrick Schleizer <adrelanos@riseup.net>
+   ## [GNUPG:] NOTATION_NAME issuer-fpr@notations.openpgp.fifthhorseman.net
+   ## [GNUPG:] NOTATION_DATA 6E979B28A6F37C43BE30AFA1CB8D50BB77BB3C48
+   ## [GNUPG:] NOTATION_NAME file@name
+   ## [GNUPG:] NOTATION_DATA a
+   ## [GNUPG:] VALIDSIG 6E979B28A6F37C43BE30AFA1CB8D50BB77BB3C48 2015-01-15 1421344751 0 4 0 1 10 00 916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA
+   ## [GNUPG:] TRUST_ULTIMATE
+
+   ## Another gpg_bash_lib_internal_status_file::
+   ## [GNUPG:] ERRSIG 9C131AD3713AAEEF 1 10 00 1381635738 9
+   ## [GNUPG:] NO_PUBKEY 9C131AD3713AAEEF
+
+   ## Quote Werner Koch [1]:
+   ## "there is no clear distinction between the codes and for proper error
+   ## reporting you are advised to use the --status-fd messages."
+   ## [1] http://lists.gnupg.org/pipermail/gnupg-devel/2005-December/022559.html
+
+   local gpg_bash_lib_internal_line
+   while read -r -d $'\n' gpg_bash_lib_internal_line; do
+      true "gpg_bash_lib_internal_line: $gpg_bash_lib_internal_line"
+      local one two three four five
+      read -r one two three four five _ <<< "$gpg_bash_lib_internal_line"
+      true "one: $one | two: $two | three: $three | four: $four | five: $five"
+      if [ "$two" = "VALIDSIG" ]; then
+         gpg_bash_lib_output_validsig="true"
+         gpg_bash_lib_output_validsig_fingerprint_in_hex="$three"
+         gpg_bash_lib_output_signed_on_unixtime="$five"
+      fi
+      if [ "$two" = "NOTATION_NAME" ]; then
+         gpg_bash_lib_internal_notation_name="$three"
+      fi
+      if [ "$two" = "NOTATION_DATA" ]; then
+         gpg_bash_lib_output_notation[$gpg_bash_lib_internal_notation_name]="$three"
+      fi
+   done < "$gpg_bash_lib_internal_status_file"
+
+   ## Thanks to:
+   ## http://mywiki.wooledge.org/BashFAQ/054
+   if [[ "$gpg_bash_lib_output_signed_on_unixtime" != *[!0-9]* ]]; then
+      true "'$gpg_bash_lib_output_signed_on_unixtime' is strictly numeric."
+   else
+      error "gpg_bash_lib_output_signed_on_unixtime is NOT strictly numeric, it is: $gpg_bash_lib_output_signed_on_unixtime"
+   fi
+
+   if [ "$gpg_bash_lib_input_file_name_enforce" = "true" ]; then
+      if [ "${gpg_bash_lib_output_notation["file@name"]}" = "" ]; then
+         true "\${gpg_bash_lib_output_notation["file@name"]} is unset."
+         gpg_bash_lib_output_file_name_tampering="missing"
+         gpg_bash_lib_output_alright="false"
+      else
+         true "\${gpg_bash_lib_output_notation["file@name"]} is set to: ${gpg_bash_lib_output_notation["file@name"]}"
+         if [ "$(basename "$gpg_bash_lib_input_data_file")" = "${gpg_bash_lib_output_notation["file@name"]}" ]; then
+            gpg_bash_lib_output_file_name_tampering="false"
+            gpg_bash_lib_output_alright="false"
+         else
+            gpg_bash_lib_output_file_name_tampering="true"
+         fi
+      fi
+   fi
+}
+
+gpg_bash_lib_f_process() {
+   gpg_bash_lib_output_current_unixtime="$(date +%s)"
+   gpg_bash_lib_output_current_time="$(date)"
+
+   gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime="$(( $gpg_bash_lib_output_signed_on_unixtime - $gpg_bash_lib_output_current_unixtime ))"
+   gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty="$(gpg_bash_lib_f_displaytime "$gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime")"
+
+   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime="$(( $gpg_bash_lib_output_current_unixtime - $gpg_bash_lib_output_signed_on_unixtime ))"
+   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty="$(gpg_bash_lib_f_displaytime "$gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime")"
+
+   gpg_bash_lib_output_in_future_in_seconds="$(( $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime - $gpg_bash_lib_input_maximum_age_in_seconds ))"
+   gpg_bash_lib_output_in_future_output_pretty="$(gpg_bash_lib_f_displaytime "$gpg_bash_lib_output_in_future_in_seconds")"
+
+   if [ "$gpg_bash_lib_output_current_unixtime" -le "$gpg_bash_lib_output_signed_on_unixtime" ]; then
+      if [ "$gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime" -lt "$gpg_bash_lib_input_slow_clock_lenient_up_to_seconds" ]; then
+         gpg_bash_lib_output_freshness_status="true"
+         gpg_bash_lib_output_freshness_detail="lenient"
+         gpg_bash_lib_output_freshness_msg="\
+- Freshness: Signature is not yet valid.
+- valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Local System Clock: Your clock might be slow. (Could be at least $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty slow.)
+- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
+- Leniency: Ignoring this, because it still is within range.
+Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output before."
+         gpg_bash_lib_f_alright_maybe
+         return 0
+      else
+         gpg_bash_lib_output_freshness_status="false"
+         gpg_bash_lib_output_freshness_detail="slow"
+         gpg_bash_lib_output_freshness_msg="\
+- Freshness: Signature is not yet valid.
+- valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Local System Clock: Your clock might be slow. (Could be at least $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty slow.)
+- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time."
+         gpg_bash_lib_output_alright="false"
+         return 0
+      fi
+   elif [ "$gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime" -ge "$gpg_bash_lib_input_maximum_age_in_seconds" ]; then
+      gpg_bash_lib_output_freshness_status="false"
+      gpg_bash_lib_output_freshness_detail="outdated"
+      gpg_bash_lib_output_freshness_msg="\
+- Freshness: Signature is no longer valid (outdated).
+- valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Local System Clock: Your clock might be fast. (Could be at least $gpg_bash_lib_output_in_future_output_pretty fast.)
+- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago.
+- Extra: It might have been forgotten to refresh the signature (invalid since $gpg_bash_lib_output_in_future_output_pretty)."
+      gpg_bash_lib_output_alright="false"
+      return 0
+   else
+      gpg_bash_lib_output_freshness_status="true"
+      gpg_bash_lib_output_freshness_detail="current"
+      gpg_bash_lib_output_freshness_msg="\
+- Freshness: Signature is current.
+- valid-max: Signatures are valid up to $gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output.
+- Local System Clock: Your clock seems okay.
+- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+      gpg_bash_lib_f_alright_maybe
+      return 0
+   fi
+}
+
+gpg_bash_lib_f_cleanup() {
+   if [ "$gpg_bash_lib_input_cleanup" = "true" ]; then
+      if [ -e "$gpg_bash_lib_internal_status_file" ]; then
+         rm --force "$gpg_bash_lib_internal_status_file"
+      fi
+      if [ -d "$gpg_bash_lib_input_temp_folder" ]; then
+         rm --force --recursive "$gpg_bash_lib_input_temp_folder"
+      fi
+   fi
+}
+
+gpg_bash_lib_f_main_verify() {
+   gpg_bash_lib_f_cleanup
+   gpg_bash_lib_f_init
+   gpg_bash_lib_f_import_keys_to_temp_dir
+   gpg_bash_lib_f_verify
+   if [ ! "$gpg_bash_lib_output_gpg_exit_code" = "0" ]; then
+      return 0
+   fi
+   gpg_bash_lib_f_parse_status_file
+   gpg_bash_lib_f_process
+   gpg_bash_lib_f_cleanup
+}

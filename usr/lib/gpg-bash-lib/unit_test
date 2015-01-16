@@ -1,0 +1,169 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+set -e
+set -o pipefail
+set -o errtrace
+
+gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
+cd "$gpg_bash_lib_mydir"
+cd ..
+cd ..
+cd ..
+
+for gpg_bash_lib_source_file in "./usr/lib/gpg-bash-lib/modules.d/"*; do
+   if [ -x "$gpg_bash_lib_source_file" ]; then
+      ## If the last character is a ~, ignore that file,
+      ## because it was created by some editor,
+      ## which creates backup files.
+      if [ "${gpg_bash_lib_source_file: -1}" = "~" ]; then
+         true "Skipping $gpg_bash_lib_source_file, because backup file."
+         continue
+      fi
+      ## Skipping files such as .dpkg-old and .dpkg-dist.
+      if ( echo "$gpg_bash_lib_source_file" | grep -q ".dpkg-" ); then
+         true "Skipping $gpg_bash_lib_source_file, because .dpkg file."
+         continue
+      fi
+      bash -n "$gpg_bash_lib_source_file"
+      source "$gpg_bash_lib_source_file"
+   else
+      true "Skipping $gpg_bash_lib_source_file, because not executable."
+   fi
+done
+
+trap "gpg_bash_lib_f_error_handler" ERR
+set +e
+
+gpg_bash_lib_f_genkey() {
+   gpg_bash_lib_unit_test_homedir="$(mktemp --directory)"
+   rm --recursive --force "$gpg_bash_lib_unit_test_homedir/gpg"
+   mkdir --parents "$gpg_bash_lib_unit_test_homedir/gpg"
+   chmod --recursive 700 "$gpg_bash_lib_unit_test_homedir/gpg"
+   test -d "$gpg_bash_lib_unit_test_homedir/gpg"
+
+   echo "
+      Key-Type: RSA
+      Key-Length: 4096
+      Subkey-Type: RSA
+      Subkey-Length: 4096
+      Name-Real: auto generated local signing key
+      Name-Email: auto@local-signing.key
+      Expire-Date: 0
+      Preferences: SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+   " | faketime -f "-61d" \
+         gpg \
+                                 --no-options \
+                                 --no-emit-version \
+                                 --no-comments \
+                                 --display-charset utf-8 \
+                                 --keyserver hkp://qdigse2yzvuglcix.onion \
+                                 --personal-digest-preferences SHA512 \
+                                 --cert-digest-algo SHA512 \
+                                 --default-preference-list "SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed" \
+                                 --keyserver-options no-honor-keyserver-url \
+                                 --fixed-list-mode \
+                                 --keyid-format 0xlong \
+                                 --use-agent \
+                                 --list-options show-uid-validity \
+                                 --sig-notation issuer-fpr@notations.openpgp.fifthhorseman.net=%g \
+                                 --no-default-keyring \
+                                 --homedir "$gpg_bash_lib_unit_test_homedir/gpg" \
+                                 --batch \
+                                 --gen-key
+}
+
+gpg_bash_lib_f_testrun_common() {
+   echo "------------------------------------------------------------"
+
+   rm --force "$gpg_bash_lib_unit_test_homedir/test-file"
+   rm --force "$gpg_bash_lib_unit_test_homedir/test-file.asc"
+
+   echo "test" > "$gpg_bash_lib_unit_test_homedir/test-file"
+   test -f "$gpg_bash_lib_unit_test_homedir/test-file"
+
+   faketime -f "$gpg_bash_lib_unit_test_faketime" \
+      gpg \
+         --armor \
+         --no-options \
+         --homedir "$gpg_bash_lib_unit_test_homedir/gpg" \
+         --set-notation "file@name"="$gpg_bash_lib_unit_test_homedir/test-file" \
+         --detach-sign "$gpg_bash_lib_unit_test_homedir/test-file"
+
+   gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
+   gpg_bash_lib_input_key_import_dir="$(mktemp --directory)"
+   cp "$gpg_bash_lib_unit_test_homedir/gpg/pubring.gpg" "$gpg_bash_lib_input_key_import_dir/"
+   gpg_bash_lib_input_file_name_enforce="true"
+   gpg_bash_lib_input_cleanup="true"
+   gpg_bash_lib_input_data_file="$gpg_bash_lib_unit_test_homedir/test-file"
+   gpg_bash_lib_input_sig_file="$gpg_bash_lib_unit_test_homedir/test-file.asc"
+   ## gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
+
+   gpg_bash_lib_f_main_verify
+
+   echo "\
+gpg_bash_lib_output_failure: $gpg_bash_lib_output_failure
+gpg_bash_lib_output_gpg_exit_code: $gpg_bash_lib_output_gpg_exit_code
+gpg_bash_lib_output_validsig: $gpg_bash_lib_output_validsig
+gpg_bash_lib_output_validsig_fingerprint_in_hex: $gpg_bash_lib_output_validsig_fingerprint_in_hex
+gpg_bash_lib_output_signed_on_unixtime: $gpg_bash_lib_output_signed_on_unixtime
+gpg_bash_lib_output_notation[$"file@name"]: ${gpg_bash_lib_output_notation[$"file@name"]}
+gpg_bash_lib_output_file_name_tampering: $gpg_bash_lib_output_file_name_tampering
+gpg_bash_lib_output_freshness_status: $gpg_bash_lib_output_freshness_status
+gpg_bash_lib_output_freshness_detail: $gpg_bash_lib_output_freshness_detail
+gpg_bash_lib_output_freshness_msg:
+$gpg_bash_lib_output_freshness_msg
+gpg_bash_lib_output_alright: $gpg_bash_lib_output_alright"
+
+   echo "-----"
+
+   if  [ ! "$gpg_bash_lib_output_freshness_detail" = "$gpg_bash_lib_unit_test_expected_freshness_detail_result" ]; then
+      echo "\
+gpg_bash_lib_unit_test_faketime: $gpg_bash_lib_unit_test_faketime
+gpg_bash_lib_unit_test_expected_freshness_detail_result: $gpg_bash_lib_unit_test_expected_freshness_detail_result
+-----
+ERROR!" 2>&1
+      exit 1
+   fi
+   echo "\
+gpg_bash_lib_unit_test_faketime: $gpg_bash_lib_unit_test_faketime
+gpg_bash_lib_unit_test_expected_freshness_detail_result: $gpg_bash_lib_unit_test_expected_freshness_detail_result
+-----
+PASS!"
+}
+
+gpg_bash_lib_f_testrun_1() {
+   gpg_bash_lib_unit_test_faketime="-2d"
+   gpg_bash_lib_unit_test_expected_freshness_detail_result="current"
+   gpg_bash_lib_f_testrun_common
+}
+
+gpg_bash_lib_f_testrun_2() {
+   gpg_bash_lib_unit_test_faketime="+15m"
+   gpg_bash_lib_unit_test_expected_freshness_detail_result="lenient"
+   gpg_bash_lib_f_testrun_common
+}
+
+gpg_bash_lib_f_testrun_3() {
+   gpg_bash_lib_unit_test_faketime="-31d"
+   gpg_bash_lib_unit_test_expected_freshness_detail_result="outdated"
+   gpg_bash_lib_f_testrun_common
+}
+
+gpg_bash_lib_f_testrun_4() {
+   gpg_bash_lib_unit_test_faketime="+31d"
+   gpg_bash_lib_unit_test_expected_freshness_detail_result="slow"
+   gpg_bash_lib_f_testrun_common
+}
+
+#gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
+#non-existent
+
+gpg_bash_lib_f_genkey
+gpg_bash_lib_f_testrun_1
+gpg_bash_lib_f_testrun_2
+gpg_bash_lib_f_testrun_3
+gpg_bash_lib_f_testrun_4
