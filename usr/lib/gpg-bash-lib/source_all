@@ -4,7 +4,7 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-[ -n "$gpg_bash_lib_script_source_dir" ] || \
+if [ "$gpg_bash_lib_script_source_dir" = "" ]; then
    if [ -d "./usr/lib/gpg-bash-lib/modules.d" ]; then
       gpg_bash_lib_script_source_dir="./usr/lib/gpg-bash-lib/modules.d"
    elif [ -d "/usr/lib/gpg-bash-lib/modules.d" ]; then
@@ -13,6 +13,12 @@
       error "ERROR: $0: variable is unset gpg_bash_lib_script_source_dir unset and could not be auto detected!"
       return 0
    fi
+else
+   if [ ! -d "$gpg_bash_lib_script_source_dir" ]; then
+      error "ERROR: $0: variable gpg_bash_lib_script_source_dir set to $gpg_bash_lib_script_source_dir but folder does not exist!"
+      return 0
+   fi
+fi
 
 for gpg_bash_lib_source_file in "$gpg_bash_lib_script_source_dir/"*; do
    if [ -x "$gpg_bash_lib_source_file" ]; then
