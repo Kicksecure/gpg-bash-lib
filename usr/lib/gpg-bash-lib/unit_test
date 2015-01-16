@@ -14,7 +14,6 @@ cd ..
 cd ..
 cd ..
 
-gpg_bash_lib_script_source_dir="./usr/lib/gpg-bash-lib/modules.d"
 source "./usr/lib/gpg-bash-lib/source_all"
 
 trap "gpg_bash_lib_f_error_handler" ERR
