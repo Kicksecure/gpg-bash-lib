@@ -34,6 +34,7 @@ gpg_bash_lib_f_init() {
    gpg_bash_lib_output_gpg_verify_output=""
    gpg_bash_lib_output_gpg_verify_status_fd_output=""
    gpg_bash_lib_output_signed_on_unixtime=""
+   gpg_bash_lib_output_signed_on_date=""
    gpg_bash_lib_output_file_name_tampering=""
    unset gpg_bash_lib_output_notation
    declare -A -g gpg_bash_lib_output_notation
@@ -197,6 +198,8 @@ gpg_bash_lib_f_parse_status_file() {
    else
       error "gpg_bash_lib_output_signed_on_unixtime is NOT strictly numeric, it is: $gpg_bash_lib_output_signed_on_unixtime"
    fi
+
+   gpg_bash_lib_output_signed_on_date="$(date --date "@$gpg_bash_lib_output_signed_on_unixtime")"
 
    if [ "$gpg_bash_lib_input_file_name_enforce" = "true" ]; then
       if [ "${gpg_bash_lib_output_notation["file@name"]}" = "" ]; then
