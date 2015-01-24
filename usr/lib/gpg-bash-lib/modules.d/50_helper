@@ -4,13 +4,13 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-gpg_bash_lib_f_displaytime_helper() {
+gpg_bash_lib_function_displaytime_helper() {
    if [ "$1" = "1" ]; then
       echo " "
    fi
 }
 
-gpg_bash_lib_f_displaytime() {
+gpg_bash_lib_function_displaytime() {
    ## Thanks to Stéphane Gimenez!
    ## http://unix.stackexchange.com/a/27014/49297
    ## Modified by Patrick Schleizer.
@@ -21,10 +21,10 @@ gpg_bash_lib_f_displaytime() {
    M="$((T/60%60))"
    S="$((T%60))"
    X="0"
-   [[ "$D" -gt "0" ]] && printf "$(gpg_bash_lib_f_displaytime_helper "$X")%d days" "$D" && X="1" || true
-   [[ "$H" -gt "0" ]] && printf "$(gpg_bash_lib_f_displaytime_helper "$X")%d hours" "$H" && X="1" || true
-   [[ "$M" -gt "0" ]] && printf "$(gpg_bash_lib_f_displaytime_helper "$X")%d minutes" "$M" && X="1" || true
-   [[ "$S" -gt "0" ]] && printf "$(gpg_bash_lib_f_displaytime_helper "$X")%d seconds" "$S" && X="1" || true
+   [[ "$D" -gt "0" ]] && printf "$(gpg_bash_lib_function_displaytime_helper "$X")%d days" "$D" && X="1" || true
+   [[ "$H" -gt "0" ]] && printf "$(gpg_bash_lib_function_displaytime_helper "$X")%d hours" "$H" && X="1" || true
+   [[ "$M" -gt "0" ]] && printf "$(gpg_bash_lib_function_displaytime_helper "$X")%d minutes" "$M" && X="1" || true
+   [[ "$S" -gt "0" ]] && printf "$(gpg_bash_lib_function_displaytime_helper "$X")%d seconds" "$S" && X="1" || true
    #[[ "$D" -gt "0" || "$H" -gt "0" || "$M" -gt "0" || "$S" -gt "0" ]] && printf 'and '
    true
 }
