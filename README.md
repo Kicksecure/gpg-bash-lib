@@ -201,6 +201,7 @@ part.
 * recommendation: Consider using this variable instead of
 `gpg_bash_lib_output_signed_on_date` by converting it to some formatted date
 string that you prefer.
+* example content: `1419456919`
 
 `gpg_bash_lib_output_signed_on_date`
 * possible values: `gpg_bash_lib_output_signed_on_unixtime `converted to a
@@ -208,6 +209,7 @@ textual date string using
 `"$(date --date "@$gpg_bash_lib_output_signed_on_unixtime")"`.
 * recommendation: Show this variable in your script, ask the user for
 confirmation.
+* example content: `Wed Dec 24 21:35:19 UTC 2014`
 
 `gpg_bash_lib_output_file_name_tampering` will be
 * possible values: Set to `true` (match), `missing` (no `file@name` OpenPGP
@@ -240,10 +242,18 @@ fi
 ```
 
 `gpg_bash_lib_output_validsig_fingerprint_in_hex`
+* possible values: The fingerprint of the key that signed the file in hex or
+`""` in case of unsuccessful verification.
+* recommendation: May or may not be useful to show this value in your script
+(in verbose mode).
+* example content: `F38633B0A3F06A55CC0076C81081641AC4D57DB9`
 
 `gpg_bash_lib_output_current_unixtime`
+* possible values: integer, unixtime at time of running this library.
 
 `gpg_bash_lib_output_current_time`
+* possible values: A textual string, `gpg_bash_lib_output_current_unixtime`
+converted to a date string.
 
 `gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime`
 
@@ -267,10 +277,12 @@ fi
 
 `gpg_bash_lib_output_alright`
 
-### file@name OpenPGP Notation ###
-To create a signature, that contains this OpenPGP notation, you might with the
-following comm
-and and/or function.
+### File Name Verification ###
+To verify the names of files, i.e. to verify the `file@name` OpenPGP Notation,
+see also variable `gpg_bash_lib_input_file_name_enforce` above.
+
+To create a signature, that contains this OpenPGP notation, you might like to
+use something like the following command and and/or function.
 
 ```
 sign_cmd() {
@@ -283,8 +295,7 @@ sign_cmd() {
 }
 ```
 
-To view any OpenPGP notations, you might with the following command and/or
-function.
+And for verification.
 
 ```
 verify_cmd() {
@@ -292,7 +303,22 @@ verify_cmd() {
 }
 ```
 
-### Pro Tips ###
+### Security Tips ###
+#### Signature Creation Date Storage ####
+To aid detection of indefinite freeze and rollback (downgrade) attacks,
+consider storing the Signature Creation Date (see variables
+`gpg_bash_lib_output_signed_on_unixtime` and/or
+`gpg_bash_lib_output_signed_on_date`) in a file, so you can compare them next
+time you download a supposedly newer signature. If the newly downloaded
+signature is older than the last known one, then maybe something is wrong.
+
+#### Signature Creation Date Preseeding ####
+The above tip will not work for initial signature downloads. Therefore consider
+preseeding a sane initial value.
+
+#### Abstract it! ####
+Like the two above tips? We should abstract that code as well. Interested to
+implement it into gpg-bash-lib?
 
 ### Library Conventions ####
 To avoid conflicts with variables or function names, which your script might
