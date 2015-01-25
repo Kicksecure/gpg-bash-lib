@@ -283,6 +283,19 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 
 ===== <tt>gpg_bash_lib_output_file_name_tampering</tt> =====
 * possible values: Set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) or <tt>""</tt> (not in use, not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>) accordingly.
+* recommendation: If you are using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>, you should check this value.
+* example content: <tt>true</tt>
+* example usage:
+<pre>
+echo "File name should be: ${gpg_bash_lib_output_notation[$"file@name"]}"
+echo "File name is       : $(basename "$gpg_bash_lib_input_data_file")"
+if [ "$gpg_bash_lib_output_file_name_tampering" = "true" ]; then
+   echo 'File name tampering detected!' >&2
+   exit 1
+else
+   echo 'File name matches.'
+fi
+</pre>
 
 ===== <tt>gpg_bash_lib_output_notation["file@name"]</tt> =====
 * possible values: name of file that was signed or <tt>""</tt> if not in use (not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>).
