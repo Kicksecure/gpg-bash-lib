@@ -320,7 +320,7 @@ the user. Use a snippet similar to the example below.
       "lenient")
          signature_creation_msg="Your clock might be slow.
 According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
-You can probably ignore this, because it still is within range. (Okay up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output before.)"
+You can probably ignore this, because it still is within range. (Okay up to $gpg_bash_lib_output_maximum_age_pretty_output before.)"
          ## ...
          ;;
       "slow")
@@ -332,7 +332,7 @@ According to your system clock, signature was created $gpg_bash_lib_output_signe
          signature_creation_msg="Signature looks quite old already.
 Either,
 - your clock might be fast (at least $gpg_bash_lib_output_in_future_output_pretty fast). $clock_hint
-- there is really no newer signature yet. Signature is really older than $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output. already. (Older than $gpg_bash_lib_output_in_future_output_pretty already.)
+- there is really no newer signature yet. Signature is really older than $gpg_bash_lib_output_maximum_age_pretty_output. already. (Older than $gpg_bash_lib_output_in_future_output_pretty already.)
 - this is a $SCRIPTNAME bug
 - this is an attack"
          ## ...
@@ -352,7 +352,7 @@ Either,
 ===== <tt>gpg_bash_lib_output_freshness_msg</tt> =====
 * possible values: A textual string, that contains diagnostic output, that puts <tt>gpg_bash_lib_output_freshness_detail</tt> into more details, developers speech, that may or may not be useful to show in your script [when in verbose mode].
 
-===== <tt>gpg_bash_lib_output_maximum_age_in_seconds_pretty_output</tt> =====
+===== <tt>gpg_bash_lib_output_maximum_age_pretty_output</tt> =====
 * possible values: A textual string, <tt>gpg_bash_lib_input_maximum_age_in_seconds</tt> converted into a pretty format.
 
 ===== <tt>gpg_bash_lib_output_alright</tt> =====

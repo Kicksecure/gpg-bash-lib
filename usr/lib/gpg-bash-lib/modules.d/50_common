@@ -52,7 +52,7 @@ gpg_bash_lib_function_init() {
    gpg_bash_lib_output_freshness_status=""
    gpg_bash_lib_output_freshness_detail=""
    gpg_bash_lib_output_freshness_msg=""
-   gpg_bash_lib_output_maximum_age_in_seconds_pretty_output=""
+   gpg_bash_lib_output_maximum_age_pretty_output=""
    gpg_bash_lib_output_alright=""
 
    ## Sanity tests.
@@ -116,7 +116,7 @@ gpg_bash_lib_function_verify() {
    ## (60 [seconds] * 60 [minutes] * 24 [hours] * 30 [days])
    gpg_bash_lib_internal_month_has_seconds="2592000"
    [ -n "$gpg_bash_lib_input_maximum_age_in_seconds" ] || gpg_bash_lib_input_maximum_age_in_seconds="$gpg_bash_lib_internal_month_has_seconds"
-   gpg_bash_lib_output_maximum_age_in_seconds_pretty_output="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_input_maximum_age_in_seconds")"
+   gpg_bash_lib_output_maximum_age_pretty_output="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_input_maximum_age_in_seconds")"
 
    local gpg_bash_lib_internal_gpg_verify_pid
    gpg_bash_lib_output_gpg_verify_exit_code="0"
@@ -237,7 +237,7 @@ gpg_bash_lib_function_process() {
          gpg_bash_lib_output_freshness_detail="lenient"
          gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is not yet valid.
-- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output.
+- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.
 - Signature Creation Date: $gpg_bash_lib_output_signed_on_date
 - Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock might be slow. (Could be at least $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty slow.)
@@ -251,7 +251,7 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
          gpg_bash_lib_output_freshness_detail="slow"
          gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is not yet valid.
-- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output.
+- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.
 - Signature Creation Date: $gpg_bash_lib_output_signed_on_date
 - Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock might be slow. (Could be at least $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty slow.)
@@ -264,7 +264,7 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
       gpg_bash_lib_output_freshness_detail="outdated"
       gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is no longer valid (outdated).
-- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output.
+- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.
 - Signature Creation Date: $gpg_bash_lib_output_signed_on_date
 - Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock might be fast. (Could be at least $gpg_bash_lib_output_in_future_output_pretty fast.)
@@ -277,7 +277,7 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
       gpg_bash_lib_output_freshness_detail="current"
       gpg_bash_lib_output_freshness_msg="\
 - Freshness: Signature is current.
-- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output.
+- valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.
 - Signature Creation Date: $gpg_bash_lib_output_signed_on_date
 - Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock seems okay.
