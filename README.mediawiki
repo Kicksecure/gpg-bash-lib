@@ -382,9 +382,12 @@ To avoid conflicts with variables or function names, which your script might hav
 
 Any operations that could take longer, such as the <tt>gpg --verify</tt> operation, are executed using bash's <tt>wait</tt> builtin. To explain this better, see the following pseudo code, it is the style that this library is using.
 
-<pre>gpg ... &amp;
+<pre>
+gpg ... &
 gpg_bash_lib_internal_gpg_verify_pid="$!"
-wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_exit_code="$?" ; true; };</pre>
+wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_exit_code="$?" ; true; };
+</pre>
+
 This has the advantage, that your script can still react to any eventual trap's listening for example for signal SIGTERM.
 
 == Practical ==
