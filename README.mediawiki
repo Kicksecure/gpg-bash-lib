@@ -243,7 +243,7 @@ fi
 * possible values: integer, unixtime at time of running this library.
 
 ===== <tt>gpg_bash_lib_output_current_time</tt> =====
-* possible values: A textual string, <tt>gpg_bash_lib_output_current_unixtime</tt> converted to a date string.
+* possible values: A textual string, the output of <tt>"$(date)"</tt> at time of running this library.
 
 ===== <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime</tt> =====
 * possible values: An integer, that represents the Relative Signature Creation Time. See the example of <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty</tt> below to understand what it is doing. Can be used when <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>slow</tt> or <tt>lenient</tt>.
