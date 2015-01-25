@@ -1,6 +1,6 @@
 = Why =
 
-Writing bash scripts that do file verification using gpg that really is secure and passes a comprehensive threat model (that covers indefinite freeze, rollback, endless data attacks, etc.) is hard. gpg-bash-lib's goal is to provide a bash library that we can audit and abstract the hard work into reuseable functions.
+Writing bash scripts that do file verification using gpg that really is secure and passes a comprehensive threat model (that covers indefinite freeze, rollback, endless data attacks, etc.) is hard. gpg-bash-lib's goal is to provide a bash library that we can collaboratively develop, audit and abstract the hard work into reuseable functions.
 
 = What does it do =
 
