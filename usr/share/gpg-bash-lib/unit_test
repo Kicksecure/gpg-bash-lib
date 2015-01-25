@@ -102,7 +102,7 @@ gpg_bash_lib_output_freshness_status: $gpg_bash_lib_output_freshness_status
 gpg_bash_lib_output_freshness_detail: $gpg_bash_lib_output_freshness_detail
 gpg_bash_lib_output_freshness_msg:
 $gpg_bash_lib_output_freshness_msg
-gpg_bash_lib_output_alright: $gpg_bash_lib_output_alright"
+gpg_bash_lib_output_alright_status: $gpg_bash_lib_output_alright_status"
 
    echo "-----"
 
