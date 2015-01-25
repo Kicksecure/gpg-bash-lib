@@ -256,26 +256,134 @@ fi
 converted to a date string.
 
 `gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime`
+* possible values: An integer, that represents the Relative Signature Creation
+Time. See the example of
+`gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty`
+below to understand what it is doing. Can be used when
+`gpg_bash_lib_output_freshness_detail` is `slow` or `lenient`.
 
 `gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty`
+* possible values: A textual
+string, `gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime`
+converted to a pretty format.
+Can be used when
+`gpg_bash_lib_output_freshness_detail` is `slow` or `lenient`.
+* example usage:
+```
+if [ "$gpg_bash_lib_output_freshness_detail" = "slow" ] || [ "$gpg_bash_lib_output_freshness_detail" = "lenient" ]; then
+   echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time."
+fi
+```
 
 `gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime`
+* possible values: An integer, that represents the Relative Signature Creation
+Time. See the example of
+`gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty`
+below to understand what it is doing. Can be used if
+`gpg_bash_lib_output_freshness_detail` is `current` or `outdated.`.
 
 `gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty`
+* possible values: A textual
+string, `gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime`
+converted to a pretty format.
+Can be used if
+`gpg_bash_lib_output_freshness_detail` is `current` or `outdated.`.
+* example usage:
+```
+if [ "$gpg_bash_lib_output_freshness_detail" = "current" ] || [ "$gpg_bash_lib_output_freshness_detail" = "outdated" ]; then
+   echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+fi
+```
 
 `gpg_bash_lib_output_in_future_in_seconds`
+* possible values: In case of `gpg_bash_lib_output_freshness_detail` is
+`outdated`, it contains an estimation how many seconds the clock might be fast.
 
 `gpg_bash_lib_output_in_future_output_pretty`
+* possible values: A textual string,
+`gpg_bash_lib_output_in_future_output_pretty` converted to a pretty format.
+* example use:
+```
+echo "gpg_bash_lib_output_in_future_output_pretty: $gpg_bash_lib_output_in_future_output_pretty"
+```
 
 `gpg_bash_lib_output_freshness_status`
+* possible values: `true` (fresh) or `false` (not fresh).
+* example use:
+```
+if [ "$gpg_bash_lib_output_freshness_status" = "true" ]; then
+   echo "Signature is current."
+else
+   echo "Signature NOT current." 2>&1
+   exit 1
+fi
+```
 
 `gpg_bash_lib_output_freshness_detail`
+* description: A string, that contains the result of the comparison of the
+local clock (unixtime) with the signature creation date (unixtime).
+* possible values:
+** `lenient` (Signature is not yet valid, still within accepted range.)
+** `slow` (Signature is not yet valid.)
+** `outdated` (Signature is no longer valid (outdated).)
+** `current` (Signature is current.)
+* recommended action:
+* example usage:
+```
+   case "$gpg_bash_lib_output_freshness_detail" in
+      "lenient")
+         signature_creation_msg="Your clock might be slow.
+According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
+You can probably ignore this, because it still is within range. (Okay up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output before.)"
+         ## ...
+         ;;
+      "slow")
+         signature_creation_msg="Your clock might be slow.
+According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time."
+         ## ...
+         ;;
+      "outdated")
+         signature_creation_msg="Signature looks quite old already.
+Either,
+- your clock might be fast (at least $gpg_bash_lib_output_in_future_output_pretty fast). $clock_hint
+- there is really no newer signature yet. Signature is really older than $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output. already. (Older than $gpg_bash_lib_output_in_future_output_pretty already.)
+- this is a $SCRIPTNAME bug
+- this is an attack"
+         ## ...
+         ;;
+      "current")
+         signature_creation_msg="According to your system clock, signatures was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+         ## ...
+         ;;
+      *)
+         error "gpg_bash_lib_output_freshness_detail is neither lenient, nor slow, nor outdated, nor current, it is: $gpg_bash_lib_output_freshness_detail"
+         ## ...
+         exit 125
+         ;;
+   esac
+```
 
 `gpg_bash_lib_output_freshness_msg`
+* possible values: A textual string, that contains diagnostic output, that puts
+`gpg_bash_lib_output_freshness_detail` into more details, developers speech,
+that may or may not be useful to show in your script [when in verbose mode].
 
 `gpg_bash_lib_output_maximum_age_in_seconds_pretty_output`
+* possible values: A textual string,
+`gpg_bash_lib_input_maximum_age_in_seconds` converted into a pretty format.
 
 `gpg_bash_lib_output_alright`
+* possible values: `""`, `true` (if all checks succeeded) or `false` (if at
+least one check failed, such as if `gpg_bash_lib_input_file_name_enforce` was
+set to `true`, but verification of the name of the file failed or if the
+signature was not considered fresh).
+* example usage:
+```
+if [ ! "$gpg_bash_lib_output_alright" = "true" ]; then
+   ## ...
+   exit 1
+fi
+```
 
 ### File Name Verification ###
 To verify the names of files, i.e. to verify the `file@name` OpenPGP Notation,
@@ -345,6 +453,8 @@ This has the advantage, that your script can still react to any eventual trap's
 listening for example for signal SIGTERM.
 
 ## Practical ##
+TODO: Write `usr/share/gpg-bash-lib/examples/...`.
+
 See also `usr/share/gpg-bash-lib/unit_test`.
 
 # Alternatives
