@@ -308,11 +308,11 @@ below will explain this better.
 ** <tt>current</tt> (Signature is current.)
 ** <tt>outdated</tt> (Signature is no longer valid (outdated).)
 * recommended action: Reject files, if the signature freshness is apparently
-`slow`, because that would indicate there either something is very wrong with
+<tt>slow</tt>, because that would indicate there either something is very wrong with
 the signature or with the local system clock, or if the signature freshness
-apparently outdated, because then there could be an indefinite freeze or
+apparently <tt>outdated</tt>, because then there could be an indefinite freeze or
 rollback (downgrade) attack in place. Accept if the signature freshness is
-apparently `current` or `lenient`. In the latter case, explain that state to
+apparently <tt>current</tt> or <tt>lenient</tt>. In the latter case, explain that state to
 the user. Use a snippet similar to the example below.
 * example usage:
 <pre>
