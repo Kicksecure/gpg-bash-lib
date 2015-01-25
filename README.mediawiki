@@ -272,7 +272,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * recommendation: Since already included in <tt>gpg_bash_lib_output_diagnostic_message</tt>, you most likely will not need it.
 
 ===== <tt>gpg_bash_lib_output_signed_on_unixtime</tt> =====
-* possible values: integer.
+* possible values: An integer, the Signature Creation Date represented as unixtime.
 * recommendation: Consider using this variable instead of <tt>gpg_bash_lib_output_signed_on_date</tt> by converting it to some formatted date string that you prefer.
 * example content: <tt>1419456919</tt>
 
