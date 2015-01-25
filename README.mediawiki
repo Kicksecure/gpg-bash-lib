@@ -280,7 +280,7 @@ fi
 * possible values: In case of <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>outdated</tt>, it contains an estimation how many seconds the clock might be fast.
 
 ===== <tt>gpg_bash_lib_output_in_future_output_pretty</tt> =====
-* possible values: A textual string, <tt>gpg_bash_lib_output_in_future_output_pretty</tt> converted to a pretty format.
+* possible values: A textual string, <tt>gpg_bash_lib_output_in_future_in_seconds</tt> converted to a pretty format.
 * example use:
 <pre>
 echo "gpg_bash_lib_output_in_future_output_pretty: $gpg_bash_lib_output_in_future_output_pretty"
