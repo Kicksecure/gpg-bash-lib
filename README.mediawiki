@@ -119,7 +119,7 @@ gpg_bash_lib_input_error_handler_extra='error_handler'
 </pre>
 
 <pre>
-gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
+gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_error_handler_message"'
 </pre>
 
 ===== <tt>gpg_bash_lib_input_verify_timeout_after</tt> =====
