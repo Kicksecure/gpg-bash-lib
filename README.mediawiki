@@ -213,7 +213,10 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 ===== <tt>gpg_bash_lib_output_notation["file@name"]</tt> =====
 * possible values: name of file that was signed or <tt>""</tt> if not in use (not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>).
 * example content: <tt>test-file</tt>
-* example use: <tt>echo "${gpg_bash_lib_output_notation[$"file@name"]}"</tt>
+* example use:
+<pre>
+echo "${gpg_bash_lib_output_notation[$"file@name"]}"
+</pre>
 
 ===== <tt>gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output</tt> =====
 * possible value: Textual string containing the duration of how lenient the clock leniency check is. (Contains the result of the conversion of <tt>gpg_bash_lib_input_slow_clock_lenient_up_to_seconds</tt> to a pretty format.)
@@ -271,7 +274,10 @@ fi
 
 ===== <tt>gpg_bash_lib_output_in_future_output_pretty</tt> =====
 * possible values: A textual string, <tt>gpg_bash_lib_output_in_future_output_pretty</tt> converted to a pretty format.
-* example use: <tt>echo "gpg_bash_lib_output_in_future_output_pretty: $gpg_bash_lib_output_in_future_output_pretty"</tt>
+* example use:
+<pre>
+echo "gpg_bash_lib_output_in_future_output_pretty: $gpg_bash_lib_output_in_future_output_pretty"
+</pre>
 
 ===== <tt>gpg_bash_lib_output_freshness_status</tt> =====
 * possible values: <tt>true</tt> (fresh) or <tt>false</tt> (not fresh).
