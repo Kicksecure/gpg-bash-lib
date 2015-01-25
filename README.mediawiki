@@ -269,7 +269,15 @@ fi
 
 ===== <tt>gpg_bash_lib_output_freshness_status</tt> =====
 * possible values: <tt>true</tt> (fresh) or <tt>false</tt> (not fresh).
-* example use: <tt>if [ "$gpg_bash_lib_output_freshness_status" = "true" ]; then    echo "Signature is current." else    echo "Signature NOT current." 2&gt;&amp;1    exit 1 fi</tt>
+* example use:
+<pre>
+if [ "$gpg_bash_lib_output_freshness_status" = "true" ]; then
+   echo "Signature is current."
+else
+   echo "Signature NOT current." >&2
+   exit 1
+fi
+</pre>
 
 ===== <tt>gpg_bash_lib_output_freshness_detail</tt> =====
 * description: A string, that contains the result of the comparison of the local clock (unixtime) with the signature creation date (unixtime).
