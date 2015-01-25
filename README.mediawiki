@@ -1,0 +1,374 @@
+= Why =
+
+Writing bash scripts that do file verification using gpg that really is secure and passes a comprehensive threat model (that covers indefinite freeze, rollback, endless data attacks, etc.) is hard. gpg-bash-lib's goal is to provide a bash library that we can audit and abstract the hard work into reuseable functions.
+
+= What does it do =
+
+* Abstracts file verification into common functions.
+* Allows detecting of stale files, i.e. detection downgrade or indefinite freeze attacks by implementing a valid-until like mechanism.
+* Internally parses gpg's --status-file output.
+* It is signal friendly.
+* Detects endless data attacks, aborts and reports this.
+* Detects indefinite freeze and rollback (downgrade) attacks and reports this.
+* Can help with verification of names of files, that are otherwise not covered by default when using gpg.
+* Provide diagnostic output (variables) that contain information if the local clock is sane by comparing signature creation date with local clock.
+
+= What does it NOT do =
+
+* Anything else not mentioned above in "What does it do".
+
+= Requirements =
+
+* bash
+
+= Usage =
+
+UNFINISHED!
+
+== Theoretical ==
+
+=== Introduction ===
+
+It is assumed, that your script downloaded a data file as well as a signature file. A separate folder containing the keys that are supposed to be used for gpg verification, such as for example <tt>/usr/share/program-name/signing-keys.d</tt> is required as a prerequisite. You can then use this library to do the gpg verification for you.
+
+It is highly recommended that you <tt>set -e</tt> or set up your own ERR trap before you run
+
+<pre>source "/usr/lib/gpg-bash-lib/source_all"</pre>
+A prerequisite is that you set
+
+<tt>set -o pipefail set -o errtrace</tt> in your script before during execution of this library. This is a good practice anyhow.
+
+Before execution of this library, enable the ERR trap that it provides.
+
+<pre>trap "gpg_bash_lib_function_error_handler" ERR</pre>
+Feel free to undo these error handling mechanisms (<tt>set</tt> and trap ERR), if you must, after execution of this library.
+
+You configure that ERR trap to <tt>eval</tt>uate your own error handler through the variable <tt>gpg_bash_lib_input_error_handler_extra</tt>, which is documented below. Alternatively, you could just look at the <tt>gpg_bash_lib_function_error_handler</tt> function and implement your own ERR trap after <tt>source</tt>ing this library.
+
+Set at least all required <tt>gpg_bash_lib_input_*</tt> variables, that are documented below. Then run the main function <tt>gpg_bash_lib_function_main_verify</tt> (or just one function you wish to use). Then enjoy the <tt>gpg_bash_lib_output_*</tt> variables, that this library has set for you.
+
+=== Variables ===
+
+==== Input Variables ====
+
+<tt>gpg_bash_lib_input_temp_folder</tt>
+* description: Folder that can be used for temporary files. Warning: that folder will be deleted before usage to make sure it is clean!
+* required: no
+* defaults to: <tt>"$(mktemp --directory)"</tt>
+* expected value: <tt>/path/to/temp/folder</tt>
+* example: <tt>gpg_bash_lib_input_temp_folder=/home/user/some-tmp-folder</tt>
+
+<tt>gpg_bash_lib_input_key_import_dir</tt>
+* description: The folder that contains gpg signing keys that are supposed to be accepted. Must already exist. Must contain gpg public keys.
+* required: yes
+* expected value: <tt>/path/to/folder</tt>
+* example: <tt>gpg_bash_lib_input_key_import_dir=/usr/share/program-name/signing-keys.d</tt>
+
+<tt>gpg_bash_lib_input_file_name_enforce</tt>
+* description: Enforce, that the name of the file is stored in the <tt>file@name</tt> OpenPGP notation and matches the actual file name. If enabled, <tt>gpg_bash_lib_output_alright</tt> will be set to <tt>true</tt> if it matches. Otherwise to false. Rather <tt>gpg_bash_lib_output_file_name_tampering</tt> will be set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) accordingly.
+* required: no
+* defaults to: disabled by default
+* expected value: <tt>true</tt> or <tt>false</tt>
+* example: <tt>gpg_bash_lib_input_file_name_enforce=true</tt>
+
+<tt>gpg_bash_lib_input_cleanup</tt>
+* description: Delete the folder stored in the <tt>gpg_bash_lib_input_temp_folder</tt> variable or not.
+* required: no
+* defaults to: disabled by default
+* expected value: <tt>true</tt> or <tt>false</tt>
+* example: <tt>gpg_bash_lib_input_cleanup=true</tt>
+
+<tt>gpg_bash_lib_input_data_file</tt>
+* description: The file that is supposed to be verified.
+* required: yes
+* expected value: <tt>/path/to/file</tt>
+* example: <tt>gpg_bash_lib_input_data_file=/home/user/some-file.tar.gz</tt>
+
+<tt>gpg_bash_lib_input_sig_file</tt>
+* description: The signature that is supposed to be verified.
+* required: yes
+* expected value: <tt>/path/to/file</tt>
+* example: <tt>gpg_bash_lib_input_data_file=/home/user/some-file.tar.gz.asc</tt>
+
+<tt>gpg_bash_lib_input_error_handler_extra</tt>
+* description: The signature that is supposed to be verified.
+* required: no
+* defaults to: none
+* expected value: A command or bash function name.
+* example: <tt>gpg_bash_lib_input_error_handler_extra='error_handler'</tt>
+* example: <tt>gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'</tt>
+
+<tt>gpg_bash_lib_input_verifiy_timeout_after</tt>
+* description: After how many seconds a gpg verification attempt should be forced timeout. Sends signal SIGTERM to gpg. Useful to defeat an endless data attacks or bugs. Increase this value when you are working with bigger files and/or slow systems.
+* required: no
+* defaults to: 10
+* expected value: integer
+* example: <tt>gpg_bash_lib_input_verifiy_timeout_after=120</tt>
+
+<tt>gpg_bash_lib_input_verify_kill_after</tt>
+* description: After how many seconds, if gpg did not react to SIGTERM due to timeout (see above), signal SIGKILL should be used. Useful to defeat an endless data attacks or bugs.
+* required: no
+* defaults to: 10
+* expected value: integer
+* example: <tt>gpg_bash_lib_input_verifiy_timeout_after=20</tt>
+
+<tt>gpg_bash_lib_input_maximum_age_in_seconds</tt>
+* description: After how many seconds, a signature is considered outdated. gpg adds the creation time of the signature (Signature Creation Date) to every signature. That value is detected (see also variables <tt>gpg_bash_lib_output_signed_on_unixtime</tt> and <tt>gpg_bash_lib_output_signed_on_date</tt> below) and compared against this variable.
+* required: no
+* defaults to: 2592000 (which is sane as 1 month)
+* expected value: integer
+* example: <tt>gpg_bash_lib_input_maximum_age_in_seconds=2592000</tt>
+
+<tt>gpg_bash_lib_input_slow_clock_lenient_up_to_seconds</tt>
+* description: After how many seconds, a signature is considered outdated.
+* required: no
+* defaults to: 1800 (which is same as 30 minutes)
+* expected value: integer
+* example: <tt>gpg_bash_lib_input_slow_clock_lenient_up_to_seconds=1800</tt>
+
+==== Output Variables ====
+
+<tt>gpg_bash_lib_output_failure</tt>
+* possible values: <tt>""</tt> or <tt>true</tt>
+* recommendation: Make sure to check for this value! Since the trap <tt>gpg_bash_lib_function_error_handler</tt> has been invoked, something unexpected, a bug has occurred. Regard this as verification failed.
+
+<tt>gpg_bash_lib_output_diagnostic_message</tt>
+* possible values: A verbose diagnostic textual string.
+* recommendation: Display this value when running your script in verbose mode.
+* example content:
+<pre>
+gpg_bash_lib_internal_gpg_verify_status_fd_file: /tmp/tmp.lZDa3dOyUr/gpg_bash_lib_internal_gpg_verify_status_fd_file
+gpg_bash_lib_internal_gpg_verify_output_file: /tmp/tmp.lZDa3dOyUr/gpg_bash_lib_internal_gpg_verify_output_file
+gpg_bash_lib_output_gpg_import_output:
+gpg: keyring `/tmp/tmp.lZDa3dOyUr/secring.gpg' created
+gpg: keyring `/tmp/tmp.lZDa3dOyUr/pubring.gpg' created
+gpg: /tmp/tmp.lZDa3dOyUr/trustdb.gpg: trustdb created
+gpg: key 01C1FA07: public key "auto generated local signing key <auto@local-signing.key>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg_bash_lib_output_gpg_verify_output:
+gpg: Signature made Wed 25 Feb 2015 12:17:44 AM UTC using RSA key ID 8006F538
+gpg: Good signature from "auto generated local signing key <auto@local-signing.key>"
+gpg: Signature notation: file@name=test-file
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: EB53 FEB4 7F25 ED3B 22F6  7D8B 87A3 BF01 01C1 FA07
+     Subkey fingerprint: E0A4 BE54 D1D8 1354 17FB  1CC2 42B6 02D3 8006 F538
+gpg_bash_lib_output_gpg_verify_status_fd_output:
+[GNUPG:] SIG_ID wW/AZUo5pHeQTTOWMwGTynGlLXQ 2015-02-25 1424823464
+[GNUPG:] GOODSIG 42B602D38006F538 auto generated local signing key <auto@local-signing.key>
+[GNUPG:] NOTATION_NAME file@name
+[GNUPG:] NOTATION_DATA test-file
+[GNUPG:] VALIDSIG E0A4BE54D1D8135417FB1CC242B602D38006F538 2015-02-25 1424823464 0 4 0 1 2 00 EB53FEB47F25ED3B22F67D8B87A3BF0101C1FA07
+[GNUPG:] TRUST_UNDEFINED
+</pre>
+
+<tt>gpg_bash_lib_output_gpg_import_output</tt>
+* possible values: A textual string containing output of the <tt>gpg --import</tt> part.
+* recommendation: Since already included in <tt>gpg_bash_lib_output_diagnostic_message</tt>, you most likely will not need it.
+
+<tt>gpg_bash_lib_output_gpg_exit_code</tt>
+* possible values: integer. The exit code of the <tt>gpg --verify</tt> action.
+* recommendation: Probably better not to rely on it for anything but debug output, since the unreliability of these codes is the reason this library has been implemented in the first place.
+* example value: <tt>0</tt>
+
+<tt>gpg_bash_lib_output_gpg_verify_output</tt>
+* possible values: A textual string containing output of the <tt>gpg --verify</tt> part.
+* recommendation: Since already included in <tt>gpg_bash_lib_output_diagnostic_message</tt>, you most likely will not need it.
+
+<tt>gpg_bash_lib_output_gpg_verify_status_fd_output</tt>
+* possible values: A textual string containing output of the <tt>gpg --status-file</tt> part.
+* recommendation: Since already included in <tt>gpg_bash_lib_output_diagnostic_message</tt>, you most likely will not need it.
+
+<tt>gpg_bash_lib_output_signed_on_unixtime</tt>
+* possible values: integer.
+* recommendation: Consider using this variable instead of <tt>gpg_bash_lib_output_signed_on_date</tt> by converting it to some formatted date string that you prefer.
+* example content: <tt>1419456919</tt>
+
+<tt>gpg_bash_lib_output_signed_on_date</tt>
+* possible values: <tt>gpg_bash_lib_output_signed_on_unixtime</tt>converted to a textual date string using <tt>"$(date --date "@$gpg_bash_lib_output_signed_on_unixtime")"</tt>.
+* recommendation: Show this variable in your script, ask the user for confirmation.
+* example content: <tt>Wed Dec 24 21:35:19 UTC 2014</tt>
+
+<tt>gpg_bash_lib_output_file_name_tampering</tt> will be
+* possible values: Set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) or "" (not in use, not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>) accordingly.
+
+<tt>gpg_bash_lib_output_notation["file@name"]</tt>
+* possible values: name of file that was signed or <tt>""</tt> if not in use (not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>).
+* example content: <tt>test-file</tt>
+* example use: <tt>echo "${gpg_bash_lib_output_notation[$"file@name"]}"</tt>
+
+<tt>gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output</tt>
+* possible value: Textual string containing the duration of how lenient the clock leniency check is. (Contains the result of the conversion of <tt>gpg_bash_lib_input_slow_clock_lenient_up_to_seconds</tt> to a pretty format.)
+* example content: <tt>30 minutes</tt>
+
+<tt>gpg_bash_lib_output_validsig</tt>
+* possible values: <tt>true</tt> (successful verification) or <tt>""</tt> (unsuccessful verification).
+* recommendation: Check if its value is <tt>true</tt>. Abort otherwise.
+* example content: <tt>true</tt>
+* example usage: <tt>if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then    ## Notify about this situation.    exit 1 fi</tt>
+
+<tt>gpg_bash_lib_output_validsig_fingerprint_in_hex</tt>
+* possible values: The fingerprint of the key that signed the file in hex or <tt>""</tt> in case of unsuccessful verification.
+* recommendation: May or may not be useful to show this value in your script (in verbose mode). Since we expect a separate folder that contains the only keys that will be accepted (see variable <tt>gpg_bash_lib_input_key_import_dir</tt>), it seems unnecessary to check for the fingerprint.
+* example content: <tt>F38633B0A3F06A55CC0076C81081641AC4D57DB9</tt>
+
+<tt>gpg_bash_lib_output_current_unixtime</tt>
+* possible values: integer, unixtime at time of running this library.
+
+<tt>gpg_bash_lib_output_current_time</tt>
+* possible values: A textual string, <tt>gpg_bash_lib_output_current_unixtime</tt> converted to a date string.
+
+<tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime</tt>
+* possible values: An integer, that represents the Relative Signature Creation Time. See the example of <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty</tt> below to understand what it is doing. Can be used when <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>slow</tt> or <tt>lenient</tt>.
+
+<tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty</tt>
+* possible values: A textual string, <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime</tt> converted to a pretty format. Can be used when <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>slow</tt> or <tt>lenient</tt>.
+* example usage: <tt>if [ "$gpg_bash_lib_output_freshness_detail" = "slow" ] || [ "$gpg_bash_lib_output_freshness_detail" = "lenient" ]; then    echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time." fi</tt>
+
+<tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime</tt>
+* possible values: An integer, that represents the Relative Signature Creation Time. See the example of <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty</tt> below to understand what it is doing. Can be used if <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>current</tt> or <tt>outdated.</tt>.
+
+<tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty</tt>
+* possible values: A textual string, <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime</tt> converted to a pretty format. Can be used if <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>current</tt> or <tt>outdated.</tt>.
+* example usage: <tt>if [ "$gpg_bash_lib_output_freshness_detail" = "current" ] || [ "$gpg_bash_lib_output_freshness_detail" = "outdated" ]; then    echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago." fi</tt>
+
+<tt>gpg_bash_lib_output_in_future_in_seconds</tt>
+* possible values: In case of <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>outdated</tt>, it contains an estimation how many seconds the clock might be fast.
+
+<tt>gpg_bash_lib_output_in_future_output_pretty</tt>
+* possible values: A textual string, <tt>gpg_bash_lib_output_in_future_output_pretty</tt> converted to a pretty format.
+* example use: <tt>echo "gpg_bash_lib_output_in_future_output_pretty: $gpg_bash_lib_output_in_future_output_pretty"</tt>
+
+<tt>gpg_bash_lib_output_freshness_status</tt>
+* possible values: <tt>true</tt> (fresh) or <tt>false</tt> (not fresh).
+* example use: <tt>if [ "$gpg_bash_lib_output_freshness_status" = "true" ]; then    echo "Signature is current." else    echo "Signature NOT current." 2&gt;&amp;1    exit 1 fi</tt>
+
+<tt>gpg_bash_lib_output_freshness_detail</tt>
+* description: A string, that contains the result of the comparison of the local clock (unixtime) with the signature creation date (unixtime).
+* possible values: ''* <tt>lenient</tt> (Signature is not yet valid, still within accepted range.)''* <tt>slow</tt> (Signature is not yet valid.) ''* <tt>outdated</tt> (Signature is no longer valid (outdated).)''* <tt>current</tt> (Signature is current.)
+* recommended action:
+* example usage:
+<pre>
+   case "$gpg_bash_lib_output_freshness_detail" in
+      "lenient")
+         signature_creation_msg="Your clock might be slow.
+According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time.
+You can probably ignore this, because it still is within range. (Okay up to $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output before.)"
+         ## ...
+         ;;
+      "slow")
+         signature_creation_msg="Your clock might be slow.
+According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time."
+         ## ...
+         ;;
+      "outdated")
+         signature_creation_msg="Signature looks quite old already.
+Either,
+- your clock might be fast (at least $gpg_bash_lib_output_in_future_output_pretty fast). $clock_hint
+- there is really no newer signature yet. Signature is really older than $gpg_bash_lib_output_maximum_age_in_seconds_pretty_output. already. (Older than $gpg_bash_lib_output_in_future_output_pretty already.)
+- this is a $SCRIPTNAME bug
+- this is an attack"
+         ## ...
+         ;;
+      "current")
+         signature_creation_msg="According to your system clock, signatures was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+         ## ...
+         ;;
+      *)
+         error "gpg_bash_lib_output_freshness_detail is neither lenient, nor slow, nor outdated, nor current, it is: $gpg_bash_lib_output_freshness_detail"
+         ## ...
+         exit 125
+         ;;
+   esac
+</pre>
+
+<tt>gpg_bash_lib_output_freshness_msg</tt>
+* possible values: A textual string, that contains diagnostic output, that puts <tt>gpg_bash_lib_output_freshness_detail</tt> into more details, developers speech, that may or may not be useful to show in your script [when in verbose mode].
+
+<tt>gpg_bash_lib_output_maximum_age_in_seconds_pretty_output</tt>
+* possible values: A textual string, <tt>gpg_bash_lib_input_maximum_age_in_seconds</tt> converted into a pretty format.
+
+<tt>gpg_bash_lib_output_alright</tt>
+* possible values: <tt>""</tt>, <tt>true</tt> (if all checks succeeded) or <tt>false</tt> (if at least one check failed, such as if <tt>gpg_bash_lib_input_file_name_enforce</tt> was set to <tt>true</tt>, but verification of the name of the file failed or if the signature was not considered fresh).
+* example usage: <tt>if [ ! "$gpg_bash_lib_output_alright" = "true" ]; then    ## ...    exit 1 fi</tt>
+
+=== File Name Verification ===
+
+To verify the names of files, i.e. to verify the <tt>file@name</tt> OpenPGP Notation, see also variable <tt>gpg_bash_lib_input_file_name_enforce</tt> above.
+
+To create a signature, that contains this OpenPGP notation, you might like to use something like the following command and and/or function.
+
+<pre>sign_cmd() {
+   ## GPG signatures do not authenticate filenames by default, therefore add
+   ## the name of the file as a OpenPGP notation so at least users or scripts
+   ## that look at OpenPGP notations have a chance to detect if file names
+   ## have been tampered with. See also:
+   ## https://github.com/adrelanos/gpg-bash-lib
+   gpg --detach-sign --armor --yes --set-notation "file@name"="$(basename "$1")" "$1"
+}</pre>
+And for verification.
+
+<pre>verify_cmd() {
+   gpg --verify-options show-notations --verify "$1"
+}</pre>
+=== Security Tips ===
+
+==== Signature Creation Date Storage ====
+
+To aid detection of indefinite freeze and rollback (downgrade) attacks, consider storing the Signature Creation Date (see variables <tt>gpg_bash_lib_output_signed_on_unixtime</tt> and/or <tt>gpg_bash_lib_output_signed_on_date</tt>) in a file, so you can compare them next time you download a supposedly newer signature. If the newly downloaded signature is older than the last known one, then maybe something is wrong.
+
+==== Signature Creation Date Preseeding ====
+
+The above tip will not work for initial signature downloads. Therefore consider preseeding a sane initial value.
+
+==== Abstract it! ====
+
+Like the two above tips? We should abstract that code as well. Interested to implement it into gpg-bash-lib?
+
+=== Library Conventions ===
+
+To avoid conflicts with variables or function names, which your script might have defined earlier, the following conventions have been applied.
+
+* Function names start with <tt>gpg_bash_lib_function_</tt>.
+* Variable names found out by the library start with <tt>gpg_bash_lib_output_</tt>.
+* Variable names that may be input by the user start with <tt>gpg_bash_lib_output_</tt>.
+* Variable names that are only internally used start with <tt>gpg_bash_lib_internal_</tt>.
+
+=== Goodies ===
+
+==== SIGNAL Friendliness ====
+
+Any operations that could take longer, such as the <tt>gpg --verify</tt> operation, are executed using bash's <tt>wait</tt> builtin. To explain this better, see the following pseudo code, it is the style that this library is using.
+
+<pre>gpg ... &amp;
+gpg_bash_lib_internal_gpg_verify_pid="$!"
+wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_exit_code="$?" ; true; };</pre>
+This has the advantage, that your script can still react to any eventual trap's listening for example for signal SIGTERM.
+
+== Practical ==
+
+TODO: Write <tt>usr/share/gpg-bash-lib/examples/...</tt>.
+
+See also <tt>usr/share/gpg-bash-lib/unit_test</tt>.
+
+= Alternatives =
+
+* Writing your own custom code.
+* Please add any not listed here.
+
+= Forks, Patches, Testers, Comments, etc. =
+
+Welcome.
+
+= Author =
+
+* Patrick Schleizer
+* e-mail: adrelanos@riseup.net
+* [https://www.whonix.org/wiki/Patrick_Schleizer gpg]: 916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA
+* twitter: https://twitter.com/Whonix
+* [https://www.whonix.org/wiki/Donate Donate]
+
+= License =
+
+GPLv3+
