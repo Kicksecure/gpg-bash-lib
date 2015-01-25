@@ -48,7 +48,7 @@ gpg_bash_lib_function_init() {
    gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime=""
    gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty=""
    gpg_bash_lib_output_in_future_in_seconds=""
-   gpg_bash_lib_output_in_future_output_pretty=""
+   gpg_bash_lib_output_in_future_pretty_output=""
    gpg_bash_lib_output_freshness_status=""
    gpg_bash_lib_output_freshness_detail=""
    gpg_bash_lib_output_freshness_msg=""
@@ -229,7 +229,7 @@ gpg_bash_lib_function_process() {
    gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime")"
 
    gpg_bash_lib_output_in_future_in_seconds="$(( $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime - $gpg_bash_lib_input_maximum_age_in_seconds ))"
-   gpg_bash_lib_output_in_future_output_pretty="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_in_future_in_seconds")"
+   gpg_bash_lib_output_in_future_pretty_output="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_in_future_in_seconds")"
 
    if [ "$gpg_bash_lib_output_current_unixtime" -le "$gpg_bash_lib_output_signed_on_unixtime" ]; then
       if [ "$gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime" -lt "$gpg_bash_lib_input_slow_clock_lenient_up_to_seconds" ]; then
@@ -267,9 +267,9 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
 - valid-max: Signatures are valid up to $gpg_bash_lib_output_maximum_age_pretty_output.
 - Signature Creation Date: $gpg_bash_lib_output_signed_on_date
 - Current System Date    : $gpg_bash_lib_output_current_time
-- Local System Clock: Your clock might be fast. (Could be at least $gpg_bash_lib_output_in_future_output_pretty fast.)
+- Local System Clock: Your clock might be fast. (Could be at least $gpg_bash_lib_output_in_future_pretty_output fast.)
 - Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago.
-- Extra: It might have been forgotten to refresh the signature (invalid since $gpg_bash_lib_output_in_future_output_pretty)."
+- Extra: It might have been forgotten to refresh the signature (invalid since $gpg_bash_lib_output_in_future_pretty_output)."
       gpg_bash_lib_output_alright="false"
       return 0
    else

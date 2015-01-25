@@ -279,11 +279,11 @@ fi
 ===== <tt>gpg_bash_lib_output_in_future_in_seconds</tt> =====
 * possible values: In case of <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>outdated</tt>, it contains an estimation how many seconds the clock might be fast.
 
-===== <tt>gpg_bash_lib_output_in_future_output_pretty</tt> =====
+===== <tt>gpg_bash_lib_output_in_future_pretty_output</tt> =====
 * possible values: A textual string, <tt>gpg_bash_lib_output_in_future_in_seconds</tt> converted to a pretty format.
 * example use:
 <pre>
-echo "gpg_bash_lib_output_in_future_output_pretty: $gpg_bash_lib_output_in_future_output_pretty"
+echo "gpg_bash_lib_output_in_future_pretty_output: $gpg_bash_lib_output_in_future_pretty_output"
 </pre>
 
 ===== <tt>gpg_bash_lib_output_freshness_status</tt> =====
@@ -331,8 +331,8 @@ According to your system clock, signature was created $gpg_bash_lib_output_signe
       "outdated")
          signature_creation_msg="Signature looks quite old already.
 Either,
-- your clock might be fast (at least $gpg_bash_lib_output_in_future_output_pretty fast). $clock_hint
-- there is really no newer signature yet. Signature is really older than $gpg_bash_lib_output_maximum_age_pretty_output. already. (Older than $gpg_bash_lib_output_in_future_output_pretty already.)
+- your clock might be fast (at least $gpg_bash_lib_output_in_future_pretty_output fast). $clock_hint
+- there is really no newer signature yet. Signature is really older than $gpg_bash_lib_output_maximum_age_pretty_output. already. (Older than $gpg_bash_lib_output_in_future_pretty_output already.)
 - this is a $SCRIPTNAME bug
 - this is an attack"
          ## ...
