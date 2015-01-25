@@ -1,0 +1,82 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+## Preferably, set pipefail and errtrace in your script. But if you can not,
+## you must set it before running any functions provided by gpg-bash-lib.
+set -o pipefail
+set -o errtrace
+
+your_error_handler() {
+   echo "$FUNCNAME: ERROR! $BASH_COMMAND exited $?"
+   exit 1
+}
+
+## Preferably, set up your own ERR trap or at least "set -e".
+trap "your_error_handler" ERR
+
+## Do some stuff in your script. Such as downloading files, you wish to verify.
+your_script_begin() {
+   echo "$FUNCNAME: ..."
+}
+
+## The actual verification function. Let gpg-bash-lib do the heavy lifting.
+verification() {
+   echo "$FUNCNAME: BEGIN"
+
+   ## Set a few variables, that gpg-bash-lib will read.
+   gpg_bash_lib_input_key_import_dir="/usr/share/gpg-bash-lib/misc/gpg-test-pub-key.d"
+   gpg_bash_lib_input_file_name_enforce="true"
+   gpg_bash_lib_input_cleanup="true"
+   gpg_bash_lib_input_data_file="/usr/share/gpg-bash-lib/misc/test-files/test-file"
+   gpg_bash_lib_input_sig_file="/usr/share/gpg-bash-lib/misc/test-files/test-file.asc"
+
+   ## Source gpg-bash-lib, so functions provided by it become available to your
+   ## script. You could also do the sourcing at any earlier point at your
+   ## convenience.
+   source "/usr/lib/gpg-bash-lib/source_all"
+
+   ## Set up the ERR trap, that is recommended for use with gpg-bash-lib.
+   trap "gpg_bash_lib_function_error_handler" ERR
+
+   ## Run gpg-bash-lib to let it do the verification for you.
+   gpg_bash_lib_function_main_verify
+
+   ## Reactivate your own error handler. Alternatively you could also just
+   ## disable it using the usual 'trap "" ERR'. Or reenforce "set -e" or just
+   ## continue without error handler if you prefer this.
+   trap "your_error_handler" ERR
+
+   echo "$FUNCNAME: END"
+}
+
+your_script_output() {
+   echo "$FUNCNAME: BEGIN"
+
+   ## This is an example on how you can access variables, that gpg-bash-lib has
+   ## set for you. There are more variables available. Those are listed in
+   ## the documentation.
+
+   echo "\
+gpg_bash_lib_output_failure_status: $gpg_bash_lib_output_failure_status
+gpg_bash_lib_output_gpg_verify_exit_code: $gpg_bash_lib_output_gpg_verify_exit_code
+gpg_bash_lib_output_validsig_status: $gpg_bash_lib_output_validsig_status
+gpg_bash_lib_output_fingerprint_in_hex: $gpg_bash_lib_output_fingerprint_in_hex
+gpg_bash_lib_output_signed_on_unixtime: $gpg_bash_lib_output_signed_on_unixtime
+gpg_bash_lib_output_signed_on_date: $gpg_bash_lib_output_signed_on_date
+gpg_bash_lib_output_notation[$"file@name"]: ${gpg_bash_lib_output_notation[$"file@name"]}
+gpg_bash_lib_output_file_name_tampering: $gpg_bash_lib_output_file_name_tampering
+gpg_bash_lib_output_freshness_status: $gpg_bash_lib_output_freshness_status
+gpg_bash_lib_output_freshness_detail: $gpg_bash_lib_output_freshness_detail
+gpg_bash_lib_output_freshness_msg:
+$gpg_bash_lib_output_freshness_msg
+gpg_bash_lib_output_alright_status: $gpg_bash_lib_output_alright_status"
+
+   echo "$FUNCNAME: END"
+}
+
+your_script_begin
+verification
+your_script_output
