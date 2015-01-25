@@ -46,7 +46,7 @@ gpg_bash_lib_function_init() {
    gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime=""
    gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty=""
    gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime=""
-   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty=""
+   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty=""
    gpg_bash_lib_output_in_future_in_seconds=""
    gpg_bash_lib_output_in_future_output_pretty=""
    gpg_bash_lib_output_freshness_status=""
@@ -226,7 +226,7 @@ gpg_bash_lib_function_process() {
    gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime")"
 
    gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime="$(( $gpg_bash_lib_output_current_unixtime - $gpg_bash_lib_output_signed_on_unixtime ))"
-   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime")"
+   gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime")"
 
    gpg_bash_lib_output_in_future_in_seconds="$(( $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime - $gpg_bash_lib_input_maximum_age_in_seconds ))"
    gpg_bash_lib_output_in_future_output_pretty="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_in_future_in_seconds")"
@@ -268,7 +268,7 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
 - Signature Creation Date: $gpg_bash_lib_output_signed_on_date
 - Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock might be fast. (Could be at least $gpg_bash_lib_output_in_future_output_pretty fast.)
-- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago.
+- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago.
 - Extra: It might have been forgotten to refresh the signature (invalid since $gpg_bash_lib_output_in_future_output_pretty)."
       gpg_bash_lib_output_alright="false"
       return 0
@@ -281,7 +281,7 @@ Valid up to gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output $gpg_bash
 - Signature Creation Date: $gpg_bash_lib_output_signed_on_date
 - Current System Date    : $gpg_bash_lib_output_current_time
 - Local System Clock: Your clock seems okay.
-- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+- Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago."
       gpg_bash_lib_function_alright_maybe
       return 0
    fi

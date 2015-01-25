@@ -265,14 +265,14 @@ fi
 </pre>
 
 ===== <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime</tt> =====
-* possible values: An integer, that represents the Relative Signature Creation Time. See the example of <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty</tt> below to understand what it is doing. Can be used if <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>current</tt> or <tt>outdated.</tt>.
+* possible values: An integer, that represents the Relative Signature Creation Time. See the example of <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty</tt> below to understand what it is doing. Can be used if <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>current</tt> or <tt>outdated.</tt>.
 
-===== <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty</tt> =====
+===== <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty</tt> =====
 * possible values: A textual string, <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime</tt> converted to a pretty format. Can be used if <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>current</tt> or <tt>outdated.</tt>.
 * example usage:
 <pre>
 if [ "$gpg_bash_lib_output_freshness_detail" = "current" ] || [ "$gpg_bash_lib_output_freshness_detail" = "outdated" ]; then
-   echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+   echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago."
 fi
 </pre>
 
@@ -338,7 +338,7 @@ Either,
          ## ...
          ;;
       "current")
-         signature_creation_msg="According to your system clock, signatures was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+         signature_creation_msg="According to your system clock, signatures was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty ago."
          ## ...
          ;;
       *)
