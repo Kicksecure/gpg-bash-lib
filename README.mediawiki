@@ -191,7 +191,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * possible values: A textual string containing output of the <tt>gpg --import</tt> part.
 * recommendation: Since already included in <tt>gpg_bash_lib_output_diagnostic_message</tt>, you most likely will not need it.
 
-===== <tt>gpg_bash_lib_output_gpg_exit_code</tt> =====
+===== <tt>gpg_bash_lib_output_gpg_verify_exit_code</tt> =====
 * possible values: integer. The exit code of the <tt>gpg --verify</tt> action.
 * recommendation: Probably better not to rely on it for anything but debug output, since the unreliability of these codes is the reason this library has been implemented in the first place.
 * example value: <tt>0</tt>
@@ -416,7 +416,7 @@ Any operations that could take longer, such as the <tt>gpg --verify</tt> operati
 <pre>
 gpg ... &
 gpg_bash_lib_internal_gpg_verify_pid="$!"
-wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_exit_code="$?" ; true; };
+wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_verify_exit_code="$?" ; true; };
 </pre>
 
 This has the advantage, that your script can still react to any eventual trap's listening for example for signal SIGTERM.

@@ -30,7 +30,7 @@ gpg_bash_lib_function_init() {
    gpg_bash_lib_internal_gpg_verify_status_fd_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_verify_status_fd_file"
    gpg_bash_lib_internal_gpg_verify_output_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_verify_output_file"
    gpg_bash_lib_output_gpg_import_output=""
-   gpg_bash_lib_output_gpg_exit_code=""
+   gpg_bash_lib_output_gpg_verify_exit_code=""
    gpg_bash_lib_output_gpg_verify_output=""
    gpg_bash_lib_output_gpg_verify_status_fd_output=""
    gpg_bash_lib_output_signed_on_unixtime=""
@@ -119,7 +119,7 @@ gpg_bash_lib_function_verify() {
    gpg_bash_lib_output_maximum_age_in_seconds_pretty_output="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_input_maximum_age_in_seconds")"
 
    local gpg_bash_lib_internal_gpg_verify_pid
-   gpg_bash_lib_output_gpg_exit_code="0"
+   gpg_bash_lib_output_gpg_verify_exit_code="0"
 
    timeout \
       --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
@@ -135,7 +135,7 @@ gpg_bash_lib_function_verify() {
             &
 
    gpg_bash_lib_internal_gpg_verify_pid="$!"
-   wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_exit_code="$?" ; true; };
+   wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_verify_exit_code="$?" ; true; };
 
    ## `timeout` returns:
    ## - 124 if sigterm was sufficient
@@ -315,7 +315,7 @@ gpg_bash_lib_function_main_verify() {
    gpg_bash_lib_function_init
    gpg_bash_lib_function_import_keys_to_temp_dir
    gpg_bash_lib_function_verify
-   if [ ! "$gpg_bash_lib_output_gpg_exit_code" = "0" ]; then
+   if [ ! "$gpg_bash_lib_output_gpg_verify_exit_code" = "0" ]; then
       return 0
    fi
    gpg_bash_lib_function_parse_status_file
