@@ -229,7 +229,7 @@ echo "gpg_bash_lib_output_notation[file@name]: ${gpg_bash_lib_output_notation[$"
 * example usage:
 <pre>
 if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then
-   ## Notify about this situation.
+   echo 'Signature verification failed!' >&2
    exit 1
 fi
 </pre>
