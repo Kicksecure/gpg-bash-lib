@@ -242,6 +242,26 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * possible values: integer. The exit code of the <tt>gpg --verify</tt> action, most likely <tt>0</tt> or other exit codes such as <tt>1</tt>, or if timeout was reached, <tt>124</tt> if sending signal sigterm was sufficient or <tt>137</tt> if sending signal sigkill was required.
 * recommendation: Check if it is <tt>0</tt>, since other exit codes indicate failures or timeouts. Probably better not to rely on it for anything else but debug output, since the unreliability of gpg verify exit codes is the reason this library has been implemented in the first place.
 * example value: <tt>0</tt>
+* example usage:
+<pre>
+   case "$gpg_bash_lib_output_gpg_verify_exit_code" in
+      "0")
+         true
+         ;;
+      "124")
+         echo "Soft gpg verification timeout!" >&2
+         exit 1
+         ;;
+      "137")
+         echo "Hard gpg verification timeout!" >&2
+         exit 1
+         ;;
+      *)
+         error "gpg_bash_lib_output_gpg_verify_exit_code neither represents success nor timeout. It is: $gpg_bash_lib_output_gpg_verify_exit_code"
+         exit 125
+         ;;
+   esac
+</pre>
 
 ===== <tt>gpg_bash_lib_output_gpg_verify_output</tt> =====
 * possible values: A textual string containing output of the <tt>gpg --verify</tt> part.
