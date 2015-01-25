@@ -287,10 +287,10 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * example content: <tt>true</tt>
 * example usage:
 <pre>
-   echo "File name should be: ${gpg_bash_lib_output_notation[$"file@name"]}"
+   echo "File name is       : $(basename "$gpg_bash_lib_input_data_file")"
    case "$gpg_bash_lib_output_file_name_tampering" in
       "false")
-         echo "File name is       : $(basename "$gpg_bash_lib_input_data_file")"
+         echo "File name should be: ${gpg_bash_lib_output_notation[$"file@name"]}"
          echo 'File name okay, has not been tampered with.'
          ;;
       "missing")
@@ -298,7 +298,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
          exit 1
          ;;
       "true")
-         echo "File name is       : $(basename "$gpg_bash_lib_input_data_file")"
+         echo "File name should be: ${gpg_bash_lib_output_notation[$"file@name"]}"
          echo 'File name tampering detected!' >&2
          exit 1
          ;;
