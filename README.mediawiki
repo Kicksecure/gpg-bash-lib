@@ -36,9 +36,13 @@ Or see <tt>README_generic.md</tt>.
 See <tt>/usr/share/gpg-bash-lib/examples/</tt> folder.
 
 === Mini Demo ===
+After installation, if you would run the following command.
+
 <pre>
 /usr/share/gpg-bash-lib/examples/one
 </pre>
+
+You would see the following output.
 
 <pre>
 your_script_begin: ...
@@ -65,6 +69,9 @@ gpg_bash_lib_output_freshness_msg:
 gpg_bash_lib_output_alright_status: true
 your_script_output: END
 </pre>
+
+All information (Signature Creation Date, etc.) are easily accessible through
+separate variables, which are all documented below.
 
 == Theoretical ==
 
