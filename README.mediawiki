@@ -115,19 +115,19 @@ Set at least all required <tt>gpg_bash_lib_input_*</tt> variables, that are docu
 * example: <tt>gpg_bash_lib_input_error_handler_extra='error_handler'</tt>
 * example: <tt>gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'</tt>
 
-===== <tt>gpg_bash_lib_input_verifiy_timeout_after</tt> =====
+===== <tt>gpg_bash_lib_input_verify_timeout_after</tt> =====
 * description: After how many seconds a gpg verification attempt should be forced timeout. Sends signal SIGTERM to gpg. Useful to defeat an endless data attacks or bugs. Increase this value when you are working with bigger files and/or slow systems.
 * required: no
 * defaults to: 10
 * expected value: integer
-* example: <tt>gpg_bash_lib_input_verifiy_timeout_after=120</tt>
+* example: <tt>gpg_bash_lib_input_verify_timeout_after=120</tt>
 
 ===== <tt>gpg_bash_lib_input_verify_kill_after</tt> =====
 * description: After how many seconds, if gpg did not react to SIGTERM due to timeout (see above), signal SIGKILL should be used. Useful to defeat an endless data attacks or bugs.
 * required: no
 * defaults to: 10
 * expected value: integer
-* example: <tt>gpg_bash_lib_input_verifiy_timeout_after=20</tt>
+* example: <tt>gpg_bash_lib_input_verify_timeout_after=20</tt>
 
 ===== <tt>gpg_bash_lib_input_maximum_age_in_seconds</tt> =====
 * description: After how many seconds, a signature is considered outdated. gpg adds the creation time of the signature (Signature Creation Date) to every signature. That value is detected (see also variables <tt>gpg_bash_lib_output_signed_on_unixtime</tt> and <tt>gpg_bash_lib_output_signed_on_date</tt> below) and compared against this variable.

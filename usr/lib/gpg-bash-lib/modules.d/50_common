@@ -106,7 +106,7 @@ gpg_bash_lib_function_verify() {
    test -f "$gpg_bash_lib_input_data_file"
    test -f "$gpg_bash_lib_input_sig_file"
 
-   [ -n "$gpg_bash_lib_input_verifiy_timeout_after" ] || gpg_bash_lib_input_verifiy_timeout_after="10"
+   [ -n "$gpg_bash_lib_input_verify_timeout_after" ] || gpg_bash_lib_input_verify_timeout_after="10"
    [ -n "$gpg_bash_lib_input_verify_kill_after" ] || gpg_bash_lib_input_verify_kill_after="10"
    ## Up to 30 minutes lenient about slow clocks by default.
    [ -n "$gpg_bash_lib_input_slow_clock_lenient_up_to_seconds" ] || gpg_bash_lib_input_slow_clock_lenient_up_to_seconds="$(( 30 * 60 ))"
@@ -122,7 +122,7 @@ gpg_bash_lib_function_verify() {
    gpg_bash_lib_output_gpg_exit_code="0"
 
    timeout \
-      --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verifiy_timeout_after" \
+      --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
          gpg \
             --no-options \
             --status-file "$gpg_bash_lib_internal_gpg_verify_status_fd_file" \
