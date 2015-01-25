@@ -33,14 +33,25 @@ It is assumed, that your script downloaded a data file as well as a signature fi
 
 It is highly recommended that you <tt>set -e</tt> or set up your own ERR trap before you run
 
-<pre>source "/usr/lib/gpg-bash-lib/source_all"</pre>
+<pre>
+source "/usr/lib/gpg-bash-lib/source_all"
+</pre>
+
 A prerequisite is that you set
 
-<tt>set -o pipefail set -o errtrace</tt> in your script before during execution of this library. This is a good practice anyhow.
+<pre>
+set -o pipefail
+set -o errtrace
+</pre>
+
+in your script before during execution of this library. This is a good practice anyhow.
 
 Before execution of this library, enable the ERR trap that it provides.
 
-<pre>trap "gpg_bash_lib_function_error_handler" ERR</pre>
+<pre>
+trap "gpg_bash_lib_function_error_handler" ERR
+</pre>
+
 Feel free to undo these error handling mechanisms (<tt>set</tt> and trap ERR), if you must, after execution of this library.
 
 You configure that ERR trap to <tt>eval</tt>uate your own error handler through the variable <tt>gpg_bash_lib_input_error_handler_extra</tt>, which is documented below. Alternatively, you could just look at the <tt>gpg_bash_lib_function_error_handler</tt> function and implement your own ERR trap after <tt>source</tt>ing this library.
@@ -206,7 +217,13 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * possible values: <tt>true</tt> (successful verification) or <tt>""</tt> (unsuccessful verification).
 * recommendation: Check if its value is <tt>true</tt>. Abort otherwise.
 * example content: <tt>true</tt>
-* example usage: <tt>if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then    ## Notify about this situation.    exit 1 fi</tt>
+* example usage:
+<pre>
+if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then
+   ## Notify about this situation.
+   exit 1
+fi
+</pre>
 
 ===== <tt>gpg_bash_lib_output_validsig_fingerprint_in_hex</tt> =====
 * possible values: The fingerprint of the key that signed the file in hex or <tt>""</tt> in case of unsuccessful verification.
@@ -224,14 +241,24 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 
 ===== <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty</tt> =====
 * possible values: A textual string, <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime</tt> converted to a pretty format. Can be used when <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>slow</tt> or <tt>lenient</tt>.
-* example usage: <tt>if [ "$gpg_bash_lib_output_freshness_detail" = "slow" ] || [ "$gpg_bash_lib_output_freshness_detail" = "lenient" ]; then    echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time." fi</tt>
+* example usage:
+<pre>
+if [ "$gpg_bash_lib_output_freshness_detail" = "slow" ] || [ "$gpg_bash_lib_output_freshness_detail" = "lenient" ]; then
+   echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty before current time."
+fi
+</pre>
 
 ===== <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime</tt> =====
 * possible values: An integer, that represents the Relative Signature Creation Time. See the example of <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty</tt> below to understand what it is doing. Can be used if <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>current</tt> or <tt>outdated.</tt>.
 
 ===== <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty</tt> =====
 * possible values: A textual string, <tt>gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime</tt> converted to a pretty format. Can be used if <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>current</tt> or <tt>outdated.</tt>.
-* example usage: <tt>if [ "$gpg_bash_lib_output_freshness_detail" = "current" ] || [ "$gpg_bash_lib_output_freshness_detail" = "outdated" ]; then    echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago." fi</tt>
+* example usage:
+<pre>
+if [ "$gpg_bash_lib_output_freshness_detail" = "current" ] || [ "$gpg_bash_lib_output_freshness_detail" = "outdated" ]; then
+   echo "Relative Signature Creation Time: According to your system clock, signature was created $gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty ago."
+fi
+</pre>
 
 ===== <tt>gpg_bash_lib_output_in_future_in_seconds</tt> =====
 * possible values: In case of <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>outdated</tt>, it contains an estimation how many seconds the clock might be fast.
@@ -291,7 +318,13 @@ Either,
 
 ===== <tt>gpg_bash_lib_output_alright</tt> =====
 * possible values: <tt>""</tt>, <tt>true</tt> (if all checks succeeded) or <tt>false</tt> (if at least one check failed, such as if <tt>gpg_bash_lib_input_file_name_enforce</tt> was set to <tt>true</tt>, but verification of the name of the file failed or if the signature was not considered fresh).
-* example usage: <tt>if [ ! "$gpg_bash_lib_output_alright" = "true" ]; then    ## ...    exit 1 fi</tt>
+* example usage:
+<pre>
+if [ ! "$gpg_bash_lib_output_alright" = "true" ]; then
+   ## ...
+   exit 1
+fi
+</pre>
 
 === File Name Verification ===
 
