@@ -215,7 +215,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * example content: <tt>test-file</tt>
 * example use:
 <pre>
-echo "${gpg_bash_lib_output_notation[$"file@name"]}"
+echo "gpg_bash_lib_output_notation[file@name]: ${gpg_bash_lib_output_notation[$"file@name"]}"
 </pre>
 
 ===== <tt>gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output</tt> =====
