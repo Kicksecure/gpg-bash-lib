@@ -241,7 +241,7 @@ if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then
 fi
 </pre>
 
-===== <tt>gpg_bash_lib_output_validsig_fingerprint_in_hex</tt> =====
+===== <tt>gpg_bash_lib_output_fingerprint_in_hex</tt> =====
 * possible values: The fingerprint of the key that signed the file in hex or <tt>""</tt> in case of unsuccessful verification.
 * recommendation: May or may not be useful to show this value in your script (in verbose mode). Since we expect a separate folder that contains the only keys that will be accepted (see variable <tt>gpg_bash_lib_input_key_import_dir</tt>), it seems unnecessary to check for the fingerprint.
 * example content: <tt>F38633B0A3F06A55CC0076C81081641AC4D57DB9</tt>

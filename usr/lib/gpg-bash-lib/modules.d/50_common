@@ -40,7 +40,7 @@ gpg_bash_lib_function_init() {
    declare -A -g gpg_bash_lib_output_notation
    gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output=""
    gpg_bash_lib_output_validsig=""
-   gpg_bash_lib_output_validsig_fingerprint_in_hex=""
+   gpg_bash_lib_output_fingerprint_in_hex=""
    gpg_bash_lib_output_current_unixtime=""
    gpg_bash_lib_output_current_time=""
    gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime=""
@@ -176,7 +176,7 @@ gpg_bash_lib_function_parse_status_file() {
       true "one: $one | two: $two | three: $three | four: $four | five: $five"
       if [ "$two" = "VALIDSIG" ]; then
          gpg_bash_lib_output_validsig="true"
-         gpg_bash_lib_output_validsig_fingerprint_in_hex="$three"
+         gpg_bash_lib_output_fingerprint_in_hex="$three"
          gpg_bash_lib_output_signed_on_unixtime="$five"
       fi
       if [ "$two" = "NOTATION_NAME" ]; then
