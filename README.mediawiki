@@ -33,14 +33,12 @@ Or see <tt>README_generic.md</tt>.
 == Practical ==
 
 === Examples ===
-See <tt>/usr/share/gpg-bash-lib/examples/</tt> folder.
+See [https://github.com/Whonix/gpg-bash-lib/blob/master/usr/share/gpg-bash-lib/examples/ <tt>/usr/share/gpg-bash-lib/examples/</tt>] folder.
 
 === Mini Demo ===
 After installation, if you would run the following command.
 
-<pre>
-/usr/share/gpg-bash-lib/examples/one
-</pre>
+[https://github.com/Whonix/gpg-bash-lib/blob/master/usr/share/gpg-bash-lib/examples/one <tt>/usr/share/gpg-bash-lib/examples/one</tt>]
 
 You would see the following output.
 
