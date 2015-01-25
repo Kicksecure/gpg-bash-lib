@@ -32,6 +32,12 @@ UNFINISHED!
 
 ## Theoretical ##
 ### Introduction ###
+It is assumed, that your script downloaded a data file as well as a signature
+file. A separate folder containing the keys that are supposed to be used for
+gpg verification, such as for example `/usr/share/program-name/signing-keys.d`
+is required as a prerequisite. You can then use this library to do the gpg
+verification for you.
+
 It is highly recommended that you `set -e` or set up your own ERR trap before
 you run
 
@@ -173,6 +179,33 @@ failed.
 `gpg_bash_lib_output_diagnostic_message`
 * possible values: A verbose diagnostic textual string.
 * recommendation: Display this value when running your script in verbose mode.
+* example content:
+```
+gpg_bash_lib_internal_gpg_verify_status_fd_file: /tmp/tmp.lZDa3dOyUr/gpg_bash_lib_internal_gpg_verify_status_fd_file
+gpg_bash_lib_internal_gpg_verify_output_file: /tmp/tmp.lZDa3dOyUr/gpg_bash_lib_internal_gpg_verify_output_file
+gpg_bash_lib_output_gpg_import_output:
+gpg: keyring `/tmp/tmp.lZDa3dOyUr/secring.gpg' created
+gpg: keyring `/tmp/tmp.lZDa3dOyUr/pubring.gpg' created
+gpg: /tmp/tmp.lZDa3dOyUr/trustdb.gpg: trustdb created
+gpg: key 01C1FA07: public key "auto generated local signing key <auto@local-signing.key>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg_bash_lib_output_gpg_verify_output:
+gpg: Signature made Wed 25 Feb 2015 12:17:44 AM UTC using RSA key ID 8006F538
+gpg: Good signature from "auto generated local signing key <auto@local-signing.key>"
+gpg: Signature notation: file@name=test-file
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: EB53 FEB4 7F25 ED3B 22F6  7D8B 87A3 BF01 01C1 FA07
+     Subkey fingerprint: E0A4 BE54 D1D8 1354 17FB  1CC2 42B6 02D3 8006 F538
+gpg_bash_lib_output_gpg_verify_status_fd_output:
+[GNUPG:] SIG_ID wW/AZUo5pHeQTTOWMwGTynGlLXQ 2015-02-25 1424823464
+[GNUPG:] GOODSIG 42B602D38006F538 auto generated local signing key <auto@local-signing.key>
+[GNUPG:] NOTATION_NAME file@name
+[GNUPG:] NOTATION_DATA test-file
+[GNUPG:] VALIDSIG E0A4BE54D1D8135417FB1CC242B602D38006F538 2015-02-25 1424823464 0 4 0 1 2 00 EB53FEB47F25ED3B22F67D8B87A3BF0101C1FA07
+[GNUPG:] TRUST_UNDEFINED
+```
 
 `gpg_bash_lib_output_gpg_import_output`
 * possible values: A textual string containing output of the `gpg --import`
@@ -182,7 +215,10 @@ part.
 
 `gpg_bash_lib_output_gpg_exit_code`
 * possible values: integer. The exit code of the `gpg --verify` action.
-* recommendation:
+* recommendation: Probably better not to rely on it for anything but debug
+output, since the unreliability of these codes is the reason this library
+has been implemented in the first place.
+* example value: `0`
 
 `gpg_bash_lib_output_gpg_verify_output`
 * possible values: A textual string containing output of the `gpg --verify`
@@ -245,7 +281,9 @@ fi
 * possible values: The fingerprint of the key that signed the file in hex or
 `""` in case of unsuccessful verification.
 * recommendation: May or may not be useful to show this value in your script
-(in verbose mode).
+(in verbose mode). Since we expect a separate folder that contains the only
+keys that will be accepted (see variable `gpg_bash_lib_input_key_import_dir`),
+it seems unnecessary to check for the fingerprint.
 * example content: `F38633B0A3F06A55CC0076C81081641AC4D57DB9`
 
 `gpg_bash_lib_output_current_unixtime`
