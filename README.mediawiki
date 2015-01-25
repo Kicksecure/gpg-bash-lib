@@ -229,13 +229,13 @@ echo "gpg_bash_lib_output_notation[file@name]: ${gpg_bash_lib_output_notation[$"
 * possible value: Textual string containing the duration of how lenient the clock leniency check is. (Contains the result of the conversion of <tt>gpg_bash_lib_input_slow_clock_lenient_up_to_seconds</tt> to a pretty format.)
 * example content: <tt>30 minutes</tt>
 
-===== <tt>gpg_bash_lib_output_validsig</tt> =====
+===== <tt>gpg_bash_lib_output_validsig_status</tt> =====
 * possible values: <tt>true</tt> (successful verification) or <tt>""</tt> (unsuccessful verification).
 * recommendation: Check if its value is <tt>true</tt>. Abort otherwise.
 * example content: <tt>true</tt>
 * example usage:
 <pre>
-if [ ! "$gpg_bash_lib_output_validsig" = "true" ]; then
+if [ ! "$gpg_bash_lib_output_validsig_status" = "true" ]; then
    echo 'Signature verification failed!' >&2
    exit 1
 fi
