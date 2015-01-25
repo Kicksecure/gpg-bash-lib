@@ -257,7 +257,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
          exit 1
          ;;
       *)
-         error "gpg_bash_lib_output_gpg_verify_exit_code neither represents success nor timeout. It is: $gpg_bash_lib_output_gpg_verify_exit_code"
+         echo "gpg_bash_lib_output_gpg_verify_exit_code neither represents success nor timeout. It is: $gpg_bash_lib_output_gpg_verify_exit_code" >&2
          exit 125
          ;;
    esac
@@ -305,7 +305,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
          exit 1
          ;;
       *)
-         error "gpg_bash_lib_output_file_name_tampering neither represents false, missing, nor success. It is: $gpg_bash_lib_output_gpg_verify_exit_code"
+         echo "gpg_bash_lib_output_file_name_tampering neither represents false, missing, nor success. It is: $gpg_bash_lib_output_gpg_verify_exit_code" >&2
          exit 125
          ;;
    esac
@@ -436,8 +436,7 @@ Either,
          ## ...
          ;;
       *)
-         error "gpg_bash_lib_output_freshness_detail is neither lenient, nor slow, nor outdated, nor current, it is: $gpg_bash_lib_output_freshness_detail"
-         ## ...
+         echo "gpg_bash_lib_output_freshness_detail is neither lenient, nor slow, nor outdated, nor current, it is: $gpg_bash_lib_output_freshness_detail" >&2
          exit 125
          ;;
    esac
