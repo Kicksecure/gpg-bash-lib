@@ -96,19 +96,19 @@ Set at least all required <tt>gpg_bash_lib_input_*</tt> variables, that are docu
 * example: <tt>gpg_bash_lib_input_cleanup=true</tt>
 
 ===== <tt>gpg_bash_lib_input_data_file</tt> =====
-* description: The file that is supposed to be verified.
+* description: The data file that is supposed to be verified.
 * required: yes
 * expected value: <tt>/path/to/file</tt>
 * example: <tt>gpg_bash_lib_input_data_file=/home/user/some-file.tar.gz</tt>
 
 ===== <tt>gpg_bash_lib_input_sig_file</tt> =====
-* description: The signature that is supposed to be verified.
+* description: The signature file that is supposed to be verified.
 * required: yes
 * expected value: <tt>/path/to/file</tt>
 * example: <tt>gpg_bash_lib_input_data_file=/home/user/some-file.tar.gz.asc</tt>
 
 ===== <tt>gpg_bash_lib_input_error_handler_extra</tt> =====
-* description: The signature that is supposed to be verified.
+* description: Custom error handler function you may wish to invoke in case the ERR trap function <tt>gpg_bash_lib_function_error_handler</tt> gets ever hit.
 * required: no
 * defaults to: none
 * expected value: A command or bash function name.
