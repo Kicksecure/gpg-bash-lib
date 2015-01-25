@@ -85,7 +85,7 @@ gpg_bash_lib_function_unit_test_testrun_common() {
    gpg_bash_lib_input_cleanup="true"
    gpg_bash_lib_input_data_file="$gpg_bash_lib_unit_test_homedir/test-file"
    gpg_bash_lib_input_sig_file="$gpg_bash_lib_unit_test_homedir/test-file.asc"
-   ## gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
+   ## gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_error_handler_message"'
 
    gpg_bash_lib_function_main_verify
 
@@ -145,7 +145,7 @@ gpg_bash_lib_function_unit_test_testrun_4() {
    gpg_bash_lib_function_unit_test_testrun_common
 }
 
-#gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
+#gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_error_handler_message"'
 #non-existent
 
 gpg_bash_lib_function_unit_test_sanity_tests
