@@ -208,7 +208,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * example content: <tt>Wed Dec 24 21:35:19 UTC 2014</tt>
 
 ===== <tt>gpg_bash_lib_output_file_name_tampering</tt> =====
-* possible values: Set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) or "" (not in use, not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>) accordingly.
+* possible values: Set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) or <tt>""</tt> (not in use, not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>) accordingly.
 
 ===== <tt>gpg_bash_lib_output_notation["file@name"]</tt> =====
 * possible values: name of file that was signed or <tt>""</tt> if not in use (not using <tt>gpg_bash_lib_input_file_name_enforce=true</tt>).
