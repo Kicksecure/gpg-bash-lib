@@ -195,7 +195,7 @@ gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_erro
 ===== <tt>gpg_bash_lib_output_failure_status</tt> =====
 * possible values: <tt>""</tt> or <tt>true</tt>
 * recommendation: Make sure to check for this value! Since the trap <tt>gpg_bash_lib_function_error_handler</tt> has been invoked, something unexpected, a bug has occurred. Regard this as verification failed.
-* example useage:
+* example usage:
 <pre>
 if [ "$gpg_bash_lib_output_failure_status" = "true" ]; then
    echo 'Fatal signature verification error! Report this bug!' >&2
