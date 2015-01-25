@@ -338,7 +338,7 @@ According to your system clock, signature was created $gpg_bash_lib_output_signe
 Either,
 - your clock might be fast (at least $gpg_bash_lib_output_in_future_pretty_output fast). $clock_hint
 - there is really no newer signature yet. Signature is really older than $gpg_bash_lib_output_maximum_age_pretty_output. already. (Older than $gpg_bash_lib_output_in_future_pretty_output already.)
-- this is a $SCRIPTNAME bug
+- this is a $0 bug
 - this is an attack"
          ## ...
          ;;
