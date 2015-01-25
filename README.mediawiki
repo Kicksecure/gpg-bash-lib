@@ -82,7 +82,7 @@ Set at least all required <tt>gpg_bash_lib_input_*</tt> variables, that are docu
 * example: <tt>gpg_bash_lib_input_key_import_dir=/usr/share/program-name/signing-keys.d</tt>
 
 ===== <tt>gpg_bash_lib_input_file_name_enforce</tt> =====
-* description: Enforce, that the name of the file is stored in the <tt>file@name</tt> OpenPGP notation and matches the actual file name. If enabled, <tt>gpg_bash_lib_output_alright_status</tt> will be set to <tt>true</tt> if it matches. Otherwise to false. Rather <tt>gpg_bash_lib_output_file_name_tampering</tt> will be set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) accordingly.
+* description: Enforce, that the name of the file is stored in the <tt>file@name</tt> OpenPGP notation and matches the actual file name. If enabled, <tt>gpg_bash_lib_output_alright_status</tt> will be set to <tt>true</tt> if it matches. Otherwise to <tt>false</tt>. Rather <tt>gpg_bash_lib_output_file_name_tampering</tt> will be set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) accordingly.
 * required: no
 * defaults to: disabled by default
 * expected value: <tt>true</tt> or <tt>false</tt>
