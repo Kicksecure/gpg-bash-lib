@@ -25,6 +25,12 @@ Writing bash scripts that do file verification using gpg that really is secure a
 
 UNFINISHED!
 
+== Practical ==
+
+TODO: Write <tt>usr/share/gpg-bash-lib/examples/...</tt>.
+
+See also <tt>usr/share/gpg-bash-lib/unit_test</tt>.
+
 == Theoretical ==
 
 === Introduction ===
@@ -389,12 +395,6 @@ wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_exit_c
 </pre>
 
 This has the advantage, that your script can still react to any eventual trap's listening for example for signal SIGTERM.
-
-== Practical ==
-
-TODO: Write <tt>usr/share/gpg-bash-lib/examples/...</tt>.
-
-See also <tt>usr/share/gpg-bash-lib/unit_test</tt>.
 
 = Alternatives =
 
