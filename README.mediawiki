@@ -112,8 +112,15 @@ Set at least all required <tt>gpg_bash_lib_input_*</tt> variables, that are docu
 * required: no
 * defaults to: none
 * expected value: A command or bash function name.
-* example: <tt>gpg_bash_lib_input_error_handler_extra='error_handler'</tt>
-* example: <tt>gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'</tt>
+* example usage:
+
+<pre>
+gpg_bash_lib_input_error_handler_extra='error_handler'
+</pre>
+
+<pre>
+gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_message"'
+</pre>
 
 ===== <tt>gpg_bash_lib_input_verify_timeout_after</tt> =====
 * description: After how many seconds a gpg verification attempt should be forced timeout. Sends signal SIGTERM to gpg. Useful to defeat an endless data attacks or bugs. Increase this value when you are working with bigger files and/or slow systems.
