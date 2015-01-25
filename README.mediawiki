@@ -239,13 +239,8 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 * recommendation: Since already included in <tt>gpg_bash_lib_output_diagnostic_message</tt>, you most likely will not need it.
 
 ===== <tt>gpg_bash_lib_output_gpg_verify_exit_code</tt> =====
-* possible values: integer. The exit code of the <tt>gpg --verify</tt> action,
-most likely <tt>0</tt> or other exit codes such as <tt>1</tt>, or if timeout was reached,
-<tt>124</tt> if sending signal sigterm was sufficient or <tt>137</tt> if sending signal
-sigkill was required.
-* recommendation: Check if it is <tt>0</tt>, since other exit codes indicate failures
-or timeouts.
-Probably better not to rely on it for anything else but debug output, since the unreliability of gpg verify exit codes is the reason this library has been implemented in the first place.
+* possible values: integer. The exit code of the <tt>gpg --verify</tt> action, most likely <tt>0</tt> or other exit codes such as <tt>1</tt>, or if timeout was reached, <tt>124</tt> if sending signal sigterm was sufficient or <tt>137</tt> if sending signal sigkill was required.
+* recommendation: Check if it is <tt>0</tt>, since other exit codes indicate failures or timeouts. Probably better not to rely on it for anything else but debug output, since the unreliability of gpg verify exit codes is the reason this library has been implemented in the first place.
 * example value: <tt>0</tt>
 
 ===== <tt>gpg_bash_lib_output_gpg_verify_output</tt> =====
