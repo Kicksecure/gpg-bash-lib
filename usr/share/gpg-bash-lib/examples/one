@@ -19,6 +19,7 @@ your_script_begin() {
 }
 
 verification() {
+   echo "$FUNCNAME: BEGIN"
    gpg_bash_lib_input_key_import_dir="/usr/share/gpg-bash-lib/misc/gpg-test-pub-key.d"
    gpg_bash_lib_input_file_name_enforce="true"
    gpg_bash_lib_input_cleanup="true"
@@ -32,9 +33,10 @@ verification() {
    gpg_bash_lib_function_main_verify
 
    trap "your_error_handler" ERR
+   echo "$FUNCNAME: END"
 }
 
-your_script_end() {
+your_script_output() {
    echo "$FUNCNAME: BEGIN"
    echo "\
 gpg_bash_lib_output_failure_status: $gpg_bash_lib_output_failure_status
@@ -53,10 +55,6 @@ gpg_bash_lib_output_alright_status: $gpg_bash_lib_output_alright_status"
    echo "$FUNCNAME: END"
 }
 
-main() {
-   your_script_begin
-   verification
-   your_script_end
-}
-
-main
+your_script_begin
+verification
+your_script_output
