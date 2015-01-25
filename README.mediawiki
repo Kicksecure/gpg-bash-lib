@@ -293,7 +293,11 @@ fi
 
 ===== <tt>gpg_bash_lib_output_freshness_detail</tt> =====
 * description: A string, that contains the result of the comparison of the local clock (unixtime) with the signature creation date (unixtime).
-* possible values: ''* <tt>lenient</tt> (Signature is not yet valid, still within accepted range.)''* <tt>slow</tt> (Signature is not yet valid.) ''* <tt>outdated</tt> (Signature is no longer valid (outdated).)''* <tt>current</tt> (Signature is current.)
+* possible values:
+** <tt>lenient</tt> (Signature is not yet valid, still within accepted range.)
+** <tt>slow</tt> (Signature is not yet valid.)
+** <tt>outdated</tt> (Signature is no longer valid (outdated).)
+** <tt>current</tt> (Signature is current.)
 * recommended action:
 * example usage:
 <pre>
