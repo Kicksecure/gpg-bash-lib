@@ -10,7 +10,7 @@ gpg_bash_lib_function_error_handler() {
 Please report this bug!
 BASH_COMMAND: $BASH_COMMAND
 exit_code: $gpg_bash_lib_output_error_handler_last_failed_exit_code"
-   gpg_bash_lib_output_failure="true"
+   gpg_bash_lib_output_failure_status="true"
    gpg_bash_lib_function_diagnostic_message
    gpg_bash_lib_output_error_handler_message="\
 $gpg_bash_lib_output_error_handler_message
@@ -25,7 +25,7 @@ $gpg_bash_lib_output_diagnostic_message"
 
 gpg_bash_lib_function_init() {
    [ -n "$gpg_bash_lib_input_temp_folder" ] || gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
-   gpg_bash_lib_output_failure=""
+   gpg_bash_lib_output_failure_status=""
    gpg_bash_lib_output_diagnostic_message=""
    gpg_bash_lib_internal_gpg_verify_status_fd_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_verify_status_fd_file"
    gpg_bash_lib_internal_gpg_verify_output_file="$gpg_bash_lib_input_temp_folder/gpg_bash_lib_internal_gpg_verify_output_file"

@@ -90,7 +90,7 @@ gpg_bash_lib_function_unit_test_testrun_common() {
    gpg_bash_lib_function_main_verify
 
    echo "\
-gpg_bash_lib_output_failure: $gpg_bash_lib_output_failure
+gpg_bash_lib_output_failure_status: $gpg_bash_lib_output_failure_status
 gpg_bash_lib_output_gpg_verify_exit_code: $gpg_bash_lib_output_gpg_verify_exit_code
 gpg_bash_lib_output_validsig: $gpg_bash_lib_output_validsig
 gpg_bash_lib_output_validsig_fingerprint_in_hex: $gpg_bash_lib_output_validsig_fingerprint_in_hex
