@@ -294,6 +294,8 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
          echo 'File name okay, has not been tampered with.'
          ;;
       "missing")
+         ## Not trying to access ${gpg_bash_lib_output_notation[$"file@name"]},
+         ## because that variable does not exist then.
          echo 'File name tampering detected! file@name OpenPGP notation missing!' >&2
          exit 1
          ;;
