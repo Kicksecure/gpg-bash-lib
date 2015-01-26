@@ -1,6 +1,15 @@
 = Why =
 
-Writing bash scripts that do file verification using gpg that really is secure and passes a comprehensive threat model (that covers indefinite freeze, rollback, endless data attacks, etc.) is hard. gpg-bash-lib's goal is to provide a bash library that we can collaboratively develop, audit and abstract the hard work into reuseable functions.
+Writing bash scripts that do file verification using gpg that really is secure
+and passes a comprehensive threat model, that covers indefinite freeze,
+rollback, endless data attacks, etc. is hard.
+
+gpg-bash-lib's goal is to provide a bash library that we can collaboratively
+develop, audit and abstract the hard work into reuseable functions.
+
+(For a definition of these attacks, see
+[https://www.updateframework.com TUF] ([https://github.com/theupdateframework/tuf The Update Framework])'s
+[https://github.com/theupdateframework/tuf/blob/develop/SECURITY.md threat model] ([http://www.webcitation.org/6F7Io2ncN w]).)
 
 = What does it do =
 
@@ -26,7 +35,7 @@ Writing bash scripts that do file verification using gpg that really is secure a
 sudo make install
 </pre>
 
-Or see <tt>README_generic.md</tt>.
+Or see [https://github.com/Whonix/gpg-bash-lib/blob/master/README_generic.md <tt>README_generic.md</tt>].
 
 = Usage =
 
@@ -71,6 +80,11 @@ your_script_output: END
 All information (Signature Creation Date, etc.) are easily accessible through
 separate variables, which are all documented below.
 
+== Example Implementations ==
+
+* [https://github.com/Whonix/whonixcheck whonixcheck] See function [https://github.com/Whonix/whonixcheck/blob/fd60ad1c09d3681fd15c1370d1fbf3a9ba854aad/usr/lib/whonixcheck/check_news#L122 verify_whonix_news].
+* [https://github.com/Whonix/tb-updater tb-updater]: See function [https://github.com/Whonix/tb-updater/blob/95d0ce13c601cb62d5f70b06dd80eb92d857cfbe/usr/bin/update-torbrowser#L901 tb_gpg_verify] and function [https://github.com/Whonix/tb-updater/blob/95d0ce13c601cb62d5f70b06dd80eb92d857cfbe/usr/bin/update-torbrowser#L644 tb_confirm_update].
+
 == Theoretical ==
 
 === Introduction ===
@@ -103,6 +117,8 @@ Feel free to undo these error handling mechanisms (<tt>set</tt> and trap ERR), i
 You configure that ERR trap to <tt>eval</tt>uate your own error handler through the variable <tt>gpg_bash_lib_input_error_handler_extra</tt>, which is documented below. Alternatively, you could just look at the <tt>gpg_bash_lib_function_error_handler</tt> function and implement your own ERR trap after <tt>source</tt>ing this library.
 
 Set at least all required <tt>gpg_bash_lib_input_*</tt> variables, that are documented below. Then run the main function <tt>gpg_bash_lib_function_main_verify</tt> (or just one function you wish to use). Then enjoy the <tt>gpg_bash_lib_output_*</tt> variables, that this library has set for you.
+
+If you wish to run <tt>gpg_bash_lib_function_main_verify</tt> another time, store the variables you want to keep in variables of your own, because they will be overridden on subsequent runs.
 
 === Variables ===
 
@@ -490,6 +506,10 @@ The above tip will not work for initial signature downloads. Therefore consider 
 ==== Abstract it! ====
 
 Like the two above tips? We should abstract that code as well. Interested to implement it into gpg-bash-lib?
+
+==== Signature Freshness Updating ====
+
+If you are the one providing the signatures, if there are no new releases, often recreate and reupload them to refresh the signature creation date.
 
 === Library Conventions ===
 
