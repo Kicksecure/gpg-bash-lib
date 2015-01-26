@@ -443,7 +443,7 @@ Either,
 </pre>
 
 ===== <tt>gpg_bash_lib_output_freshness_msg</tt> =====
-* possible values: A textual string, that contains diagnostic output, that puts <tt>gpg_bash_lib_output_freshness_detail</tt> into more details, developers speech, that may or may not be useful to show in your script [when in verbose mode].
+* possible values: A textual string, that contains diagnostic output, that puts <tt>gpg_bash_lib_output_freshness_detail</tt> into more details, developers speech, that may or may not be useful to show in your script (when in verbose mode).
 
 ===== <tt>gpg_bash_lib_output_maximum_age_pretty_output</tt> =====
 * possible values: A textual string, <tt>gpg_bash_lib_input_maximum_age_in_seconds</tt> converted into a pretty format.
