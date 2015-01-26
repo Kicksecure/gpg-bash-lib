@@ -82,7 +82,7 @@ separate variables, which are all documented below.
 
 == Example Implementations ==
 
-* [https://github.com/Whonix/whonixcheck whonixcheck] See function [https://github.com/Whonix/whonixcheck/blob/fd60ad1c09d3681fd15c1370d1fbf3a9ba854aad/usr/lib/whonixcheck/check_news#L122 verify_whonix_news].
+* [https://github.com/Whonix/whonixcheck whonixcheck]: See function [https://github.com/Whonix/whonixcheck/blob/fd60ad1c09d3681fd15c1370d1fbf3a9ba854aad/usr/lib/whonixcheck/check_news#L122 verify_whonix_news].
 * [https://github.com/Whonix/tb-updater tb-updater]: See function [https://github.com/Whonix/tb-updater/blob/95d0ce13c601cb62d5f70b06dd80eb92d857cfbe/usr/bin/update-torbrowser#L901 tb_gpg_verify] and function [https://github.com/Whonix/tb-updater/blob/95d0ce13c601cb62d5f70b06dd80eb92d857cfbe/usr/bin/update-torbrowser#L644 tb_confirm_update].
 
 == Theoretical ==
