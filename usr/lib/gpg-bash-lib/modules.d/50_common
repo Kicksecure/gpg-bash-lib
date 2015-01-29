@@ -190,6 +190,8 @@ gpg_bash_lib_function_parse_status_file() {
    ## KEYEXPIRED -> not useful as per gnupg documentation DETAILS file
    ## SIGEXPIRED -> deprecated as per gnupg documentation DETAILS file
 
+   ## EXPKEYSIG -> useful -> TODO
+
    ## Quote Werner Koch [1]:
    ## "there is no clear distinction between the codes and for proper error
    ## reporting you are advised to use the --status-fd messages."
