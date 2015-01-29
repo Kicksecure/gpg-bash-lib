@@ -58,6 +58,7 @@ verification: END
 your_script_output: BEGIN
 gpg_bash_lib_output_failure_status: false
 gpg_bash_lib_output_gpg_verify_exit_code: 0
+gpg_bash_lib_output_goodsig_status: true
 gpg_bash_lib_output_validsig_status: true
 gpg_bash_lib_output_fingerprint_in_hex: 5E08605EBEA0FE88695DCB88FD0A8B4171DFE4E4
 gpg_bash_lib_output_signed_on_unixtime: 1422049448
@@ -338,6 +339,18 @@ echo "gpg_bash_lib_output_notation[file@name]: ${gpg_bash_lib_output_notation[$"
 ===== <tt>gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output</tt> =====
 * possible value: Textual string containing the duration of how lenient the clock leniency check is. (Contains the result of the conversion of <tt>gpg_bash_lib_input_slow_clock_lenient_up_to_seconds</tt> to a pretty format.)
 * example content: <tt>30 minutes</tt>
+
+===== <tt>gpg_bash_lib_output_goodsig_status</tt> =====
+* possible values: <tt>true</tt> (GOODSIG, key and signature valid) or <tt>false</tt> (BADSIG, EXPSIG, EXPKEYSIG, REVKEYSIG or ERRSIG).
+* recommendation: Check if its value is <tt>true</tt>. Abort otherwise.
+* example content: <tt>true</tt>
+* example usage:
+<pre>
+if [ ! "$gpg_bash_lib_output_goodsig_status" = "true" ]; then
+   echo 'Key or signature error (BADSIG, EXPSIG, EXPKEYSIG, REVKEYSIG or ERRSIG)!' >&2
+   exit 1
+fi
+</pre>
 
 ===== <tt>gpg_bash_lib_output_validsig_status</tt> =====
 * possible values: <tt>true</tt> (successful verification) or <tt>false</tt> (unsuccessful verification).

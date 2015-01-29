@@ -39,6 +39,7 @@ gpg_bash_lib_function_init() {
    unset gpg_bash_lib_output_notation
    declare -A -g gpg_bash_lib_output_notation
    gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output=""
+   gpg_bash_lib_output_goodsig_status="false"
    gpg_bash_lib_output_validsig_status="false"
    gpg_bash_lib_output_fingerprint_in_hex=""
    gpg_bash_lib_output_current_unixtime=""
@@ -69,6 +70,14 @@ gpg_bash_lib_function_init() {
 gpg_bash_lib_function_alright_maybe() {
    if [ "$gpg_bash_lib_output_alright_status" = "false" ]; then
       return 0
+   fi
+   if [ ! "$gpg_bash_lib_output_goodsig_status" = "true" ]; then
+     gpg_bash_lib_output_alright_status="false"
+     return 0
+   fi
+   if [ ! "$gpg_bash_lib_output_validsig_status" = "true" ]; then
+     gpg_bash_lib_output_alright_status="false"
+     return 0
    fi
    gpg_bash_lib_output_alright_status="true"
 }
@@ -190,8 +199,6 @@ gpg_bash_lib_function_parse_status_file() {
    ## KEYEXPIRED -> not useful as per gnupg documentation DETAILS file
    ## SIGEXPIRED -> deprecated as per gnupg documentation DETAILS file
 
-   ## EXPKEYSIG -> useful -> TODO
-
    ## Quote Werner Koch [1]:
    ## "there is no clear distinction between the codes and for proper error
    ## reporting you are advised to use the --status-fd messages."
@@ -203,6 +210,9 @@ gpg_bash_lib_function_parse_status_file() {
       local one two three four five
       read -r one two three four five _ <<< "$gpg_bash_lib_internal_line"
       true "one: $one | two: $two | three: $three | four: $four | five: $five"
+      if [ "$two" = "GOODSIG" ]; then
+         gpg_bash_lib_output_goodsig_status="true"
+      fi
       if [ "$two" = "VALIDSIG" ]; then
          gpg_bash_lib_output_validsig_status="true"
          gpg_bash_lib_output_fingerprint_in_hex="$three"
