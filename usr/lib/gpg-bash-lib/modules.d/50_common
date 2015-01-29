@@ -166,6 +166,30 @@ gpg_bash_lib_function_parse_status_file() {
    ## [GNUPG:] ERRSIG 9C131AD3713AAEEF 1 10 00 1381635738 9
    ## [GNUPG:] NO_PUBKEY 9C131AD3713AAEEF
 
+   ## Another gpg_bash_lib_internal_gpg_verify_status_fd_file::
+   ## [GNUPG:] KEYEXPIRED 1607731200
+   ## [GNUPG:] SIGEXPIRED deprecated-use-keyexpired-instead
+   ## [GNUPG:] KEYEXPIRED 1607731200
+   ## [GNUPG:] SIGEXPIRED deprecated-use-keyexpired-instead
+   ## [GNUPG:] KEYEXPIRED 1607731200
+   ## [GNUPG:] SIGEXPIRED deprecated-use-keyexpired-instead
+   ## [GNUPG:] SIG_ID Tk/VeQa7RTYC/8JwlICrAFEi5es 2015-01-27 1422383418
+   ## [GNUPG:] KEYEXPIRED 1607731200
+   ## [GNUPG:] SIGEXPIRED deprecated-use-keyexpired-instead
+   ## [GNUPG:] KEYEXPIRED 1607731200
+   ## [GNUPG:] SIGEXPIRED deprecated-use-keyexpired-instead
+   ## [GNUPG:] EXPKEYSIG 8D6648AA636E1951 auto generated test key for unit test <unit@test.key>
+   ## [GNUPG:] NOTATION_NAME file@name
+   ## [GNUPG:] NOTATION_DATA test-file
+   ## [GNUPG:] KEYEXPIRED 1607731200
+   ## [GNUPG:] SIGEXPIRED deprecated-use-keyexpired-instead
+   ## [GNUPG:] KEYEXPIRED 1607731200
+   ## [GNUPG:] SIGEXPIRED deprecated-use-keyexpired-instead
+   ## [GNUPG:] VALIDSIG 8A2EEB750FD937F70828D5628D6648AA636E1951 2015-01-27 1422383418 0 4 0 1 2 00 8BC6714D5654D0813BBAB42F818A9682FE742EFD'
+
+   ## KEYEXPIRED -> not useful as per gnupg documentation DETAILS file
+   ## SIGEXPIRED -> deprecated as per gnupg documentation DETAILS file
+
    ## Quote Werner Koch [1]:
    ## "there is no clear distinction between the codes and for proper error
    ## reporting you are advised to use the --status-fd messages."
