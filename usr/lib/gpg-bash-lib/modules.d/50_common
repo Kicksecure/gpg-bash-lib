@@ -199,11 +199,6 @@ gpg_bash_lib_function_parse_status_file() {
    ## KEYEXPIRED -> not useful as per gnupg documentation DETAILS file
    ## SIGEXPIRED -> deprecated as per gnupg documentation DETAILS file
 
-   ## Quote Werner Koch [1]:
-   ## "there is no clear distinction between the codes and for proper error
-   ## reporting you are advised to use the --status-fd messages."
-   ## [1] http://lists.gnupg.org/pipermail/gnupg-devel/2005-December/022559.html
-
    local gpg_bash_lib_internal_line
    while read -r -d $'\n' gpg_bash_lib_internal_line; do
       true "gpg_bash_lib_internal_line: $gpg_bash_lib_internal_line"

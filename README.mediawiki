@@ -7,6 +7,12 @@ rollback, endless data attacks, etc. is hard.
 gpg-bash-lib's goal is to provide a bash library that we can collaboratively
 develop, audit and abstract the hard work into reuseable functions.
 
+Checking gpg exit codes only is insufficient.
+[http://lists.gnupg.org/pipermail/gnupg-devel/2005-December/022559.html Quote Werner Koch]
+([https://gnupg.org/ gnupg] lead developer):
+<blockquote>"there is no clear distinction between the codes and for proper error reporting
+you are advised to use the --status-fd messages."</blockquote>
+
 (For a definition of these attacks, see
 [https://www.updateframework.com TUF] ([https://github.com/theupdateframework/tuf The Update Framework])'s
 [https://github.com/theupdateframework/tuf/blob/develop/SECURITY.md threat model] ([http://www.webcitation.org/6F7Io2ncN w]).)
