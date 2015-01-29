@@ -96,9 +96,16 @@ gpg_bash_lib_function_import_keys_to_temp_dir() {
       if [ "$gpg_bash_lib_internal_key_file_name" = "placeholder" ]; then
          continue
       fi
+      ## Using --ignore-time-conflict, because otherwise
+      ## check "gpg --import"'s exit code would exit with a non-zero return code
+      ## if key import failed (such as code 1, see example below).
+      ## Example:
+      ##     gpg: key 63FEE659 was created 119604046 seconds in the future (time warp or clock problem)
+      ## Therefore we ignore time conflicts, because a clock sanity check will be done later.
       gpg_bash_lib_output_gpg_import_output="$( \
             gpg \
                --no-options \
+               --ignore-time-conflict \
                --homedir "$gpg_bash_lib_input_temp_folder" \
                --import "$gpg_bash_lib_internal_key" \
                2>&1 \
@@ -133,6 +140,7 @@ gpg_bash_lib_function_verify() {
       --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
          gpg \
             --no-options \
+            --ignore-time-conflict \
             --status-file "$gpg_bash_lib_internal_gpg_verify_status_fd_file" \
             --homedir "$gpg_bash_lib_input_temp_folder" \
             --verify-options show-notations \
