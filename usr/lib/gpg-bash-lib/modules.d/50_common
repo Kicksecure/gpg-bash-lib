@@ -360,6 +360,7 @@ gpg_bash_lib_function_main_verify() {
    gpg_bash_lib_function_import_keys_to_temp_dir
    gpg_bash_lib_function_verify
    if [ ! "$gpg_bash_lib_output_gpg_verify_exit_code" = "0" ]; then
+      gpg_bash_lib_function_diagnostic_message
       return 0
    fi
    gpg_bash_lib_function_parse_status_file
