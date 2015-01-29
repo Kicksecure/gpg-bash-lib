@@ -199,7 +199,7 @@ gpg_bash_lib_function_parse_status_file() {
       error "gpg_bash_lib_output_signed_on_unixtime is NOT strictly numeric, it is: $gpg_bash_lib_output_signed_on_unixtime"
    fi
 
-   gpg_bash_lib_output_signed_on_date="$(date --date "@$gpg_bash_lib_output_signed_on_unixtime")"
+   gpg_bash_lib_output_signed_on_date="$(date --utc --date "@$gpg_bash_lib_output_signed_on_unixtime" "+%A %B %d %H:%M:%S UTC %Y")"
 
    if [ "$gpg_bash_lib_input_file_name_enforce" = "true" ]; then
       if [ "${gpg_bash_lib_output_notation["file@name"]}" = "" ]; then
