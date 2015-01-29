@@ -56,7 +56,7 @@ your_script_begin: ...
 verification: BEGIN
 verification: END
 your_script_output: BEGIN
-gpg_bash_lib_output_failure_status:
+gpg_bash_lib_output_failure_status: false
 gpg_bash_lib_output_gpg_verify_exit_code: 0
 gpg_bash_lib_output_validsig_status: true
 gpg_bash_lib_output_fingerprint_in_hex: 5E08605EBEA0FE88695DCB88FD0A8B4171DFE4E4
@@ -209,7 +209,7 @@ gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_erro
 ==== Output Variables ====
 
 ===== <tt>gpg_bash_lib_output_failure_status</tt> =====
-* possible values: <tt>""</tt> or <tt>true</tt>
+* possible values: <tt>"true"</tt> or <tt>false</tt>
 * recommendation: Make sure to check for this value! Since the trap <tt>gpg_bash_lib_function_error_handler</tt> has been invoked, something unexpected, a bug has occurred. Regard this as verification failed.
 * example usage:
 <pre>
