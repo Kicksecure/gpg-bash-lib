@@ -340,7 +340,7 @@ echo "gpg_bash_lib_output_notation[file@name]: ${gpg_bash_lib_output_notation[$"
 * example content: <tt>30 minutes</tt>
 
 ===== <tt>gpg_bash_lib_output_validsig_status</tt> =====
-* possible values: <tt>true</tt> (successful verification) or <tt>""</tt> (unsuccessful verification).
+* possible values: <tt>true</tt> (successful verification) or <tt>false</tt> (unsuccessful verification).
 * recommendation: Check if its value is <tt>true</tt>. Abort otherwise.
 * example content: <tt>true</tt>
 * example usage:
