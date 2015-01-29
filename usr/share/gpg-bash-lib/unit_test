@@ -31,11 +31,13 @@ gpg_bash_lib_function_unit_test_genkey() {
    chmod --recursive 700 "$gpg_bash_lib_unit_test_homedir/gpg"
    test -d "$gpg_bash_lib_unit_test_homedir/gpg"
 
+   ## It is just a locally used test key that is discarded after testing,
+   ## so we can use a weak key to speed up key generation.
    echo "
       Key-Type: RSA
-      Key-Length: 4096
+      Key-Length: 1024
       Subkey-Type: RSA
-      Subkey-Length: 4096
+      Subkey-Length: 1024
       Name-Real: auto generated local signing key
       Name-Email: auto@local-signing.key
       Expire-Date: 2020-12-12
