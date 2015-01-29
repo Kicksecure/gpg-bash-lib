@@ -119,7 +119,6 @@ gpg_bash_lib_function_verify() {
    gpg_bash_lib_output_maximum_age_pretty_output="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_input_maximum_age_in_seconds")"
 
    local gpg_bash_lib_internal_gpg_verify_pid
-   gpg_bash_lib_output_gpg_verify_exit_code="0"
 
    timeout \
       --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
@@ -135,7 +134,11 @@ gpg_bash_lib_function_verify() {
             &
 
    gpg_bash_lib_internal_gpg_verify_pid="$!"
-   wait "$gpg_bash_lib_internal_gpg_verify_pid" || { gpg_bash_lib_output_gpg_verify_exit_code="$?" ; true; };
+   if wait "$gpg_bash_lib_internal_gpg_verify_pid" ; then
+      gpg_bash_lib_output_gpg_verify_exit_code="0"
+   else
+      gpg_bash_lib_output_gpg_verify_exit_code="$?"
+   fi
 
    ## `timeout` returns:
    ## - 124 if sigterm was sufficient
