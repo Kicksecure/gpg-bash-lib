@@ -97,11 +97,11 @@ gpg_bash_lib_function_import_keys_to_temp_dir() {
          continue
       fi
       gpg_bash_lib_output_gpg_import_output="$( \
-         gpg \
-            --no-options \
-            --homedir "$gpg_bash_lib_input_temp_folder" \
-            --import "$gpg_bash_lib_internal_key" \
-            2>&1 \
+            gpg \
+               --no-options \
+               --homedir "$gpg_bash_lib_input_temp_folder" \
+               --import "$gpg_bash_lib_internal_key" \
+               2>&1 \
          )"
    done
 
