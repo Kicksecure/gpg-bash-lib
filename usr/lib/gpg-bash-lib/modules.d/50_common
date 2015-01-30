@@ -241,7 +241,7 @@ gpg_bash_lib_function_parse_status_file() {
       error "gpg_bash_lib_output_signed_on_unixtime is NOT strictly numeric, it is: $gpg_bash_lib_output_signed_on_unixtime"
    fi
 
-   gpg_bash_lib_output_signed_on_date="$(date --utc --date "@$gpg_bash_lib_output_signed_on_unixtime" "+%A %B %d %H:%M:%S UTC %Y")"
+   gpg_bash_lib_output_signed_on_date="$(date --utc --date "@$gpg_bash_lib_output_signed_on_unixtime" "+%B %d %H:%M:%S UTC %Y")"
 
    if [ "${gpg_bash_lib_output_notation["file@name"]}" = "" ]; then
       true "\${gpg_bash_lib_output_notation["file@name"]} is unset."
@@ -264,7 +264,7 @@ gpg_bash_lib_function_parse_status_file() {
 
 gpg_bash_lib_function_process() {
    gpg_bash_lib_output_current_unixtime="$(date +%s)"
-   gpg_bash_lib_output_current_time="$(date --utc "+%A %B %d %H:%M:%S UTC %Y")"
+   gpg_bash_lib_output_current_time="$(date --utc "+%B %d %H:%M:%S UTC %Y")"
 
    gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime="$(( $gpg_bash_lib_output_signed_on_unixtime - $gpg_bash_lib_output_current_unixtime ))"
    gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime")"

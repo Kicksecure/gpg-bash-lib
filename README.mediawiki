@@ -68,7 +68,7 @@ gpg_bash_lib_output_goodsig_status: true
 gpg_bash_lib_output_validsig_status: true
 gpg_bash_lib_output_fingerprint_in_hex: 5E08605EBEA0FE88695DCB88FD0A8B4171DFE4E4
 gpg_bash_lib_output_signed_on_unixtime: 1422049448
-gpg_bash_lib_output_signed_on_date: Sunday March 01 13:56:27 UTC 2015
+gpg_bash_lib_output_signed_on_date: March 01 13:56:27 UTC 2015
 gpg_bash_lib_output_notation[$file@name]: test-file
 gpg_bash_lib_output_file_name_tampering: false
 gpg_bash_lib_output_freshness_status: true
@@ -76,8 +76,8 @@ gpg_bash_lib_output_freshness_detail: current
 gpg_bash_lib_output_freshness_msg:
 - Freshness: Signature is current.
 - valid-max: Signatures are valid up to 30 days.
-- Signature Creation Date: Sunday March 01 13:56:27 UTC 2015
-- Current System Date    : Sun Jan 25 22:10:11 UTC 2015
+- Signature Creation Date: March 01 13:56:27 UTC 2015
+- Current System Date    : March 02 16:0:55 UTC 2015
 - Local System Clock: Your clock seems okay.
 - Relative Signature Creation Time: According to your system clock, signature was created 2 days 26 minutes 3 seconds ago.
 gpg_bash_lib_output_alright_status: true
@@ -302,7 +302,7 @@ gpg_bash_lib_output_gpg_verify_status_fd_output:
 ===== <tt>gpg_bash_lib_output_signed_on_date</tt> =====
 * possible values: <tt>gpg_bash_lib_output_signed_on_unixtime</tt>converted to a textual date string using.
 * recommendation: Show this variable in your script, ask the user for confirmation.
-* example content: <tt>Sunday March 01 13:56:27 UTC 2015</tt>
+* example content: <tt>March 01 13:56:27 UTC 2015</tt>
 
 ===== <tt>gpg_bash_lib_output_file_name_tampering</tt> =====
 * possible values: Set to <tt>true</tt> (match), <tt>missing</tt> (no <tt>file@name</tt> OpenPGP notation inside the signature, <tt>false</tt> (mismatch) accordingly.
@@ -379,8 +379,8 @@ fi
 * possible values: integer, unixtime at time of running this library.
 
 ===== <tt>gpg_bash_lib_output_current_time</tt> =====
-* possible values: A textual string, the output of <tt>"$(date --utc "+%A %B %d %H:%M:%S UTC %Y")"</tt> at time of running this library.
-* example content: <tt>Sunday March 01 17:59:38 UTC 2015</tt>
+* possible values: A textual string, the output of <tt>"$(date --utc "+%B %d %H:%M:%S UTC %Y")"</tt> at time of running this library.
+* example content: <tt>March 01 17:59:38 UTC 2015</tt>
 
 ===== <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime</tt> =====
 * possible values: An integer, that represents the Relative Signature Creation Time. See the example of <tt>gpg_bash_lib_output_signed_on_unixtime_minus_current_unixtime_pretty</tt> below to understand what it is doing. Can be used when <tt>gpg_bash_lib_output_freshness_detail</tt> is <tt>slow</tt> or <tt>lenient</tt>.
