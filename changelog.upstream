@@ -1,0 +1,677 @@
+commit e633391906055a4104d848218ee3ab1e64cd1b3f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 00:40:36 2015 +0000
+
+    updated makefile generic to version 1.3
+
+commit e7b76e7b0010e948f0307ba9992189bf77ad5afb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 3 23:58:41 2015 +0000
+
+    Added creation of upstream changelog to debian/rules
+
+commit df48212cb7b25d487ed51c634bdc63e0e8b85b43
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 3 02:28:04 2015 +0000
+
+    made variables gpg_bash_lib_internal_gpg_verify_status_fd_file and gpg_bash_lib_internal_gpg_verify_output_file overruleable
+
+commit a666b914253facee02ad470f822475a300a4722d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 3 00:17:03 2015 +0000
+
+    chmod -x usr/share/gpg-bash-lib/misc/gpg-test-pub-key.d/pubring.gpg
+
+commit 0a74694502d104d998280608540ae007b33edc74
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 30 14:08:14 2015 +0000
+
+    changed date format
+
+commit ead2d2ebd97c5d30b19ae67e1c15a89f8502617c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 20:28:55 2015 +0000
+
+    create gpg_bash_lib_output_diagnostic_message also when gpg_bash_lib_output_gpg_verify_exit_code is non-zero
+
+commit ceebb3749339890c1172841254b567c031356550
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 20:25:42 2015 +0000
+
+    using --ignore-time-conflict so we can check signatures if the clock is very slow, clock sanity check will be done after signature verification
+
+commit 805d5bc956cd662187947a9b7783bacf3565f2c7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 19:34:32 2015 +0000
+
+    indent
+
+commit 355aa4b56174d67c11354f9928417f4ed25eb6f3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 19:00:40 2015 +0000
+
+    readme; comments
+
+commit 03be952d0d631d601a59155db07075948c59c36b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:53:53 2015 +0000
+
+    new variable: gpg_bash_lib_output_goodsig_status
+
+commit 0e55c504dbebdf1deb45416d411855c9784d5e56
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:36:57 2015 +0000
+
+    TODO
+
+commit 9913d295e2c069ce7bcc7040815b2c9a7a9a5208
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:36:38 2015 +0000
+
+    comments
+
+commit 52a8744dee508f709d07a4e94c1420adefc9f216
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:26:43 2015 +0000
+
+    unit test
+
+commit 929abc9882c1c375f96d2ca4144efbb45311081a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:25:40 2015 +0000
+
+    unit test: decreased key size. It is just a locally used test key that is discarded after testing, so we can use a weak key to speed up key generation.
+
+commit f0130abf01be43913dfd5f811e2683341e50ebd6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:23:53 2015 +0000
+
+    unit test: set expire date to ease testing
+
+commit 59108acbe5d8e93263e34d228305794d2636aef3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:15:46 2015 +0000
+
+    refactoring
+
+commit d7536e416e9adc4681db3a1664e203efadebf45c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:08:33 2015 +0000
+
+    make sure gpg_bash_lib_output_validsig_status is never set to "" for consistency
+
+commit c73c90dd980b90f93802849b84e982e796ea9c68
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:06:32 2015 +0000
+
+    make sure gpg_bash_lib_output_file_name_tampering is never set to "" for consistency
+
+commit c065ea2d381e84f44a570bb422c0097d61c06b7a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:01:16 2015 +0000
+
+    readme
+
+commit 6386d3cbd5c0a088c908df9c1f1df49df101273d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 18:00:22 2015 +0000
+
+    changed gpg_bash_lib_output_current_time format
+
+commit a3237c816fd64c4424ec386bb9de07eb2d5ea013
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 17:57:17 2015 +0000
+
+    make sure gpg_bash_lib_output_failure_status is never set to "", but to true or false for better consistency
+
+commit 6312e5439985f6b466f46f030eb5c8ebd45ef4ca
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Jan 29 13:57:59 2015 +0000
+
+    changed format of gpg_bash_lib_output_signed_on_date
+
+commit d25cc6e32bbc0de65bf5b6b5d487c53c7f3d3221
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 26 17:04:59 2015 +0000
+
+    readme
+
+commit d920d85a5a4b0fa8c06a16d22c3c8cfc7ad46498
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 26 17:02:49 2015 +0000
+
+    readme
+
+commit d365363b9c87be864eb66231ed3f4a072800051c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 26 03:31:37 2015 +0000
+
+    readme
+
+commit 2e8f932ae22f88ef5e7c91874c53598973f9e448
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 23:09:27 2015 +0000
+
+    readme
+
+commit f303edb7e6a0cdf7f0f2664efc7c9230ebd4b6c0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 23:07:52 2015 +0000
+
+    readme
+
+commit fce001d3de49ab4a37bdaf53104021f63073e321
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 23:07:06 2015 +0000
+
+    readme
+
+commit 09c49dd78dec508f043855d7f3127df0b19723af
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 23:05:24 2015 +0000
+
+    readme
+
+commit 21aef8175a30b4c04b02a3945a585de42ff0e0df
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:59:47 2015 +0000
+
+    readme
+
+commit 3ce59c4a547b4e07eb578e7c98e718409c22ec3c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:53:21 2015 +0000
+
+    readme
+
+commit 46a7b2931d5e606e1e4c18892bfffa8da921e608
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:50:49 2015 +0000
+
+    readme
+
+commit 67e8876a042ba1d1a62f32d81836330cc7ba0cca
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:43:46 2015 +0000
+
+    readme
+
+commit 883ebb51b0b3aa127070e3af4bc36397e7161c38
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:41:37 2015 +0000
+
+    readme
+
+commit b9d4c414b70cb37e2efad195a45c46decea4356b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:41:11 2015 +0000
+
+    readme
+
+commit 159d13b67cdea963c60949b46d29babda348fcb0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:27:45 2015 +0000
+
+    example
+
+commit 756707b3ae1dfa6fc9b8e939b6b6ea4558aa1e50
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:18:44 2015 +0000
+
+    readme
+
+commit 820d98b6124e0e61425b598a09dcfdf53bb43024
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:15:55 2015 +0000
+
+    readme
+
+commit c526c9e67613c5598f8c21de6ce103f81fb2f053
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:12:40 2015 +0000
+
+    readme
+
+commit b351499fcb3f336eebba826b3355c4515f1f70a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:08:28 2015 +0000
+
+    example
+
+commit 8c661016fe1e51843e0aef20df527c16cf0e81a8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 22:05:13 2015 +0000
+
+    added example, test key, test file, test signature
+
+commit 788921a3c0a9ec6925ef25bdec386521333ce3cf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 20:27:51 2015 +0000
+
+    readme
+
+commit 5c7424817582a29affc40027ca91bb28355463d2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 20:23:23 2015 +0000
+
+    readme
+
+commit 1255627e19261202661a5ade2353902febc76402
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 20:21:18 2015 +0000
+
+    readme
+
+commit 2ebfde06896f92b8ce7f6b6fc5b4067cc0e7e3b6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 19:12:39 2015 +0000
+
+    renamed variable gpg_bash_lib_output_validsig to gpg_bash_lib_output_validsig_status
+
+commit 7c353993f9ddaf1d52c6e28a8e0f386b0eed3863
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 19:09:50 2015 +0000
+
+    readme
+
+commit 7873794baa7d99f23e4eeaa541202c9645fc497c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 19:08:13 2015 +0000
+
+    renamed variable gpg_bash_lib_output_validsig_fingerprint_in_hex to gpg_bash_lib_output_fingerprint_in_hex
+
+commit c9e41aacc5c0f610e1fe876c516974969c52750a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 19:05:41 2015 +0000
+
+    renamed variable gpg_bash_lib_output_alright to gpg_bash_lib_output_alright_status
+
+commit cce3dc74277e1aaeb7b6148e4557b4aad92cf975
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 19:01:48 2015 +0000
+
+    renamed variable gpg_bash_lib_output_failure to gpg_bash_lib_output_failure_status
+
+commit 8ccc45783d7cb6249d198bb3b17079f4d2dd84ff
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:49:07 2015 +0000
+
+    renamed variable gpg_bash_lib_output_in_future_output_pretty to gpg_bash_lib_output_in_future_pretty_output
+
+commit b30ae14622d9d71235e5cc5856f2be0412515fac
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:45:44 2015 +0000
+
+    readme
+
+commit c620669da41460724f8be6e45d4e5e89ae1a24c5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:43:00 2015 +0000
+
+    renamed variable gpg_bash_lib_output_maximum_age_in_seconds_pretty_output to gpg_bash_lib_output_maximum_age_pretty_output
+
+commit 61edac07b6f4bf85adbd1d4edc8796a78d3ff1ac
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:37:24 2015 +0000
+
+    renamed variable gpg_bash_lib_output_gpg_exit_code to gpg_bash_lib_output_gpg_verify_exit_code for better consistency
+
+commit e48222e28ae312967f946675fe878da403cea445
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 18:28:57 2015 +0000
+
+    renamed variable gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_output_pretty to gpg_bash_lib_output_current_unixtime_minus_signed_on_unixtime_pretty for better consistency
+
+commit 04fc76365adb18729650f04fa9e8b7130a964565
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 03:18:50 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 77badd318034faa9d34db4d8d6c60f42919d78ce
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 03:16:49 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 64eb506818c476d4a24c321e3495709450572fd4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 03:01:28 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 50985b040f870262279b859b2f2cecf674d68ff3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 03:01:17 2015 +0000
+
+    comments
+
+commit 2a7dfd91da4909b6f8b47aea33168e19c38ca125
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 02:58:07 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit cb66ff522caea187230163e3d1d54e2e17004b06
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 02:55:29 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 7f96fe32d75412154321696d2f8b08acaf133ed5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 02:48:23 2015 +0000
+
+    renamed variable from gpg_bash_lib_input_verifiy_timeout_after to gpg_bash_lib_input_verify_timeout_after to fix typo
+
+commit 8a616e58b8fdadd9fc5c53db8b04a33a81053b55
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:38:11 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit f7cee1e8d98f68ca712d1c696d6a69a0895c7df1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:31:38 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 49231a7991d70ab7ac2cd85f84e2b46f7fbe114f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:29:36 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 9e481ffec89c79b53f6f6cba6aa13e838fd466c9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:20:52 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 639597ac811493b0a1e64b186556b4571eb55d96
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:13:46 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 0831e3a45a05f0dedd91230087958e241b5a3c99
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:09:10 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit cba233fd433aa3a32197b690f3045ddc367f877f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:08:12 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 880906b6106752e4e85375e7b664096592d696f9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:07:03 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit ca4f58aaa182a7f3454fd57cdc8c769c2b9e5e8b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:05:54 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit fe7da899757d0284f0ac51980d02aa1b37eccb54
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:05:17 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit c65732f91808efe30acd3e1d9ebdf3651ee914a7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 01:01:12 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 433453404daaa6cae3eca04e59e7c9d25c8b4c86
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 00:57:27 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit bb84a61d13935a52cd5c4401ac7dfe664cb06f53
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 00:50:41 2015 +0000
+
+    converted readme to mediawiki syntax, otherwise it's hard to get a table of contents on github
+
+commit 136471763639057449f6d806398b3289c1529924
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 00:33:03 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 11546cfe7cbea9a255cbd7198411a3b401a0cd19
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Jan 25 00:12:28 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit 930196f8fb9964f3eaedc9ee6f7529726f94c924
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 22:04:38 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit a975ed687a689daa948266cec38cacb3935e94f6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 21:47:35 2015 +0000
+
+    work on documentation - https://phabricator.whonix.org/T108
+
+commit cfaa00284e75825960157b86d23cce3ba081d5b1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 20:34:32 2015 +0000
+
+    moved generic readme part to README_generic.md
+
+commit 6e9ddba63b1ad9e5530cf87b48ec27cebd5a7e75
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 20:13:58 2015 +0000
+
+    started documentation - https://phabricator.whonix.org/T108
+
+commit 55619d433e59227fb005c3d74856d725ded3bcdf
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 17:25:02 2015 +0000
+
+    unit_test: code simplification... Changed
+    cd ..
+    cd ..
+    cd ..
+    to
+    cd ../../../
+    Thanks to Sebastian Pipping (@hartwork) for the suggestion.
+
+commit c91ad3cc593210a96b1a1cc0f2b438b4d945e792
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 17:22:53 2015 +0000
+
+    unit_test: Removed --use-agent for creation of temporary gpg key. The unit test should better be independent from any eventually locally running gpg agent. Thanks to Sebastian Pipping (@hartwork) for the suggestion.
+
+commit 6e50b8f34f1d21aea9a49a47ce8e043aeff25175
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 24 17:19:23 2015 +0000
+
+    Changed convention to start function names from gpg_bash_lib_f_ to gpg_bash_lib_function_ as _f_ looks too cryptic. Thanks to Sebastian Pipping (@hartwork) for the suggestion.
+
+commit 44fdda298a834c6ceb0fceff6ee3bd7f81fff7b5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Jan 19 17:24:57 2015 +0000
+
+    renamed variable: gpg_bash_lib_internal_maximum_age_in_seconds_pretty_output -> gpg_bash_lib_output_maximum_age_in_seconds_pretty_output
+
+commit 7e148c2fa89776478b004068113fdd52ec452584
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 23:08:20 2015 +0000
+
+    chmod +x usr/lib/gpg-bash-lib/source_all to fix lintian warning
+
+commit b3660ef4c862a966d434b1ecc37db2c4fcef9274
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Jan 17 18:52:52 2015 +0000
+
+    moved usr/lib/gpg-bash-lib/unit_test to usr/share/gpg-bash-lib/unit_test
+
+commit 0fc7a02b35f9580502daccf46692988b55961a23
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:34:28 2015 +0000
+
+    output
+
+commit d343931c3358e0a330d7724c0cc5e2d250dc7c15
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:30:16 2015 +0000
+
+    new variable gpg_bash_lib_output_signed_on_date that contains human readable signature creation date
+
+commit f48097cf242081fb3b19f8ce4c691e58cfaab875
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:23:32 2015 +0000
+
+    added --verify-options show-notations for more verbose output
+
+commit 90887e54cce1a6d856c2b5ba259f2dacf84104ad
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:18:04 2015 +0000
+
+    output
+
+commit 5c88f23d4669d469c11cbe59fa5730bbd5d01be9
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:17:27 2015 +0000
+
+    refactoring
+
+commit 35251798b9bdb5d46c829379f285ff68ba2c77b7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:15:06 2015 +0000
+
+    new variable gpg_bash_lib_output_diagnostic_message
+
+commit 5eac14979cc7479e1a4fe822f992789109dcf4ec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:07:45 2015 +0000
+
+    store gpg --verify --status-fd output in variable gpg_bash_lib_output_gpg_verify_status_fd_output
+
+commit 44c01c09d0ff2cfc29337fdb1acb721f35cf2817
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:04:13 2015 +0000
+
+    output
+
+commit 814615e042592c31d36dc8f1e8eb8b60b8ca63dc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:02:50 2015 +0000
+
+    output
+
+commit 968d4ed708ea4e612e4dd9c735607683f3281cb4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 17:02:15 2015 +0000
+
+    store output of gpg --verify in variable gpg_bash_lib_output_gpg_verify_output
+
+commit a4b869e5ff7dce5efc3b43ec040af5d8b4e7ca33
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:57:06 2015 +0000
+
+    refactoring
+
+commit 4518a6623280446cc9a0b6b1986a20978a902dec
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:54:20 2015 +0000
+
+    store output for gpg --import inside variable gpg_bash_lib_output_gpg_import_output for debugging purposes; refactoring
+
+commit a83ff3d4057e48d4c61bf25223c9c6527b45fa74
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:43:56 2015 +0000
+
+    simplification
+
+commit a810f34856e5391ee90811a4b512e0b2d976bfda
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:25:25 2015 +0000
+
+    refactoring
+
+commit 0d147e117ccecd900e23683fcb465b12b031f267
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:20:47 2015 +0000
+
+    output
+
+commit 8bc788c111e0dfb6d983b8d677e103a9c4f1c823
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:20:15 2015 +0000
+
+    sanity test
+
+commit 7765f989d3d4c0904e187b3e4b6170f17e9a819f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:15:38 2015 +0000
+
+    auto detect path to modules.d folder
+
+commit 9a9c719e3f14da518f8f2d417abf431854c2ab83
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:06:50 2015 +0000
+
+    sanity test
+
+commit b8a2979a3e2727f46be9f62f5722556171ee94b0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:04:42 2015 +0000
+
+    refactoring
+
+commit b1090299cf02518cbb4ec236b7290487f9fbafe3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 16:01:59 2015 +0000
+
+    fix
+
+commit ae363b9a05de0ff71254e958abf57c687027e3a3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 03:43:13 2015 +0000
+
+    set gpg_bash_lib_input_temp_folder to "$(mktemp --directory)", if unset
+
+commit 473a915dcb6ee576ebb7e83ee65ad338a5c0b669
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 03:36:35 2015 +0000
+
+    fix
+
+commit 5354b96e3fa4aff5239f3be2bc6902921ae7030b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 03:18:01 2015 +0000
+
+    refactoring
+
+commit 615e024040f2fe634563c54efbc8e96f03b4d18c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 02:58:51 2015 +0000
+
+    sanity test
+
+commit d35ab8765db443216ef9fa98332f24a45153cfba
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 02:38:27 2015 +0000
+
+    initial packaging
+
+commit cd091342c797c8991e661d31d7fc0e7dc4cac856
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Jan 16 02:24:20 2015 +0000
+
+    initial implementation
