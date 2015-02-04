@@ -228,6 +228,7 @@ gpg_bash_lib_function_parse_status_file() {
          gpg_bash_lib_output_notation[$gpg_bash_lib_internal_notation_name]="$three"
       fi
    done < "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
+   unset gpg_bash_lib_internal_line
 
    if [ "$gpg_bash_lib_output_signed_on_unixtime" = "" ]; then
       error "gpg_bash_lib_output_signed_on_unixtime is empty!"
