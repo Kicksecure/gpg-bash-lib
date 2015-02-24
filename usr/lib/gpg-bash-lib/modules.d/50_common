@@ -277,7 +277,8 @@ gpg_bash_lib_function_parse_status_file() {
    ## KEYEXPIRED -> not useful as per gnupg documentation DETAILS file
    ## SIGEXPIRED -> deprecated as per gnupg documentation DETAILS file
 
-   local gpg_bash_lib_internal_line
+   local gpg_bash_lib_internal_line gpg_bash_lib_internal_trust_ultimate
+   gpg_bash_lib_internal_trust_ultimate="false"
    while read -r -d $'\n' gpg_bash_lib_internal_line; do
       true "gpg_bash_lib_internal_line: $gpg_bash_lib_internal_line"
       local one two three four five
@@ -297,8 +298,16 @@ gpg_bash_lib_function_parse_status_file() {
       if [ "$two" = "NOTATION_DATA" ]; then
          gpg_bash_lib_output_notation[$gpg_bash_lib_internal_notation_name]="$three"
       fi
+      if [ "$two" = "TRUST_ULTIMATE" ]; then
+         gpg_bash_lib_internal_trust_ultimate="true"
+      fi
    done < "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
    unset gpg_bash_lib_internal_line
+
+   ## Sanity test.
+   if [ ! "$gpg_bash_lib_internal_trust_ultimate" = "true" ]; then
+      error "gpg_bash_lib_internal_trust_ultimate not set to 'true'!"
+   fi
 
    if [ "$gpg_bash_lib_output_signed_on_unixtime" = "" ]; then
       error "gpg_bash_lib_output_signed_on_unixtime is empty!"
