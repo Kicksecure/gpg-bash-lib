@@ -71,15 +71,16 @@ gpg_bash_lib_function_init() {
    gpg_bash_lib_output_maximum_age_pretty_output=""
    gpg_bash_lib_output_alright_status=""
 
-   ## Sanity tests.
-   command -v date >/dev/null
-   command -v gpg >/dev/null
-   command -v mktemp >/dev/null
-
    rm --recursive --force "$gpg_bash_lib_input_temp_folder"
    mkdir --parents "$gpg_bash_lib_input_temp_folder"
    chmod --recursive 700 "$gpg_bash_lib_input_temp_folder"
    test -d "$gpg_bash_lib_input_temp_folder"
+}
+
+gpg_bash_lib_function_sanity_tests() {
+   command -v date >/dev/null
+   command -v gpg >/dev/null
+   command -v mktemp >/dev/null
 }
 
 gpg_bash_lib_function_alright_maybe() {
@@ -382,6 +383,7 @@ gpg_bash_lib_function_deinit() {
 
 gpg_bash_lib_function_main_verify() {
    gpg_bash_lib_function_cleanup
+   gpg_bash_lib_function_sanity_tests
    gpg_bash_lib_function_init
    gpg_bash_lib_function_import_keys_to_temp_dir
    gpg_bash_lib_function_verify
