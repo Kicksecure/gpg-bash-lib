@@ -72,6 +72,8 @@ gpg_bash_lib_function_variables() {
    gpg_bash_lib_output_freshness_msg=""
    gpg_bash_lib_output_maximum_age_pretty_output=""
    gpg_bash_lib_output_alright_status=""
+   [ -n "$gpg_bash_lib_input_verify_timeout_after" ] || gpg_bash_lib_input_verify_timeout_after="10"
+   [ -n "$gpg_bash_lib_input_verify_kill_after" ] || gpg_bash_lib_input_verify_kill_after="10"
 
    rm --recursive --force "$gpg_bash_lib_input_temp_folder"
    mkdir --parents "$gpg_bash_lib_input_temp_folder"
@@ -83,6 +85,34 @@ gpg_bash_lib_function_sanity_tests() {
    command -v date >/dev/null
    command -v gpg >/dev/null
    command -v mktemp >/dev/null
+}
+
+gpg_bash_lib_function_key_file_to_first_primary_fingerprint() {
+   local gpg_bash_lib_internal_key_fingerprint_output gpg_bash_lib_internal_first_three
+   local gpg_bash_lib_internal_fingerprint_without_collons gpg_bash_lib_internal_key_file_path
+   local gpg_bash_lib_internal_fingerprint_final
+   gpg_bash_lib_internal_key_file_path="$1"
+   gpg_bash_lib_internal_key_fingerprint_output="$( \
+      timeout \
+         --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
+            gpg --with-colons --fixed-list-mode --with-fingerprint "$gpg_bash_lib_internal_key_file_path" \
+   )"
+   while read -r -d $'\n' gpg_bash_lib_internal_line; do
+      gpg_bash_lib_internal_first_three="${gpg_bash_lib_internal_line:0:3}"
+      if [ ! "$gpg_bash_lib_internal_first_three" = "fpr" ]; then
+         continue
+      fi
+      ## Example gpg_bash_lib_internal_line:
+      ## fpr:::::::::916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA:
+      gpg_bash_lib_internal_fingerprint_without_collons="${gpg_bash_lib_internal_line//:/}"
+      ## Example gpg_bash_lib_internal_fingerprint_without_collons:
+      ## fpr916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA
+      gpg_bash_lib_internal_fingerprint_final="${gpg_bash_lib_internal_fingerprint_without_collons/fpr/}"
+      ## Example gpg_bash_lib_internal_fingerprint_final:
+      ## 916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA
+      break
+   done < <( echo "$gpg_bash_lib_internal_key_fingerprint_output" )
+   echo "$gpg_bash_lib_internal_fingerprint_final"
 }
 
 gpg_bash_lib_function_alright_maybe() {
@@ -128,6 +158,14 @@ gpg_bash_lib_function_import_keys_to_temp_dir() {
                --import "$gpg_bash_lib_internal_key" \
                2>&1 \
          )"
+      gpg_bash_lib_internal_primary_key_fingerprint="$(gpg_bash_lib_function_key_file_to_first_primary_fingerprint "$gpg_bash_lib_internal_key")"
+      echo "$gpg_bash_lib_internal_primary_key_fingerprint:6:" | \
+         gpg \
+               --no-options \
+               --quiet \
+               --ignore-time-conflict \
+               --homedir "$gpg_bash_lib_input_temp_folder" \
+               --import-ownertrust
    done
 
    ## TODO: Only undo, if we enabled this beforehand.
@@ -140,8 +178,6 @@ gpg_bash_lib_function_verify() {
    test -f "$gpg_bash_lib_input_data_file"
    test -f "$gpg_bash_lib_input_sig_file"
 
-   [ -n "$gpg_bash_lib_input_verify_timeout_after" ] || gpg_bash_lib_input_verify_timeout_after="10"
-   [ -n "$gpg_bash_lib_input_verify_kill_after" ] || gpg_bash_lib_input_verify_kill_after="10"
    ## Up to 30 minutes lenient about slow clocks by default.
    [ -n "$gpg_bash_lib_input_slow_clock_lenient_up_to_seconds" ] || gpg_bash_lib_input_slow_clock_lenient_up_to_seconds="$(( 30 * 60 ))"
    gpg_bash_lib_output_slow_clock_lenient_up_to_pretty_output="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_input_slow_clock_lenient_up_to_seconds")"
