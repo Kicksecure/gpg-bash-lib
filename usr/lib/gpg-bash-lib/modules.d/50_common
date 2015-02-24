@@ -133,8 +133,18 @@ gpg_bash_lib_function_alright_maybe() {
 gpg_bash_lib_function_import_keys_to_temp_dir() {
    test -d "$gpg_bash_lib_input_key_import_dir"
 
-   ## TODO: Only shopt when not already.
-   shopt -s nullglob dotglob
+   if shopt -q nullglob ; then
+      gpg_bash_lib_internal_disable_nullglob="false"
+   else
+      gpg_bash_lib_internal_disable_nullglob="true"
+      shopt -s nullglob
+   fi
+   if shopt -q dotglob ; then
+      gpg_bash_lib_internal_disable_dotglob="false"
+   else
+      gpg_bash_lib_internal_disable_dotglob="true"
+      shopt -s dotglob
+   fi
 
    local gpg_bash_lib_internal_key
 
@@ -169,8 +179,12 @@ gpg_bash_lib_function_import_keys_to_temp_dir() {
                2>/dev/null
    done
 
-   ## TODO: Only undo, if we enabled this beforehand.
-   shopt -u nullglob dotglob
+   if [ "$gpg_bash_lib_internal_disable_nullglob" = "true" ]; then
+      shopt -u nullglob
+   fi
+   if [ "$gpg_bash_lib_internal_disable_dotglob" = "true" ]; then
+      shopt -u dotglob
+   fi
 }
 
 gpg_bash_lib_function_verify() {
