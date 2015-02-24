@@ -195,6 +195,7 @@ gpg_bash_lib_function_verify() {
          gpg \
             --no-options \
             --ignore-time-conflict \
+            --with-fingerprint \
             --status-file "$gpg_bash_lib_internal_gpg_verify_status_fd_file" \
             --homedir "$gpg_bash_lib_input_temp_folder" \
             --verify-options show-notations \
