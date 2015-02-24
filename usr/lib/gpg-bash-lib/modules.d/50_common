@@ -162,10 +162,11 @@ gpg_bash_lib_function_import_keys_to_temp_dir() {
       echo "$gpg_bash_lib_internal_primary_key_fingerprint:6:" | \
          gpg \
                --no-options \
-               --quiet \
                --ignore-time-conflict \
                --homedir "$gpg_bash_lib_input_temp_folder" \
-               --import-ownertrust
+               --import-ownertrust \
+               1>/dev/null \
+               2>/dev/null
    done
 
    ## TODO: Only undo, if we enabled this beforehand.
