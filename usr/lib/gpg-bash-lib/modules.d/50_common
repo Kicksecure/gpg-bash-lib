@@ -24,6 +24,21 @@ $gpg_bash_lib_output_diagnostic_message"
 }
 
 gpg_bash_lib_function_init() {
+   trap "gpg_bash_lib_function_error_handler" ERR
+
+   if test -o pipefail ; then
+      gpg_bash_lib_internal_disable_pipefail="false"
+   else
+      gpg_bash_lib_internal_disable_pipefail="true"
+      set -o pipefail
+   fi
+   if test -o errtrace ; then
+      gpg_bash_lib_internal_disable_errtrace="false"
+   else
+      gpg_bash_lib_internal_disable_errtrace="true"
+      set -o errtrace
+   fi
+
    [ -n "$gpg_bash_lib_input_temp_folder" ] || gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
    gpg_bash_lib_output_failure_status="false"
    gpg_bash_lib_output_diagnostic_message=""
@@ -355,6 +370,16 @@ gpg_bash_lib_function_cleanup() {
    fi
 }
 
+gpg_bash_lib_function_deinit() {
+   if [ "$gpg_bash_lib_internal_disable_pipefail" = "true" ]; then
+      set +o pipefail
+   fi
+   if [ "$gpg_bash_lib_internal_disable_errtrace" = "true" ]; then
+      set +o errtrace
+   fi
+   trap "$gpg_bash_lib_internal_existing_trap" ERR
+}
+
 gpg_bash_lib_function_main_verify() {
    gpg_bash_lib_function_cleanup
    gpg_bash_lib_function_init
@@ -368,4 +393,5 @@ gpg_bash_lib_function_main_verify() {
    gpg_bash_lib_function_process
    gpg_bash_lib_function_diagnostic_message
    gpg_bash_lib_function_cleanup
+   gpg_bash_lib_function_deinit
 }

@@ -98,31 +98,6 @@ separate variables, which are all documented below.
 
 It is assumed, that your script downloaded a data file as well as a signature file. A separate folder containing the keys that are supposed to be used for gpg verification, such as for example <tt>/usr/share/program-name/signing-keys.d</tt> is required as a prerequisite. You can then use this library to do the gpg verification for you.
 
-It is highly recommended that you <tt>set -e</tt> or set up your own ERR trap before you run
-
-<pre>
-source "/usr/lib/gpg-bash-lib/source_all"
-</pre>
-
-A prerequisite is that you set
-
-<pre>
-set -o pipefail
-set -o errtrace
-</pre>
-
-in your script before during execution of this library. This is a good practice anyhow.
-
-Before execution of this library, enable the ERR trap that it provides.
-
-<pre>
-trap "gpg_bash_lib_function_error_handler" ERR
-</pre>
-
-Feel free to undo these error handling mechanisms (<tt>set</tt> and trap ERR), if you must, after execution of this library.
-
-You configure that ERR trap to <tt>eval</tt>uate your own error handler through the variable <tt>gpg_bash_lib_input_error_handler_extra</tt>, which is documented below. Alternatively, you could just look at the <tt>gpg_bash_lib_function_error_handler</tt> function and implement your own ERR trap after <tt>source</tt>ing this library.
-
 Set at least all required <tt>gpg_bash_lib_input_*</tt> variables, that are documented below. Then run the main function <tt>gpg_bash_lib_function_main_verify</tt> (or just one function you wish to use). Then enjoy the <tt>gpg_bash_lib_output_*</tt> variables, that this library has set for you.
 
 If you wish to run <tt>gpg_bash_lib_function_main_verify</tt> another time, store the variables you want to keep in variables of your own, because they will be overridden on subsequent runs.
