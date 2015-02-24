@@ -4,14 +4,6 @@
 ## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-your_error_handler() {
-   echo "$FUNCNAME: ERROR! $BASH_COMMAND exited $?"
-   exit 1
-}
-
-## Preferably, set up your own ERR trap or at least "set -e".
-trap "your_error_handler" ERR
-
 ## Do some stuff in your script. Such as downloading files, you wish to verify.
 your_script_begin() {
    echo "$FUNCNAME: ..."
