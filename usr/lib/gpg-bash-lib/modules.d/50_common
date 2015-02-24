@@ -38,7 +38,9 @@ gpg_bash_lib_function_init() {
       gpg_bash_lib_internal_disable_errtrace="true"
       set -o errtrace
    fi
+}
 
+gpg_bash_lib_function_variables() {
    [ -n "$gpg_bash_lib_input_temp_folder" ] || gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
    gpg_bash_lib_output_failure_status="false"
    gpg_bash_lib_output_diagnostic_message=""
@@ -384,6 +386,7 @@ gpg_bash_lib_function_deinit() {
 gpg_bash_lib_function_main_verify() {
    gpg_bash_lib_function_init
    gpg_bash_lib_function_sanity_tests
+   gpg_bash_lib_function_variables
    gpg_bash_lib_function_import_keys_to_temp_dir
    gpg_bash_lib_function_verify
    if [ ! "$gpg_bash_lib_output_gpg_verify_exit_code" = "0" ]; then
