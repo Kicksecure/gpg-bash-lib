@@ -279,6 +279,11 @@ gpg_bash_lib_function_parse_status_file() {
    ## KEYEXPIRED -> not useful as per gnupg documentation DETAILS file
    ## SIGEXPIRED -> deprecated as per gnupg documentation DETAILS file
 
+   ## Sanity test.
+   #if grep -i -q "BADSIG\|EXPSIG\|EXPKEYSIG\|REVKEYSIG\|ERRSIG\|NODATA\|UNEXPECTED\|NO_PUBKEY\|NO_SECKEY\|ERROR" "$gpg_bash_lib_internal_gpg_verify_status_fd_file" ; then
+      ## TODO
+   #fi
+
    local gpg_bash_lib_internal_line gpg_bash_lib_internal_trust_ultimate
    gpg_bash_lib_internal_trust_ultimate="false"
    while read -r -d $'\n' gpg_bash_lib_internal_line; do
