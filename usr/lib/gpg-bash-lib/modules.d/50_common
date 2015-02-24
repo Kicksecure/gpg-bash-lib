@@ -312,8 +312,10 @@ gpg_bash_lib_function_parse_status_file() {
    unset gpg_bash_lib_internal_line
 
    ## Sanity test.
-   if [ ! "$gpg_bash_lib_internal_trust_ultimate" = "true" ]; then
-      error "gpg_bash_lib_internal_trust_ultimate not set to 'true'!"
+   if [ "$gpg_bash_lib_output_validsig_status" = "true" ]; then
+      if [ ! "$gpg_bash_lib_internal_trust_ultimate" = "true" ]; then
+         error "gpg_bash_lib_internal_trust_ultimate not set to 'true'!"
+      fi
    fi
 
    if [ "$gpg_bash_lib_output_signed_on_unixtime" = "" ]; then
