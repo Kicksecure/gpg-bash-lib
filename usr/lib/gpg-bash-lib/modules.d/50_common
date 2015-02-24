@@ -382,9 +382,8 @@ gpg_bash_lib_function_deinit() {
 }
 
 gpg_bash_lib_function_main_verify() {
-   gpg_bash_lib_function_cleanup
-   gpg_bash_lib_function_sanity_tests
    gpg_bash_lib_function_init
+   gpg_bash_lib_function_sanity_tests
    gpg_bash_lib_function_import_keys_to_temp_dir
    gpg_bash_lib_function_verify
    if [ ! "$gpg_bash_lib_output_gpg_verify_exit_code" = "0" ]; then
