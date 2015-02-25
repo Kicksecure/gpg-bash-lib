@@ -17,7 +17,25 @@ gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
 cd "$gpg_bash_lib_mydir"
 cd ../../../
 
-gpg_bash_lib_unit_test_existing_trap="$(trap -p ERR)"
+gpg_bash_lib_unit_test_existing_trap_a="$(trap -p ERR)"
+
+## }}}
+
+## {{{ test functions
+
+gpg_bash_lib_function_unit_test_check_error_handler() {
+   true "gpg_bash_lib_unit_test_existing_trap_a: $gpg_bash_lib_unit_test_existing_trap_a"
+   true "gpg_bash_lib_unit_test_existing_trap_b: $gpg_bash_lib_unit_test_existing_trap_b"
+   true "gpg_bash_lib_unit_test_current_trap   : $gpg_bash_lib_unit_test_current_trap"
+   if [ ! "$gpg_bash_lib_unit_test_existing_trap_a" = "$gpg_bash_lib_unit_test_current_trap" ]; then
+      echo "ERROR!" >&2
+      exit 1
+   fi
+   if [ ! "$gpg_bash_lib_unit_test_existing_trap_b" = "$gpg_bash_lib_unit_test_current_trap" ]; then
+      echo "ERROR!" >&2
+      exit 1
+   fi
+}
 
 ## }}}
 
@@ -25,14 +43,16 @@ gpg_bash_lib_unit_test_existing_trap="$(trap -p ERR)"
 
 source "./usr/lib/gpg-bash-lib/source_all"
 
+trap "gpg_bash_lib_function_unit_test_error_handler" ERR
+gpg_bash_lib_unit_test_existing_trap_b="$(trap -p ERR)"
+
 gpg_bash_lib_function_init
 
 gpg_bash_lib_function_deinit
 
-if [ ! "$gpg_bash_lib_unit_test_existing_trap" = "$(trap -p ERR)" ]; then
-   echo "ERROR!" >&2
-   exit 1
-fi
+gpg_bash_lib_unit_test_current_trap="$(trap -p ERR)"
+
+gpg_bash_lib_function_unit_test_check_error_handler
 
 ## errtrace, pipefail was not set before, it should not be set now.
 
@@ -59,10 +79,9 @@ gpg_bash_lib_function_init
 
 gpg_bash_lib_function_deinit
 
-if [ ! "$gpg_bash_lib_unit_test_existing_trap" = "$(trap -p ERR)" ]; then
-   echo "ERROR!" >&2
-   exit 1
-fi
+gpg_bash_lib_unit_test_current_trap="$(trap -p ERR)"
+
+gpg_bash_lib_function_unit_test_check_error_handler
 
 ## errtrace, pipefail was set before, it should be set now.
 

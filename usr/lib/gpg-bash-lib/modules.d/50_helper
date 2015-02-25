@@ -5,12 +5,14 @@
 ## See the file COPYING for copying conditions.
 
 gpg_bash_lib_function_displaytime_helper() {
+   trap "gpg_bash_lib_function_error_handler" ERR
    if [ "$1" = "1" ]; then
       echo " "
    fi
 }
 
 gpg_bash_lib_function_displaytime() {
+   trap "gpg_bash_lib_function_error_handler" ERR
    ## Thanks to Stéphane Gimenez!
    ## http://unix.stackexchange.com/a/27014/49297
    ## Modified by Patrick Schleizer.
