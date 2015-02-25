@@ -323,6 +323,9 @@ gpg_bash_lib_function_parse_status_file() {
       local one two three four five
       read -r one two three four five _ <<< "$gpg_bash_lib_internal_line"
       true "one: $one | two: $two | three: $three | four: $four | five: $five"
+      if [ ! "$one" = "[GNUPG:]" ]; then
+         error "gpg_bash_lib_internal_line did not start with '[GNUPG:]'!"
+      fi
       if [ "$two" = "GOODSIG" ]; then
          gpg_bash_lib_output_goodsig_status="true"
       fi
