@@ -10,7 +10,7 @@ set -o errtrace
 
 gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
 cd "$gpg_bash_lib_mydir"
-cd ../../../
+cd ../../../../
 
 source "./usr/lib/gpg-bash-lib/source_all"
 

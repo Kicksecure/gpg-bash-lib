@@ -15,7 +15,7 @@ trap "gpg_bash_lib_function_unit_test_error_handler" ERR
 
 gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
 cd "$gpg_bash_lib_mydir"
-cd ../../../
+cd ../../../../
 
 gpg_bash_lib_unit_test_existing_trap_a="$(trap -p ERR)"
 
