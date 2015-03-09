@@ -119,6 +119,8 @@ gpg_bash_lib_function_key_file_to_first_primary_fingerprint() {
       timeout \
          --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
             gpg \
+               --no-options \
+               --homedir "$gpg_bash_lib_input_temp_folder" \
                --with-colons \
                --fixed-list-mode \
                --with-fingerprint "$gpg_bash_lib_internal_key_file_path" \
