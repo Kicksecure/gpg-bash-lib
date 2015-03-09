@@ -118,7 +118,10 @@ gpg_bash_lib_function_key_file_to_first_primary_fingerprint() {
    gpg_bash_lib_internal_key_fingerprint_output="$( \
       timeout \
          --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
-            gpg --with-colons --fixed-list-mode --with-fingerprint "$gpg_bash_lib_internal_key_file_path" \
+            gpg \
+               --with-colons \
+               --fixed-list-mode \
+               --with-fingerprint "$gpg_bash_lib_internal_key_file_path" \
    )"
    while read -r -d $'\n' gpg_bash_lib_internal_line; do
       gpg_bash_lib_internal_first_three="${gpg_bash_lib_internal_line:0:3}"
