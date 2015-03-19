@@ -553,6 +553,7 @@ Welcome.
 * Patrick Schleizer
 * e-mail: adrelanos@riseup.net
 * [https://www.whonix.org/wiki/Patrick_Schleizer gpg]: 916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA
+* twitter: https://twitter.com/adrelanos
 * twitter: https://twitter.com/Whonix
 * [https://www.whonix.org/wiki/Donate Donate]
 
