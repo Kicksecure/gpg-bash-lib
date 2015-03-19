@@ -160,6 +160,10 @@ gpg_bash_lib_input_error_handler_extra='error_handler'
 gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_error_handler_message"'
 </pre>
 
+<pre>
+gpg_bash_lib_input_error_handler_extra='error_handler "$gpg_bash_lib_output_error_handler_message" ; return 0'
+</pre>
+
 ===== <tt>gpg_bash_lib_input_verify_timeout_after</tt> =====
 * description: After how many seconds a gpg verification attempt should be forced timeout. Sends signal SIGTERM to gpg. Useful to defeat an endless data attacks or bugs. Increase this value when you are working with bigger files and/or slow systems.
 * required: no
