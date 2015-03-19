@@ -96,3 +96,13 @@ if ! test -o pipefail ; then
 fi
 
 ## }}}
+
+gpg_bash_lib_function_unit_test_custom_error_handler() {
+   true "$FUNCNAME: functional"
+}
+
+gpg_bash_lib_input_error_handler_extra="gpg_bash_lib_function_unit_test_custom_error_handler ; return 0"
+
+gpg_bash_lib_function_error_handler
+
+true "SUCCESS!"
