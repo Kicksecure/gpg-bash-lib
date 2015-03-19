@@ -329,6 +329,8 @@ gpg_bash_lib_function_parse_status_file() {
       read -r one two three four five _ <<< "$gpg_bash_lib_internal_line"
       true "one: $one | two: $two | three: $three | four: $four | five: $five"
       if [ ! "$one" = "[GNUPG:]" ]; then
+         ## XXX: Are there cases where gnupg exits 0, but status messages still
+         ##      do not start with [GNUPG:]?
          error "gpg_bash_lib_internal_line did not start with '[GNUPG:]'!"
       fi
       if [ "$two" = "GOODSIG" ]; then
