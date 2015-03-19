@@ -537,7 +537,7 @@ This has the advantage, that your script can still react to any eventual trap's 
 
 * Multiple signatures in a single signature file are not well supported yet.
 * When there are multiple signatures in a single signature file, the signature will be accepted as valid, when at least one key from the signing key folder (see variable <tt>gpg_bash_lib_input_key_import_dir</tt> above) made a good signature. Feedback welcome on situations where there are multiple mixed good and bad signatures.
-* [Issue Tracker](https://phabricator.whonix.org/maniphest/?statuses=open%2Creview&allProjects=PHID-PROJ-y7ggndpa2rbgbboyhoqp#R)
+* [https://phabricator.whonix.org/maniphest/?statuses=open%2Creview&allProjects=PHID-PROJ-y7ggndpa2rbgbboyhoqp#R Issue Tracker]
 
 = Alternatives =
 
