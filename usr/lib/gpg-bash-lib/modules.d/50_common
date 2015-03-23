@@ -238,6 +238,10 @@ gpg_bash_lib_function_verify() {
 
    ## {{ Dry Run
 
+   ## Dry run of gpg --fingerprint for more pretty
+   ## gpg_bash_lib_output_gpg_verify_output that does not contain the trustdb
+   ## related messages on first run of gpg.
+
    local gpg_bash_lib_internal_gpg_fingerprint_pid
 
    timeout \
