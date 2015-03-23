@@ -373,6 +373,9 @@ gpg_bash_lib_function_parse_status_file() {
       if [ "$two" = "TRUST_ULTIMATE" ]; then
          gpg_bash_lib_internal_trust_ultimate="true"
       fi
+      if echo "$two" | grep -i -q "TRUST_" ; then
+         break
+      fi
    done < "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
    unset gpg_bash_lib_internal_line
 
