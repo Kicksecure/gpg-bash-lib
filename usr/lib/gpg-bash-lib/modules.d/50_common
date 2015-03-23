@@ -236,6 +236,25 @@ gpg_bash_lib_function_verify() {
    [ -n "$gpg_bash_lib_input_maximum_age_in_seconds" ] || gpg_bash_lib_input_maximum_age_in_seconds="$gpg_bash_lib_internal_month_has_seconds"
    gpg_bash_lib_output_maximum_age_pretty_output="$(gpg_bash_lib_function_displaytime "$gpg_bash_lib_input_maximum_age_in_seconds")"
 
+   ## {{ Dry Run
+
+   local gpg_bash_lib_internal_gpg_fingerprint_pid
+
+   timeout \
+      --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
+         gpg \
+            --no-options \
+            --homedir "$gpg_bash_lib_input_temp_folder" \
+            --fingerprint \
+            2>&1
+
+   gpg_bash_lib_internal_gpg_fingerprint_pid="$!"
+   if ! wait "$gpg_bash_lib_internal_gpg_fingerprint_pid" ; then
+      error "Dry run of 'gpg --fingerprint' failed!"
+   fi
+
+   ## }}
+
    local gpg_bash_lib_internal_gpg_verify_pid
 
    timeout \
