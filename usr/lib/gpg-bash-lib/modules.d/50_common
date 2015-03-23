@@ -375,6 +375,11 @@ gpg_bash_lib_function_parse_status_file() {
          gpg_bash_lib_internal_trust_ultimate="true"
       fi
       if echo "$two" | grep -i -q "TRUST_" ; then
+         ## Stop parsing after first signature. Multiple signatures within a
+         ## a single file are not yet implemented. And would be difficult to
+         ## implement, because gpg does not provide a separator for multiple
+         ## signatures, see:
+         ## https://lists.gnupg.org/pipermail/gnupg-users/2015-March/053253.html
          break
       fi
    done < "$gpg_bash_lib_internal_gpg_verify_status_fd_file"
