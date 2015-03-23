@@ -250,6 +250,7 @@ gpg_bash_lib_function_verify() {
             --no-options \
             --homedir "$gpg_bash_lib_input_temp_folder" \
             --fingerprint \
+            >/dev/null \
             2>&1
 
    gpg_bash_lib_internal_gpg_fingerprint_pid="$!"
