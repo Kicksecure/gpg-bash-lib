@@ -1,3 +1,247 @@
+commit 730a60256a8a14b1c697e94672bba19fa88fd73b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Mar 24 17:26:31 2015 +0000
+
+    updated makefile generic to version 1.4
+
+commit d6cff902f40135c3e100a5bb13a6fe8275a41828
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 23 19:37:42 2015 +0000
+
+    comment
+
+commit 47534938d0e8052166c69424a051960f6ff8b9c6
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 23 19:31:58 2015 +0000
+
+    hide output of gpg --fingerprint per default
+
+commit 368e4106832a8bf34934696ee932ee746a1a5e1e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 23 19:31:23 2015 +0000
+
+    stop parsing after first signature - https://phabricator.whonix.org/T234
+
+commit aeeeb84d57b6edcdbda721985b1aa93d7bc473f1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 23 16:55:18 2015 +0000
+
+    comment
+
+commit 1ba9e1187f7cd845702111ad1dfa3e642e98ddd0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 23 16:54:02 2015 +0000
+
+    dry run of gpg --fingerprint for more pretty gpg_bash_lib_output_gpg_verify_output that does not contain the trustdb related messages on first run of gpg
+
+commit d05e67a2e73290f043d24faa897d05bb912a9b58
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 19 17:44:49 2015 +0000
+
+    readme
+
+commit 4aa534574b8846345e86b1c56997c687f8f25de0
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 19 17:42:06 2015 +0000
+
+    readme
+
+commit 9c238c3dd8dd38cf2c8cede112d63256f8c26d4e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 19 17:41:43 2015 +0000
+
+    readme
+
+commit c9ef522aa5d8e5a1136c6e05df97c500ce0c0e6b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 19 16:53:33 2015 +0000
+
+    readme
+
+commit e2ec57f1f27fc159b6bb1e2e6090ee44153196a5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 19 16:50:22 2015 +0000
+
+    unit test
+
+commit c46ca7bcd27a6afdfd634334a8a0186a3f9c2fcb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 19 16:45:26 2015 +0000
+
+    comment
+
+commit 66b16e628984286a8822f3895e32331f3f933685
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 9 19:57:01 2015 +0000
+
+    fix
+
+commit be4799d63ab24d1d69edc754e79b2092e76737b5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Mar 9 19:55:02 2015 +0000
+
+    refactoring
+
+commit 7e89c49b967ea86efd6c009578b9dd01bd58b243
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Mar 5 15:54:22 2015 +0000
+
+    fix
+
+commit 547265054029726e2ee74dd6363098713d6f7bc3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 26 21:15:16 2015 +0000
+
+    unit test
+
+commit a58e4ce28950c3398b58c74f18759c7c652b0f31
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 26 21:12:44 2015 +0000
+
+    unit tests
+
+commit 193678aa9997c946be8a5537a879bc5b5c095978
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 26 21:11:10 2015 +0000
+
+    renamed:    usr/share/gpg-bash-lib/unit-tests/unit_test2 -> usr/share/gpg-bash-lib/unit-tests/traps_and_shopts
+    renamed:    usr/share/gpg-bash-lib/unit-tests/unit_test -> usr/share/gpg-bash-lib/unit-tests/verification
+
+commit c3d769fa3bb6c033c4fd4357512baf4c671c6fe8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 26 21:10:07 2015 +0000
+
+    renamed:    usr/share/gpg-bash-lib/unit_test -> usr/share/gpg-bash-lib/unit-tests/unit_test
+    renamed:    usr/share/gpg-bash-lib/unit_test2 -> usr/share/gpg-bash-lib/unit-tests/unit_test2
+
+commit 62771500c3615416262adef699f15aafa78f6b36
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 25 17:31:19 2015 +0000
+
+    sanity test
+
+commit 3e76a350844d513400d41cd285101c8658190d8a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 25 17:06:47 2015 +0000
+
+    fix restore existing traps in all cases
+
+commit 8629adb34e73f66f5fe25c9689472876fe173b5e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 16:01:51 2015 +0000
+
+    updated examples
+
+commit defc571779396e76f9e672ae9ca49259bea94422
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 16:00:09 2015 +0000
+
+    updated examples
+
+commit 37a7e8924d71f8d0ae977b27cc23dc40992ae2e1
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 15:57:56 2015 +0000
+
+    sanity test
+
+commit a4a7c1a52747e8b61c72b74473a7fa7e54ec13ff
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 15:07:58 2015 +0000
+
+    fix
+
+commit 8a2aefc45471950f1659af55e9f22558bad93a4a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 15:07:09 2015 +0000
+
+    comment
+
+commit 059b1f377ba464211c7cb0f49f8201d014f4c928
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 15:01:27 2015 +0000
+
+    comment
+
+commit 86149da244b0332c96b59c697476e8f217051dbe
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 14:54:09 2015 +0000
+
+    sanity test
+
+commit e83b09a80f7adf50d2d8ed0dc0e157bb1b4a4018
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 14:00:35 2015 +0000
+
+    only set/unset shopt dotglob/nullglob when required
+
+commit 5b8b781bd22a6455d792f4fb6265e4f2eebc2b1d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 13:52:03 2015 +0000
+
+    output
+
+commit b4c19a340daef524c0136fb53aa415f41bb1f0ab
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 13:45:24 2015 +0000
+
+    output
+
+commit a4ffeaf4caa9bb789c6045a32334b3882eac7a45
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 13:41:40 2015 +0000
+
+    trust keys that were imported from key files folder
+
+commit dee99507becae1d8ff692126427dec28a5e3fd13
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 12:45:45 2015 +0000
+
+    refactoring
+
+commit 1d5d8fc17b587c6a5b0cbcba361984212b799241
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 12:44:08 2015 +0000
+
+    fix
+
+commit d9e211eb11639a5bd515ba6e659aee6471913702
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 12:42:29 2015 +0000
+
+    refactoring
+
+commit e9ec9d8993168fe3b7431405803ec9cf9d89517e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 24 12:39:08 2015 +0000
+
+    automatically set/unset trap, pipefail, errtrace as required
+
+commit eaf9de8879f3f27926289c9444ef5eb1c96405ef
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 04:03:57 2015 +0000
+
+    readme
+
+commit c856a4b04eb9e9e593c14f7db20052fbe673163d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 03:54:01 2015 +0000
+
+    Revert "made variables gpg_bash_lib_internal_gpg_verify_status_fd_file and gpg_bash_lib_internal_gpg_verify_output_file overruleable"
+    Breaks when doing multiple runs in a row.
+    This reverts commit df48212cb7b25d487ed51c634bdc63e0e8b85b43.
+
+commit cf4e159bfd7d6485b8a8131ccb6747ec018060e8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 03:44:50 2015 +0000
+
+    refactoring
+
+commit ac129a54c774448c1ff48c8b95e1b07c9b66bc9c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Feb 4 00:56:16 2015 +0000
+
+    bumped changelog version
+
 commit 9d80d68d9bf74378efbff246b7ffcf60df5acb5c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Feb 4 00:44:48 2015 +0000
