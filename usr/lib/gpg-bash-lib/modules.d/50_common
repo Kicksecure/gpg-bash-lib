@@ -251,10 +251,17 @@ gpg_bash_lib_function_verify() {
             --homedir "$gpg_bash_lib_input_temp_folder" \
             --fingerprint \
             >/dev/null \
-            2>&1
+            2>&1 \
+            &
 
    gpg_bash_lib_internal_gpg_fingerprint_pid="$!"
-   if ! wait "$gpg_bash_lib_internal_gpg_fingerprint_pid" ; then
+   if wait "$gpg_bash_lib_internal_gpg_fingerprint_pid" ; then
+      gpg_bash_lib_output_gpg_fingerprint_exit_code="0"
+   else
+      gpg_bash_lib_output_gpg_fingerprint_exit_code="$?"
+   fi
+
+   if [ ! "$gpg_bash_lib_output_gpg_fingerprint_exit_code" = "0" ]; then
       error "Dry run of 'gpg --fingerprint' failed!"
    fi
 
