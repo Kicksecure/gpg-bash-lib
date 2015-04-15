@@ -1,3 +1,15 @@
+commit 833da423f8d5e95fc08de1d68a0a544109dadbe4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Apr 15 20:20:17 2015 +0000
+
+    fixed dry run of gpg --fingerprint
+
+commit e61387bc03f9f25953f295bf933105ea6a50a3b8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Apr 7 17:41:41 2015 +0000
+
+    bumped changelog version
+
 commit eb4eefa08f51b6f4f5badb2ee9d8f88546e7611b
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 2 18:41:10 2015 +0000
