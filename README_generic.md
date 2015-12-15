@@ -1,3 +1,15 @@
+# gpg bash library #
+
+Abstracts file verification into common functions. Allows detecting of stale
+files, i.e. detection downgrade or indefinite freeze attacks by implementing
+a valid-until like mechanism.
+
+Internally parses gpg's --status-file output.
+
+For better security.
+
+(This package description has been [automatically](https://github.com/Whonix/whonix-developer-meta-files/blob/master/debug-steps/packaging-helper-script) extracted and mirrored from `debian/control`.)
+
 # Generic Readme #
 ## Readme Version ##
 
