@@ -119,6 +119,7 @@ gpg_bash_lib_function_key_file_to_first_primary_fingerprint() {
       timeout \
          --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
             gpg \
+               --batch \
                --no-options \
                --homedir "$gpg_bash_lib_input_temp_folder" \
                --with-colons \
@@ -193,6 +194,7 @@ gpg_bash_lib_function_import_keys_to_temp_dir() {
       ## Therefore we ignore time conflicts, because a clock sanity check will be done later.
       gpg_bash_lib_output_gpg_import_output="$( \
             gpg \
+               --batch \
                --no-options \
                --ignore-time-conflict \
                --homedir "$gpg_bash_lib_input_temp_folder" \
@@ -202,6 +204,7 @@ gpg_bash_lib_function_import_keys_to_temp_dir() {
       gpg_bash_lib_internal_primary_key_fingerprint="$(gpg_bash_lib_function_key_file_to_first_primary_fingerprint "$gpg_bash_lib_internal_key")"
       echo "$gpg_bash_lib_internal_primary_key_fingerprint:6:" | \
          gpg \
+               --batch \
                --no-options \
                --ignore-time-conflict \
                --homedir "$gpg_bash_lib_input_temp_folder" \
@@ -247,6 +250,7 @@ gpg_bash_lib_function_verify() {
    timeout \
       --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
          gpg \
+            --batch \
             --no-options \
             --homedir "$gpg_bash_lib_input_temp_folder" \
             --fingerprint \
@@ -272,6 +276,7 @@ gpg_bash_lib_function_verify() {
    timeout \
       --kill-after="$gpg_bash_lib_input_verify_kill_after" "$gpg_bash_lib_input_verify_timeout_after" \
          gpg \
+            --batch \
             --no-options \
             --ignore-time-conflict \
             --with-fingerprint \
