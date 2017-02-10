@@ -6,7 +6,7 @@ Source: gpg-bash-lib
 Section: libs
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 9), faketime, genmkfile
+Build-Depends: debhelper (>= 9), genmkfile
 Homepage: https://github.com/Whonix/gpg-bash-lib
 Vcs-Browser: https://github.com/Whonix/gpg-bash-lib
 Vcs-Git: https://github.com/Whonix/gpg-bash-lib.git
