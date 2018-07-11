@@ -59,6 +59,8 @@ gpg_bash_lib_function_unit_test_genkey() {
                                  --no-default-keyring \
                                  --homedir "$gpg_bash_lib_unit_test_homedir/gpg" \
                                  --batch \
+                                 --passphrase "" \
+                                 --pinentry-mode loopback \
                                  --gen-key
 }
 
@@ -76,8 +78,17 @@ gpg_bash_lib_function_unit_test_testrun_common() {
          --armor \
          --no-options \
          --homedir "$gpg_bash_lib_unit_test_homedir/gpg" \
+         --passphrase "" \
+         --pinentry-mode loopback \
          --set-notation "file@name"="$(basename "$gpg_bash_lib_unit_test_homedir/test-file")" \
          --detach-sign "$gpg_bash_lib_unit_test_homedir/test-file"
+
+   ## Convert keybox kbx file into keyring gpg file.
+   gpg \
+      --no-options \
+      --homedir $gpg_bash_lib_unit_test_homedir/gpg \
+      --export \
+      > "$gpg_bash_lib_unit_test_homedir/gpg/pubring.gpg"
 
    gpg_bash_lib_input_temp_folder="$(mktemp --directory)"
    gpg_bash_lib_input_key_import_dir="$(mktemp --directory)"
