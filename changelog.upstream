@@ -1,3 +1,21 @@
+commit 74ff52d06706a5e20e08089d9b87220e9cc7157b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 11 16:54:23 2018 +0800
+
+    adjust unit test for gpg2
+
+commit 47834a45f2595e4b8d97dee0186086c7fd26934a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 11 15:53:43 2018 +0800
+
+    trap restoration bug found
+
+commit 005635831090e6b57e5ce5e2cb9aca0da1195ce7
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Feb 1 15:03:59 2018 +0000
+
+    bumped changelog version
+
 commit d351670bd2a26bf1d2bebb93c0a676ff30e43122
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Jan 29 15:51:46 2018 +0000
