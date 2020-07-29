@@ -131,6 +131,28 @@ gpg_bash_lib_function_key_file_to_first_primary_fingerprint() {
    ## gpg: key 4E2C6E8793298290: 236 signatures not checked due to missing keys
    ## gpg: key 4E2C6E8793298290: 1 signature reordered
    ## ...
+   ##
+   ## Therefore using '--import-options show-only,import-minimal'.
+
+   ## example command:
+   ##
+   ## gpg --batch --no-options --homedir /home/user/.cache/tb/gpgtmpdir --with-colons --fixed-list-mode --with-fingerprint --import --import-options show-only,import-minimal --trust-model direct /usr/share/torbrowser-updater-keys.d/tbb-team.asc
+   ##
+   ## example output:
+   ##
+   ## pub:u:4096:1:4E2C6E8793298290:1418637242:1598268349::u:::cSC::::::23::0:
+   ## fpr:::::::::EF6E286DDA85EA2A4BA7DE684E2C6E8793298290:
+   ## uid:u::::1440588357::50CE13CA9C3B3D27C0071489BB58D4B898131885::Tor Browser Developers (signing key) <torbrowser@torproject.org>::::::::::0:
+   ## sub:e:4096:1:7017ADCEF65C2036:1418637307:1503660203:::::s::::::23:
+   ## fpr:::::::::5242013F02AFC851B1C736B87017ADCEF65C2036:
+   ## sub:e:4096:1:2E1AC68ED40814E0:1418637398:1503660390:::::s::::::23:
+   ## fpr:::::::::BA1EE421BBB45263180E1FC72E1AC68ED40814E0:
+   ## sub:r:4096:1:2D000988589839A3:1418637546::::::s::::::23:
+   ## fpr:::::::::05FA44253F6C19A8B7F518D42D000988589839A3:
+   ## sub:e:4096:1:D1483FA6C3C07136:1472037984:1535109984:::::s::::::23:
+   ## fpr:::::::::A4300A6BC93C0877A4451486D1483FA6C3C07136:
+   ## sub:u:4096:1:EB774491D9FF06E2:1527369844:1599945844:::::s::::::23:
+   ## fpr:::::::::110775B5D101FB36BC6C911BEB774491D9FF06E2:
 
    local gpg_bash_lib_internal_key_fingerprint_output gpg_bash_lib_internal_first_three
    local gpg_bash_lib_internal_fingerprint_without_collons gpg_bash_lib_internal_key_file_path
@@ -146,7 +168,7 @@ gpg_bash_lib_function_key_file_to_first_primary_fingerprint() {
                --with-colons \
                --fixed-list-mode \
                --with-fingerprint \
-               --import-options show-only \
+               --import-options show-only,import-minimal \
                --import \
                "$gpg_bash_lib_internal_key_file_path" \
    )"
