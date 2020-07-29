@@ -6,14 +6,15 @@
 ## {{{ test functions
 
 gpg_bash_lib_function_unit_test_check_error_handler() {
-   true "gpg_bash_lib_unit_test_existing_trap_a: $gpg_bash_lib_unit_test_existing_trap_a"
-   true "gpg_bash_lib_unit_test_existing_trap_b: $gpg_bash_lib_unit_test_existing_trap_b"
+   gpg_bash_lib_unit_test_current_trap="$(trap -p ERR)"
+   true "gpg_bash_lib_unit_test_existing_trap_original: $gpg_bash_lib_unit_test_existing_trap_original"
+   true "gpg_bash_lib_unit_test_existing_trap_by_gpg_bash_lib: $gpg_bash_lib_unit_test_existing_trap_by_gpg_bash_lib"
    true "gpg_bash_lib_unit_test_current_trap   : $gpg_bash_lib_unit_test_current_trap"
-   if [ ! "$gpg_bash_lib_unit_test_existing_trap_a" = "$gpg_bash_lib_unit_test_current_trap" ]; then
+   if [ ! "$gpg_bash_lib_unit_test_existing_trap_original" = "$gpg_bash_lib_unit_test_current_trap" ]; then
       echo "ERROR #1 !" >&2
       exit 1
    fi
-   if [ ! "$gpg_bash_lib_unit_test_existing_trap_b" = "$gpg_bash_lib_unit_test_current_trap" ]; then
+   if [ ! "$gpg_bash_lib_unit_test_existing_trap_by_gpg_bash_lib" = "$gpg_bash_lib_unit_test_current_trap" ]; then
       echo "ERROR #2 !" >&2
       exit 1
    fi
@@ -29,12 +30,11 @@ gpg_bash_lib_function_unit_test_error_handler() {
 }
 
 trap "gpg_bash_lib_function_unit_test_error_handler" ERR
+gpg_bash_lib_unit_test_existing_trap_original="$(trap -p ERR)"
 
 gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
 cd "$gpg_bash_lib_mydir"
 cd ../../../../
-
-gpg_bash_lib_unit_test_existing_trap_a="$(trap -p ERR)"
 
 ## }}}
 
@@ -43,13 +43,11 @@ gpg_bash_lib_unit_test_existing_trap_a="$(trap -p ERR)"
 source "./usr/lib/gpg-bash-lib/source_all"
 
 trap "gpg_bash_lib_function_unit_test_error_handler" ERR
-gpg_bash_lib_unit_test_existing_trap_b="$(trap -p ERR)"
+gpg_bash_lib_unit_test_existing_trap_by_gpg_bash_lib="$(trap -p ERR)"
 
 gpg_bash_lib_function_init
 
 gpg_bash_lib_function_deinit
-
-gpg_bash_lib_unit_test_current_trap="$(trap -p ERR)"
 
 gpg_bash_lib_function_unit_test_check_error_handler
 
