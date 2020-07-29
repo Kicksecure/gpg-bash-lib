@@ -1,3 +1,77 @@
+commit 1f11faa82b3dc1e836ee6bf4b66120a5047a5da8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:58:16 2020 -0400
+
+    fix unit test
+
+commit c1c5b02dc357a7209f373837664d12c391bca296
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:45:50 2020 -0400
+
+    refactoring
+
+commit 17f0228fcd31b0fe7522fa73c4baf4491f49f355
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:39:27 2020 -0400
+
+    refactoring
+
+commit d2a927aa8868c879e644cafff67ba6c7c7de9f17
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:37:03 2020 -0400
+
+    output
+
+commit 02ea6c638beddeb9e82efff9d6f9ce15892bd590
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:32:59 2020 -0400
+
+    output
+
+commit e2c3c54b5c76e9ba9a9c4b637999282aff7fec74
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:28:27 2020 -0400
+
+    use `--import-options show-only,import-minimal` for key fingerprint output
+    
+    to fix cosmetic / usability issue otherwise showing output:
+    
+    > gpg: key 4E2C6E8793298290: 1 duplicate signature removed
+    > gpg: key 4E2C6E8793298290: 236 signatures not checked due to missing keys
+    > gpg: key 4E2C6E8793298290: 1 signature reordered
+
+commit 4adfb131d3b57f6a05608c39820c9ff200c4ce9e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:25:31 2020 -0400
+
+    comment
+
+commit 879df2b5dd6fbb63f25cfb00f580708c0eae278e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:24:13 2020 -0400
+
+    comment
+
+commit 73867decec5aae1824b70fb2534ce6516b2b820d
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:12:27 2020 -0400
+
+    cosmetic fix `gpg: WARNING: no command supplied. Trying to guess what you mean ...`
+    
+    https://forums.whonix.org/t/gpg-show-key-warning-gpg-warning-no-command-supplied-trying-to-guess-what-you-mean/7859
+
+commit fe7e210631f773960bf92fb356b28f29cd35071f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Jul 29 10:03:07 2020 -0400
+
+    refactoring
+
+commit 6c6455859209a97d48588a0733c0956bf8fda95c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 16 08:31:18 2020 -0400
+
+    bumped changelog version
+
 commit 5858fd103e41f70f9e6f8b841b3d7d8735d74c22
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Apr 15 14:05:31 2020 -0400
