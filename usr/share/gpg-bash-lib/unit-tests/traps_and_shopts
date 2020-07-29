@@ -32,6 +32,8 @@ gpg_bash_lib_function_unit_test_error_handler() {
 trap "gpg_bash_lib_function_unit_test_error_handler" ERR
 gpg_bash_lib_unit_test_existing_trap_original="$(trap -p ERR)"
 
+set -o errtrace
+
 gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
 cd "$gpg_bash_lib_mydir"
 cd ../../../../
@@ -51,12 +53,7 @@ gpg_bash_lib_function_deinit
 
 gpg_bash_lib_function_unit_test_check_error_handler
 
-## errtrace, pipefail was not set before, it should not be set now.
-
-if test -o errtrace ; then
-   echo "ERROR #3 !" >&2
-   exit 1
-fi
+## pipefail was not set before, it should not be set now.
 
 if test -o pipefail ; then
    echo "ERROR #4!" >&2
