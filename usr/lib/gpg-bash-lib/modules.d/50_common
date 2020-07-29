@@ -110,6 +110,12 @@ gpg_bash_lib_function_sanity_tests() {
 gpg_bash_lib_function_key_file_to_first_primary_fingerprint() {
    trap "gpg_bash_lib_function_error_handler" ERR
 
+   ## gpg --batch --no-options --homedir /home/user/.cache/tb/gpgtmpdir --with-colons --fixed-list-mode --with-fingerprint /usr/share/torbrowser-updater-keys.d/tbb-team.asc
+   ## output:
+   ## gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+   ## ...
+   ## Therefore using '--import-options show-only'.
+
    local gpg_bash_lib_internal_key_fingerprint_output gpg_bash_lib_internal_first_three
    local gpg_bash_lib_internal_fingerprint_without_collons gpg_bash_lib_internal_key_file_path
    local gpg_bash_lib_internal_fingerprint_final
