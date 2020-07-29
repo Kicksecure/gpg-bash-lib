@@ -27,11 +27,11 @@ gpg_bash_lib_function_unit_test_check_error_handler() {
    true "gpg_bash_lib_unit_test_existing_trap_b: $gpg_bash_lib_unit_test_existing_trap_b"
    true "gpg_bash_lib_unit_test_current_trap   : $gpg_bash_lib_unit_test_current_trap"
    if [ ! "$gpg_bash_lib_unit_test_existing_trap_a" = "$gpg_bash_lib_unit_test_current_trap" ]; then
-      echo "ERROR!" >&2
+      echo "ERROR #1 !" >&2
       exit 1
    fi
    if [ ! "$gpg_bash_lib_unit_test_existing_trap_b" = "$gpg_bash_lib_unit_test_current_trap" ]; then
-      echo "ERROR!" >&2
+      echo "ERROR #2 !" >&2
       exit 1
    fi
 }
@@ -56,12 +56,12 @@ gpg_bash_lib_function_unit_test_check_error_handler
 ## errtrace, pipefail was not set before, it should not be set now.
 
 if test -o errtrace ; then
-   echo "ERROR!" >&2
+   echo "ERROR #3 !" >&2
    exit 1
 fi
 
 if test -o pipefail ; then
-   echo "ERROR!" >&2
+   echo "ERROR #4!" >&2
    exit 1
 fi
 
@@ -85,12 +85,12 @@ gpg_bash_lib_function_unit_test_check_error_handler
 ## errtrace, pipefail was set before, it should be set now.
 
 if ! test -o errtrace ; then
-   echo "ERROR!" >&2
+   echo "ERROR #5 !" >&2
    exit 1
 fi
 
 if ! test -o pipefail ; then
-   echo "ERROR!" >&2
+   echo "ERROR #6 !" >&2
    exit 1
 fi
 
