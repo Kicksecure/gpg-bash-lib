@@ -3,23 +3,6 @@
 ## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
 ## See the file COPYING for copying conditions.
 
-## {{{ setup
-
-gpg_bash_lib_function_unit_test_error_handler() {
-   echo "$FUNCNAME ERROR #0 !" >&2
-   exit 1
-}
-
-trap "gpg_bash_lib_function_unit_test_error_handler" ERR
-
-gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
-cd "$gpg_bash_lib_mydir"
-cd ../../../../
-
-gpg_bash_lib_unit_test_existing_trap_a="$(trap -p ERR)"
-
-## }}}
-
 ## {{{ test functions
 
 gpg_bash_lib_function_unit_test_check_error_handler() {
@@ -35,6 +18,23 @@ gpg_bash_lib_function_unit_test_check_error_handler() {
       exit 1
    fi
 }
+
+## }}}
+
+## {{{ setup
+
+gpg_bash_lib_function_unit_test_error_handler() {
+   echo "$FUNCNAME ERROR #0 !" >&2
+   exit 1
+}
+
+trap "gpg_bash_lib_function_unit_test_error_handler" ERR
+
+gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
+cd "$gpg_bash_lib_mydir"
+cd ../../../../
+
+gpg_bash_lib_unit_test_existing_trap_a="$(trap -p ERR)"
 
 ## }}}
 
