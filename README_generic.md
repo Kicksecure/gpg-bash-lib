@@ -9,7 +9,7 @@ Internally parses gpg's --status-file output.
 For better security.
 ## How to install `gpg-bash-lib` using apt-get ##
 
-1\. Download [Whonix's Signing Key]().
+1\. Download Whonix's Signing Key.
 
 ```
 wget https://www.whonix.org/patrick.asc
@@ -20,7 +20,7 @@ Users can [check Whonix Signing Key](https://www.whonix.org/wiki/Whonix_Signing_
 2\. Add Whonix's signing key.
 
 ```
-sudo apt-key --keyring /etc/apt/trusted.gpg.d/whonix.gpg add ~/derivative.asc
+sudo apt-key --keyring /etc/apt/trusted.gpg.d/derivative.gpg add ~/patrick.asc
 ```
 
 3\. Add Whonix's APT repository.
