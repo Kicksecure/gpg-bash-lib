@@ -1,3 +1,9 @@
+gpg-bash-lib (3:2.9-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Sat, 06 Feb 2021 11:28:30 +0000
+
 gpg-bash-lib (3:2.8-1) unstable; urgency=medium
 
   * New upstream version (local package).
