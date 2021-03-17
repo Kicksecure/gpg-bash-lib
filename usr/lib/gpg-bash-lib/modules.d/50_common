@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## Copyright (C) 2012 - 2020 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## Copyright (C) 2012 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
 gpg_bash_lib_function_error_handler() {
@@ -360,7 +360,7 @@ gpg_bash_lib_function_parse_status_file() {
 
    ## Example gpg_bash_lib_internal_gpg_verify_status_fd_file:
    ## [GNUPG:] SIG_ID xl52dwvbkcu7YkXw6Zv/PUhexUk 2015-01-15 1421344751
-   ## [GNUPG:] GOODSIG CB8D50BB77BB3C48 Patrick Schleizer <adrelanos@riseup.net>
+   ## [GNUPG:] GOODSIG CB8D50BB77BB3C48 Patrick Schleizer <adrelanos@whonix.org>
    ## [GNUPG:] NOTATION_NAME issuer-fpr@notations.openpgp.fifthhorseman.net
    ## [GNUPG:] NOTATION_DATA 6E979B28A6F37C43BE30AFA1CB8D50BB77BB3C48
    ## [GNUPG:] NOTATION_NAME file@name
