@@ -42,7 +42,7 @@ cd ../../../../
 
 ## {{{ test 1
 
-source "./usr/lib/gpg-bash-lib/source_all"
+source "./usr/libexec/gpg-bash-lib/source_all"
 
 trap "gpg_bash_lib_function_unit_test_error_handler" ERR
 gpg_bash_lib_unit_test_existing_trap_by_gpg_bash_lib="$(trap -p ERR)"
@@ -67,7 +67,7 @@ fi
 set -o pipefail
 set -o errtrace
 
-source "./usr/lib/gpg-bash-lib/source_all"
+source "./usr/libexec/gpg-bash-lib/source_all"
 
 gpg_bash_lib_function_init
 

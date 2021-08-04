@@ -11,7 +11,7 @@ gpg_bash_lib_mydir="$( cd "$( dirname "$0" )" && pwd )"
 cd "$gpg_bash_lib_mydir"
 cd ../../../../
 
-source "./usr/lib/gpg-bash-lib/source_all"
+source "./usr/libexec/gpg-bash-lib/source_all"
 
 trap "gpg_bash_lib_function_error_handler" ERR
 set +e

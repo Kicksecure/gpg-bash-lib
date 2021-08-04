@@ -22,7 +22,7 @@ verification() {
    ## Source gpg-bash-lib, so functions provided by it become available to your
    ## script. You could also do the sourcing at any earlier point at your
    ## convenience.
-   source "/usr/lib/gpg-bash-lib/source_all"
+   source "/usr/libexec/gpg-bash-lib/source_all"
 
    ## Run gpg-bash-lib to let it do the verification for you.
    gpg_bash_lib_function_main_verify

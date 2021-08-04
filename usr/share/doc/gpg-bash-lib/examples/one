@@ -15,7 +15,7 @@ verification() {
    gpg_bash_lib_input_data_file="/usr/share/gpg-bash-lib/misc/test-files/test-file"
    gpg_bash_lib_input_sig_file="/usr/share/gpg-bash-lib/misc/test-files/test-file.asc"
 
-   source "/usr/lib/gpg-bash-lib/source_all"
+   source "/usr/libexec/gpg-bash-lib/source_all"
 
    gpg_bash_lib_function_main_verify
 

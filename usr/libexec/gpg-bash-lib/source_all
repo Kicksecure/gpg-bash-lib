@@ -4,10 +4,10 @@
 ## See the file COPYING for copying conditions.
 
 if [ "$gpg_bash_lib_input_script_source_dir" = "" ]; then
-   if [ -d "./usr/lib/gpg-bash-lib/modules.d" ]; then
-      gpg_bash_lib_input_script_source_dir="./usr/lib/gpg-bash-lib/modules.d"
-   elif [ -d "/usr/lib/gpg-bash-lib/modules.d" ]; then
-      gpg_bash_lib_input_script_source_dir="/usr/lib/gpg-bash-lib/modules.d"
+   if [ -d "./usr/libexec/gpg-bash-lib/modules.d" ]; then
+      gpg_bash_lib_input_script_source_dir="./usr/libexec/gpg-bash-lib/modules.d"
+   elif [ -d "/usr/libexec/gpg-bash-lib/modules.d" ]; then
+      gpg_bash_lib_input_script_source_dir="/usr/libexec/gpg-bash-lib/modules.d"
    else
       error "ERROR: $0: variable gpg_bash_lib_input_script_source_dir is unset and could not be auto detected!"
       return 0
