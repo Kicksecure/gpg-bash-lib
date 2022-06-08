@@ -12,7 +12,7 @@ gpg_bash_lib_function_displaytime_helper() {
 
 gpg_bash_lib_function_displaytime() {
    trap "gpg_bash_lib_function_error_handler" ERR
-   ## Thanks to Stéphane Gimenez!
+   ## Thanks to Stephane Gimenez!
    ## http://unix.stackexchange.com/a/27014/49297
    ## Modified by Patrick Schleizer.
    local T D H M S X
