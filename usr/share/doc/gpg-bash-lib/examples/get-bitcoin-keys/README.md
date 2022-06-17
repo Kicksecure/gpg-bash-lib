@@ -2,7 +2,7 @@
 
 The core problem of gpg trust is trusting the keys against which we will verify the source code.
 There are a few approaches to getting the keys:
-1. Meeting the person in question and verifying 
+1. Meeting the person in question and verifying
 2. Getting the keys from a trusted secondary source that has verified the keys in person
 3. Using the web of trust model to get from a already trusted key to not yet trusted key
 4. Blindly downloading the keys from keyservers and hoping for the best
@@ -14,14 +14,14 @@ The rationale here being that it will be increasingly difficult for an attacker 
 
 ## Bitcoin Core developer keys, an investigation
 
-According to the hash signature file ([SHA256SUMS.asc](https://bitcoincore.org/bin/bitcoin-core-22.0/SHA256SUMS.asc)) 
+According to the hash signature file ([SHA256SUMS.asc](https://bitcoincore.org/bin/bitcoin-core-22.0/SHA256SUMS.asc))
 bitcoind version 22.0 is signed by 13 of the developers.
 
-This file does, however, not give us any information about which 13 keys created these signatures or, for our purposes 
+This file does, however, not give us any information about which 13 keys created these signatures or, for our purposes
 more importantly which persons these keys belong to.
 
-The Bitcoin Core Github repository contains the file `keys.txt`, the version of this file from git master contains the key 
-fingerprints for 56 developers, the version as it appeared 
+The Bitcoin Core Github repository contains the file `keys.txt`, the version of this file from git master contains the key
+fingerprints for 56 developers, the version as it appeared
 
 * Git master: [keys.txt](https://raw.githubusercontent.com/bitcoin/bitcoin/master/contrib/builder-keys/keys.txt)
 * Version 22.0: [keys.txt](https://raw.githubusercontent.com/bitcoin/bitcoin/22.x/contrib/builder-keys/keys.txt)
@@ -144,7 +144,7 @@ Additional sources for signatures:
 
 * Github user pages
   * https://github.com/laanwj `71A3B16735405025D447E8F274810B012346C9A6`   Does not match!
-* 
+*
 
 
 https://github.com/laanwj
@@ -207,7 +207,7 @@ The first key yields no results so we will skip that one for now, but the second
     sub   rsa4096 2015-03-05 [E] [expires: 2023-03-01]
     775F 1492 D895 5479 8BD5  6C5A DB88 DB0B D2ED FBFC
     sig!         17565732E08E5E41 2022-03-01  Andrew Chow (Official New Key) <achow101@gmail.com>
-    
+
     gpg: 28 good signatures
 
 Signed by (7): MeshCollider, Sjors Provoost, Karl-Johan Alm, Luke Dashjr, Hennadii Stepanov, Jonas Schnelli and Antoine Poinsot
@@ -219,7 +219,7 @@ Signed by (7): MeshCollider, Sjors Provoost, Karl-Johan Alm, Luke Dashjr, Hennad
     0AD8 3877 C1F0 CD1E E9BD  660A D7CC 770B 81FD 22A8
     uid           [ unknown] Ben Carman <benthecarman@live.com>
     sig!3        D7CC770B81FD22A8 2021-01-04  Ben Carman <benthecarman@live.com>
-    
+
     gpg: 1 good signature
 
 He has only signed his own key.
@@ -245,7 +245,7 @@ He has only signed his own key.
     sub   rsa4096 2021-02-07 [A] [expires: 2023-02-06]
     6F9E FB24 18B2 2D9A DC16  4408 2E27 55CC CB9A 664C
     sig!         E13FC145CD3F4304 2022-02-06  Antoine Poinsot <darosior@protonmail.com>
-    
+
     gpg: 8 good signatures
 
 Signed by (1): Hennadii Stepanov (expired).
@@ -266,7 +266,7 @@ Signed by (1): Hennadii Stepanov (expired).
     sub   rsa4096 2018-09-22 [E]
     722F 9A1F 3799 2245 45C6  CB90 A045 5D51 34A8 63A6
     sig!         C37B1C1D44C786EE 2018-09-22  Duncan Dean <duncangleeddean@gmail.com>
-    
+
     gpg: 4 good signatures
 
 He has only signed his own key.
@@ -294,7 +294,7 @@ He has only signed his own key.
     sub   rsa4096 2019-10-23 [A] [expires: 2022-10-22]
     3442 1905 5D59 453C D505  31CD 918A 89D2 10E9 6167
     sig!         2EBB056FD847F8A7 2019-10-23  Stephan Oeste (it) <it@oeste.de>
-    
+
     gpg: 9 good signatures
 
 He has only signed his own key.
@@ -313,7 +313,7 @@ He has only signed his own key.
     sub   rsa4096 2013-04-10 [SEA]
     CFB1 6E21 C950 F67F A95E  558F 2EEB 9F5C C095 26C1
     sig!         944D35F9AC3DB76A 2013-04-10  Michael Ford (bitcoin-otc) <fanquake@gmail.com>
-    
+
     gpg: 6 good signatures
 
 Signed by (4): Peter Todd, Karl-Johan Alm, Andrew Chow and Hennadii Stepanov.
@@ -346,7 +346,7 @@ Signed by (4): Peter Todd, Karl-Johan Alm, Andrew Chow and Hennadii Stepanov.
     sub   rsa4096 2021-04-24 [] [expires: 2023-04-24]
     9737 30D5 5793 F2DE F00B  60DA 63B6 5BEF 7899 D597
     sig!         8E4256593F177720 2021-04-29  Oliver Gugger <gugger@gmail.com>
-    
+
     gpg: 8 good signatures
 
 Only signed by himself.
@@ -367,7 +367,7 @@ Only signed by himself.
     sub   rsa4096 2018-08-26 [E]
     CBE8 9ED8 8EE8 525F D8D7  9F1E DB56 ADFD 8B5E F498
     sig!         410108112E7EA81F 2018-08-26  Hennadii Stepanov (GitHub key) <32963518+hebasto@users.noreply.github.com>
-    
+
     gpg: 7 good signatures
 
 Signed by (2): Jonas Schnelli and Peter Todd.
@@ -381,7 +381,7 @@ Signed by (2): Jonas Schnelli and Peter Todd.
     sig!3        796C4109063D4EAF 2020-04-13  Jon Atack <jon@atack.com>
     uid           [ expired] jonatack <jon@atack.com>
     sig!3        796C4109063D4EAF 2020-04-13  Jon Atack <jon@atack.com>
-    
+
     gpg: 2 good signatures
 
 Only signed by himself.
@@ -406,7 +406,7 @@ Only signed by himself.
     sub   rsa2048 2017-05-17 [S] [expires: 2027-02-08]
     9DEA E0DC 7063 249F B054  7468 1E4A ED62 986C D25D
     sig!         74810B012346C9A6 2022-02-09  Wladimir J. van der Laan <laanwj@protonmail.com>
-    
+
     gpg: 6 good signatures
 
 Only signed by himself.
@@ -418,7 +418,7 @@ Only signed by himself.
     9D3C C86A 72F8 4943 42EA  5FD1 0A41 BDC3 F4FA FF1C
     uid           [ expired] Aaron Clauson (sipsorcery) <aaron@sipsorcery.com>
     sig!3        0A41BDC3F4FAFF1C 2019-01-13  Aaron Clauson (sipsorcery) <aaron@sipsorcery.com>
-    
+
     gpg: 1 good signature
 
 Only signed by himself.
@@ -433,7 +433,7 @@ Only signed by himself.
     sub   rsa4096 2018-02-27 [E] [expires: 2022-08-27]
     6131 20D5 BD9B C2E7 3B09  FB50 53AC A327 C9E4 DC19
     sig!         099BAD163C70FBFA 2022-02-28  Will Clark <will8clark@gmail.com>
-    
+
     gpg: 2 good signatures
 
 Only signed by himself.
@@ -465,7 +465,7 @@ We found a few more that not signers of the 22.0 release but that are listed as 
     sub   secp256k1 2017-03-01 [S] [expires: 2027-02-27]
     11D8 BA65 E884 7A85 3C8A  5E9B F744 6F80 7A87 F46A
     sig!         29D4BCB6416F53EC 2017-03-01  Jonas Schnelli <dev@jonasschnelli.ch>
-    
+
     gpg: 9 good signatures
 
 Signed by (4): Marco Falke, Peter Todd (expired), Luke Dashjr, Hennadii Stepanov.
@@ -511,7 +511,7 @@ Signed by (4): Marco Falke, Peter Todd (expired), Luke Dashjr, Hennadii Stepanov
     sub   rsa4096 2018-04-12 [S]
     D117 1870 A473 B04C 0567  7379 2E5C B5D5 3551 2F37
     sig!         7FAB114267E4FA04 2018-04-12  Peter Todd <pete@petertodd.org>
-    
+
     gpg: 24 good signatures
 
 Signed by (8): Luke Dashjr, Michagogo, Matt Corallo, jl2012, Jonas Schnelli, Sjors Provoost, Karl-Johan Alm, Andrew Chow, Antoine Poinsot.
@@ -535,7 +535,7 @@ Signed by (8): Luke Dashjr, Michagogo, Matt Corallo, jl2012, Jonas Schnelli, Sjo
     sub   rsa4096 2017-01-31 [E] [expires: 2026-02-03]
     A627 4CC4 F7BC 7F54 4F17  CB3B B549 9BCA B7EA D0CF
     sig!         57AF762DB3353322 2021-02-04  Karl-Johan Alm <karljohan-alm@garage.co.jp>
-    
+
     gpg: 10 good signatures
 
 Signed by (5): Peter Todd (expired), Sjors Provoost, Andrew Chow, MeshCollider and Luke Dashjr.
@@ -588,7 +588,7 @@ Signed by (7): Peter Todd, Andrew Chow, Karl-Johan Alm, MeshCollider, Pieter Wui
     sub   rsa4096 2017-07-13 [E] [expires: 2033-07-09]
     76C9 D709 9A3E 1443 3C47  EB52 4006 E96F 3362 C04E
     sig!         D300116E1C875A3D 2017-07-13  MeshCollider <dobsonsa68@gmail.com>
-    
+
     gpg: 10 good signatures
 
 Signed by (8): Andrew Chow, Peter Todd, Sjors Provoost, Karl-Johan Alm, Marco Falke, Luke Dashjr, Hennadii Stepanov, Jonas Schnelli.
@@ -622,7 +622,7 @@ Signed by (8): Andrew Chow, Peter Todd, Sjors Provoost, Karl-Johan Alm, Marco Fa
     sub   rsa8192 2012-03-23 [E] [expires: 2022-06-09]
     F6B2 13CE 171D CF77 0E12  5FB7 E3F2 B3D7 CC42 DE42
     sig!         BD02942421F4889F 2021-06-10  Luke Dashjr <luke@dashjr.org>
-    
+
     gpg: 19 good signatures
 
 Signed by (6): Peter Todd, jl2012, Marco Falke, Jonas Schnelli, Andreas Schildbach, Karl-Johan Alm.
@@ -701,7 +701,7 @@ We set up `example_verify_bitcoind` in the following way:
     bitcoind_version="22.0"
     bitcoind_folder="bitcoind"
     bitcoind_keys_folder="bitcoind-pub-keys"
-    
+
     # Key trust settings
     #   The verification will fail unless all keys listed in $bitcoind_trusted_key_hashes check out
     #   The script will ignore verifying keys listed in $bitcoind_untrusted_key_hashes
