@@ -1,3 +1,31 @@
+commit 2c7db46c8adad117de60286c74590fd4ea876eac
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 17 06:17:40 2022 -0400
+
+    minor
+
+commit 85a02286f3627c0387f48b43117e58e5189a30fc
+Merge: 7e1dc3f 932ff83
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 17 06:16:22 2022 -0400
+
+    Merge remote-tracking branch 'github-kicksecure/master'
+
+commit 932ff838b0fdf538be249a6fbd2527d73021a0bb
+Merge: 7e1dc3f 8d2043c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jun 17 06:13:54 2022 -0400
+
+    Merge pull request #2 from JKAbrams/upstreaming_example
+    
+    Add example showcasing how multiple signatures can be checked
+
+commit 7e1dc3fa0a0c4ff6db46a02fcc5dc6c7d0700d3f
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Jun 8 10:29:49 2022 -0400
+
+    bumped changelog version
+
 commit cad246f2047e128a6bef631ee94c683f2f0d0b63
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Jun 8 09:24:38 2022 -0400
@@ -21,6 +49,18 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri May 20 14:46:33 2022 -0400
 
     copyright
+
+commit 8d2043c75423979fcafd523d1a487fb52a0346aa
+Author: JKAbrams <JKAbrams@users.noreply.github.com>
+Date:   Mon May 9 00:18:28 2022 +0300
+
+    As an aid in picking keys for trust an investigation into the bitcoin core signers is included
+
+commit 10de48ff4f6e030aa737e4d3b1ea2b6551a9f652
+Author: JKAbrams <JKAbrams@users.noreply.github.com>
+Date:   Mon May 9 00:16:48 2022 +0300
+
+    Add an example showing how multiple signatures can be checked by verifying Bitcoin Core
 
 commit 57263f3e328cadcaf094940cb7096591ff728f96
 Author: Patrick Schleizer <adrelanos@whonix.org>
