@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Copyright (C) 2023 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+## TODO
+genmkfile_lintian_post_opts+=" --suppress-tags openpgp-file-has-implementation-specific-extension "
