@@ -1,4 +1,2 @@
 ## https://phabricator.whonix.org/T277
 debian-watch-does-not-check-openpgp-signature
-
-source: very-long-line-length-in-source-file 630 > 512 [usr/share/gpg-bash-lib/misc/gpg-test-pub-key.d/pubring.gpg:5]
