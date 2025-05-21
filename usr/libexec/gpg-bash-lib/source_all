@@ -29,7 +29,7 @@ for gpg_bash_lib_internal_script_source_file in "$gpg_bash_lib_input_script_sour
          continue
       fi
       ## Skipping files such as .dpkg-old and .dpkg-dist.
-      if ( echo "$gpg_bash_lib_internal_script_source_file" | grep -q ".dpkg-" ); then
+      if printf '%s\n' "$gpg_bash_lib_internal_script_source_file" | grep ".dpkg-" >/dev/null 2>/dev/null; then
          true "Skipping $gpg_bash_lib_internal_script_source_file, because .dpkg file."
          continue
       fi
