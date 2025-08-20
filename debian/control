@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 13), debhelper-compat (= 13)
 Homepage: https://github.com/Kicksecure/gpg-bash-lib
 Vcs-Browser: https://github.com/Kicksecure/gpg-bash-lib
 Vcs-Git: https://github.com/Kicksecure/gpg-bash-lib.git
-Standards-Version: 4.6.2
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 
 Package: gpg-bash-lib
