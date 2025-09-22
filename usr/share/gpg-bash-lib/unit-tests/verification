@@ -25,7 +25,7 @@ gpg_bash_lib_function_unit_test_sanity_tests() {
 
 gpg_bash_lib_function_unit_test_genkey() {
    gpg_bash_lib_unit_test_homedir="$(mktemp --directory)"
-   rm --recursive --force "$gpg_bash_lib_unit_test_homedir/gpg"
+   safe-rm --recursive --force -- "$gpg_bash_lib_unit_test_homedir/gpg"
    mkdir --parents "$gpg_bash_lib_unit_test_homedir/gpg"
    chmod --recursive 700 "$gpg_bash_lib_unit_test_homedir/gpg"
    test -d "$gpg_bash_lib_unit_test_homedir/gpg"
@@ -66,8 +66,8 @@ gpg_bash_lib_function_unit_test_genkey() {
 gpg_bash_lib_function_unit_test_testrun_common() {
    echo "------------------------------------------------------------"
 
-   rm --force "$gpg_bash_lib_unit_test_homedir/test-file"
-   rm --force "$gpg_bash_lib_unit_test_homedir/test-file.asc"
+   safe-rm --force -- "$gpg_bash_lib_unit_test_homedir/test-file"
+   safe-rm --force -- "$gpg_bash_lib_unit_test_homedir/test-file.asc"
 
    echo "test" > "$gpg_bash_lib_unit_test_homedir/test-file"
    test -f "$gpg_bash_lib_unit_test_homedir/test-file"

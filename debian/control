@@ -14,7 +14,7 @@ Rules-Requires-Root: no
 
 Package: gpg-bash-lib
 Architecture: all
-Depends: ${misc:Depends}
+Depends: safe-rm, ${misc:Depends}
 Description: gpg bash library
  Abstracts file verification into common functions. Allows detecting of stale
  files, i.e. detection downgrade or indefinite freeze attacks by implementing
