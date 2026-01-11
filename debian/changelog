@@ -1,3 +1,9 @@
+gpg-bash-lib (3:5.3-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@whonix.org>  Sun, 11 Jan 2026 16:23:53 +0000
+
 gpg-bash-lib (3:5.2-1) unstable; urgency=medium
 
   * New upstream version (local package).
