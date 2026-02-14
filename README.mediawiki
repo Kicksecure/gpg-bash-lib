@@ -41,19 +41,19 @@ you are advised to use the --status-fd messages."</blockquote>
 sudo make install
 </pre>
 
-Or see [https://github.com/Whonix/gpg-bash-lib/blob/master/README_generic.md <tt>README_generic.md</tt>].
+Or see [https://github.com/Kicksecure/gpg-bash-lib/blob/master/README_generic.md <tt>README_generic.md</tt>].
 
 = Usage =
 
 == Practical ==
 
 === Examples ===
-See [https://github.com/Whonix/gpg-bash-lib/blob/master/usr/share/gpg-bash-lib/examples/ <tt>/usr/share/gpg-bash-lib/examples/</tt>] folder.
+See [https://github.com/Kicksecure/gpg-bash-lib/blob/master/usr/share/gpg-bash-lib/examples/ <tt>/usr/share/gpg-bash-lib/examples/</tt>] folder.
 
 === Mini Demo ===
 After installation, if you would run the following command.
 
-[https://github.com/Whonix/gpg-bash-lib/blob/master/usr/share/gpg-bash-lib/examples/one <tt>/usr/share/gpg-bash-lib/examples/one</tt>]
+[https://github.com/Kicksecure/gpg-bash-lib/blob/master/usr/share/gpg-bash-lib/examples/one <tt>/usr/share/gpg-bash-lib/examples/one</tt>]
 
 You would see the following output.
 
